@@ -9,19 +9,26 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Layout from "../../components/Layout";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "../../services/axios";
 import { userConstants } from "../../constants";
+import { Redirect } from "react-router";
 
 const theme = createTheme();
 
 export default function SignIn() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const auth = useSelector((state) => state.auth);
 
 	const dispatch = useDispatch();
 
+	if (auth.authenticate) {
+		return <Redirect to={`/`} />;
+	}
+
 	const handleSubmit = (event) => {
+		event.preventDefault();
 		const user = {
 			email,
 			password,
@@ -43,7 +50,7 @@ export default function SignIn() {
 						),
 					})
 				);
-				window.sessionStorage.setItem("user", user);
+				window.sessionStorage.setItem("user", JSON.stringify(user));
 				dispatch({
 					type: userConstants.SIGNIN_SUCCESS,
 					payload: {

@@ -11,7 +11,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Layout from "../../components/Layout";
 import { useSelector, useDispatch } from "react-redux";
 import { Checkbox, FormControlLabel, FormGroup } from "@mui/material";
-import { useHistory } from "react-router";
+import { Redirect, useHistory } from "react-router";
 import Swal from "sweetalert2";
 import axios from "../../services/axios";
 import { userConstants } from "../../constants";
@@ -24,9 +24,26 @@ export default function Signup() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [transition, setTransition] = useState(false);
+	const auth = useSelector((state) => state.auth);
+	const category = useSelector((state) => {
+		return state.category;
+	});
 
+	const signupState = useSelector((state) => {
+		return state.signup;
+	});
 	const dispatch = useDispatch();
 	const history = useHistory();
+
+	useEffect(() => {
+		setTimeout(() => {
+			setTransition(true);
+		}, 200);
+	}, []);
+
+	if (auth.authenticate) {
+		return <Redirect to={`/`} />;
+	}
 
 	const Toast = Swal.mixin({
 		toast: true,
@@ -52,14 +69,6 @@ export default function Signup() {
 		alignSelf: "center",
 		zIndex: 2,
 	};
-
-	const category = useSelector((state) => {
-		return state.category;
-	});
-
-	const signupState = useSelector((state) => {
-		return state.signup;
-	});
 
 	const renderCategories = () => {
 		return (
@@ -135,12 +144,6 @@ export default function Signup() {
 				});
 			});
 	};
-
-	useEffect(() => {
-		setTimeout(() => {
-			setTransition(true);
-		}, 200);
-	}, []);
 
 	return (
 		<Layout>

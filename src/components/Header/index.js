@@ -6,9 +6,36 @@ import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 import IconButton from "@mui/material/IconButton";
 import { useLocation } from "react-router";
+import { useSelector } from "react-redux";
 
-export default function Header(props) {
+export default function Header() {
+	const auth = useSelector((state) => state.auth);
+
 	const location = useLocation().pathname === "/signin" ? `signin` : `signup`;
+
+	const renderLoggedInLinks = () => {
+		return (
+			<Link
+				href="#"
+				variant="body2"
+				style={{ textDecoration: "none", fontWeight: "bold" }}
+			>
+				SIGNOUT
+			</Link>
+		);
+	};
+
+	const renderNonLoggedInLinks = () => {
+		return (
+			<Link
+				href={location === "signin" ? `/signup` : `/signin`}
+				variant="body2"
+				style={{ textDecoration: "none", fontWeight: "bold" }}
+			>
+				{location === "signin" ? "SIGNUP" : "SIGNIN"}
+			</Link>
+		);
+	};
 	return (
 		<Box sx={{ flexGrow: 1 }}>
 			<AppBar
@@ -32,13 +59,9 @@ export default function Header(props) {
 						Out Of Memory?
 					</Typography>
 
-					<Link
-						href={location === "signin" ? `/signup` : `/signin`}
-						variant="body2"
-						style={{ textDecoration: "none", fontWeight: "bold" }}
-					>
-						{location === "signin" ? "SIGNUP" : "SIGNIN"}
-					</Link>
+					{auth.authenticate
+						? renderLoggedInLinks()
+						: renderNonLoggedInLinks()}
 				</Toolbar>
 			</AppBar>
 		</Box>

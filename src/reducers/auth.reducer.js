@@ -14,6 +14,7 @@ const initState = {
 };
 
 export default (state = initState, action) => {
+	
 	switch (action.type) {
 		case userConstants.SIGNIN_REQUEST:
 			state = {

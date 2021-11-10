@@ -11,12 +11,11 @@ export default (state = initState, action) => {
 		case categoryConstants.GET_ALL_CATEGORIES_REQUEST:
 			state = {
 				...state,
-				loading: true.valueOf,
+				loading: true,
 			};
 			break;
 
 		case categoryConstants.GET_ALL_CATEGORIES_SUCCESS:
-			console.log(action.payload.categories);
 			state = {
 				...state,
 				categories: action.payload.categories,

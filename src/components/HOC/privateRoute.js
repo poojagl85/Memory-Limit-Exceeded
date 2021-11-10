@@ -6,7 +6,10 @@ export default function PrivateRoute({ component: Component, ...rest }) {
 		<Route
 			{...rest}
 			component={(props) => {
-				const token = window.localStorage.getItem("token");
+				const tokenObj = JSON.parse(
+					window.sessionStorage.getItem("token")
+				);
+				const token = tokenObj ? tokenObj.token : null;
 				if (token) {
 					return <Component {...props} />;
 				} else {
