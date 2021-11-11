@@ -13,8 +13,7 @@ const initState = {
 	},
 };
 
-export default (state = initState, action) => {
-	
+const authReducer = (state = initState, action) => {
 	switch (action.type) {
 		case userConstants.SIGNIN_REQUEST:
 			state = {
@@ -41,3 +40,5 @@ export default (state = initState, action) => {
 
 	return state;
 };
+
+export default authReducer;

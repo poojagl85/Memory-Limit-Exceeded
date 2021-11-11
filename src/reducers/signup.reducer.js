@@ -6,7 +6,7 @@ const initState = {
 	error: null,
 };
 
-export default (state = initState, action) => {
+const signupReducer = (state = initState, action) => {
 	switch (action.type) {
 		case userConstants.SIGNUP_REQUEST:
 			state = {
@@ -33,3 +33,5 @@ export default (state = initState, action) => {
 
 	return state;
 };
+
+export default signupReducer;

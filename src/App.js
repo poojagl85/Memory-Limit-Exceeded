@@ -24,12 +24,13 @@ function App() {
 		axios
 			.get("category/getCategory")
 			.then((res) => {
-				const { message } = res.data;
+				const { categories } = res.data;
+				console.log(res.data);
 
 				dispatch({
 					type: categoryConstants.GET_ALL_CATEGORIES_SUCCESS,
 					payload: {
-						message: message,
+						message: categories,
 					},
 				});
 			})

@@ -6,7 +6,7 @@ const initState = {
 	error: null,
 };
 
-export default (state = initState, action) => {
+const categoryReducer = (state = initState, action) => {
 	switch (action.type) {
 		case categoryConstants.GET_ALL_CATEGORIES_REQUEST:
 			state = {
@@ -18,7 +18,7 @@ export default (state = initState, action) => {
 		case categoryConstants.GET_ALL_CATEGORIES_SUCCESS:
 			state = {
 				...state,
-				categories: action.payload.categories,
+				categories: action.payload.message.categories,
 				loading: false,
 			};
 			break;
@@ -32,3 +32,5 @@ export default (state = initState, action) => {
 
 	return state;
 };
+
+export default categoryReducer;

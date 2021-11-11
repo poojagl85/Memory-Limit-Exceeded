@@ -28,10 +28,6 @@ export default function Signup() {
 	const category = useSelector((state) => {
 		return state.category;
 	});
-
-	const signupState = useSelector((state) => {
-		return state.signup;
-	});
 	const dispatch = useDispatch();
 	const history = useHistory();
 
