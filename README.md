@@ -1,7 +1,5 @@
 # Out of Memory ? Discussion portal
 
-![Alt Text](https://media.giphy.com/media/A8pRmkexvl9jCdzS5D/giphy.gif)
-
 ## ❓ Problem Statement
 
 -   Build a functional prototype of a platform that gives students an array of digital academic and social tools to stay engaged with their studies, peers and broader university community during pandemic.
