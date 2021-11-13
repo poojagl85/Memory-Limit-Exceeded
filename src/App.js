@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import axios from "./services/axios";
 import { categoryConstants } from "./constants";
 import { isUserLoggedIn } from "./utils/user.action";
+import Question from "./pages/Question";
 
 function App() {
 	const auth = useSelector((state) => {
@@ -50,6 +51,7 @@ function App() {
 				<PrivateRoute path="/" exact component={Home} />
 				<Route path="/signin" exact component={Signin} />
 				<Route path="/signup" exact component={Signup} />
+				<Route path="/:slug" exact component={Question} />
 			</Switch>
 		</div>
 	);

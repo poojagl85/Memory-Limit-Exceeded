@@ -2,16 +2,18 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axiosInstance from "../../services/axios";
 import axios from "axios";
+import { api } from "../../urlConfig";
 
 export default function useQuestion(pageNumber) {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(false);
 	const [question, setQuestions] = useState([]);
 	const [hasMore, setHasMore] = useState(false);
+
 	const auth = useSelector((state) => {
 		return state.auth;
 	});
-	console.log(auth.user._id);
+	console.log(auth);
 
 	useEffect(() => {
 		setQuestions([]);
@@ -21,12 +23,13 @@ export default function useQuestion(pageNumber) {
 		setLoading(true);
 		setError(false);
 		let cancel;
-		axiosInstance
+		axios
 			.get(
-				`/getquestions?id=${auth.user._id}&page=${pageNumber}`,
+				`${api}/getquestions?id=${auth.user._id}&page=${pageNumber}`,
 				{
 					headers: {
 						"Content-type": "application/json",
+						Authorization: auth.token ? `Bearer ${auth.token}` : "",
 					},
 				},
 				{
