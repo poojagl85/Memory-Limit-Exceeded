@@ -5,44 +5,17 @@ import { Button } from "@mui/material";
 import axios from "../../services/axios";
 import Toast from "../../utils/swal";
 
-export default function InputFormatter(props) {
-	const [editorData, setEditorData] = useState("");
-
-	const handleSubmit = (event) => {
-		event.preventDefault();
-		console.log("Hi");
-
-		const sol = {
-			questionId: props.data._id,
-			description: editorData,
-		};
-
-		axios
-			.post(`/:${props.data._id}/addSolution`, sol)
-			.then((res) => {
-				console.log(res.data);
-				Toast.fire({
-					icon: "success",
-					title: "Solution posted! Please refresh to see.",
-				});
-				setEditorData("");
-			})
-			.catch((error) => {
-				console.log(error);
-				Toast.fire({
-					icon: "error",
-					title: "Oops! Something went wrong..!",
-				});
-			});
-	};
+export default function InputFormatter({onSubmit}) {
+	const [editorData, setEditorData] = useState("");	
 
 	const handleChange = (content, editor) => {
 		setEditorData(content);
 	};
 
+
 	return (
 		<div>
-			<form onSubmit={handleSubmit}>
+			<form onSubmit={(e) => {onSubmit(e, editorData); setEditorData("")}}>
 				<Editor
 					apiKey="uqudpvifb5z46luw60d5kwdeupyi1w4sn0c06nl65q9d1g7b"
 					value={editorData}

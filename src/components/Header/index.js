@@ -8,30 +8,14 @@ import IconButton from "@mui/material/IconButton";
 import { useLocation } from "react-router";
 import { useSelector } from "react-redux";
 import { Button } from "@mui/material";
-import Toast from "../../utils/swal";
-import {
-	FormControl,
-	InputLabel,
-	MenuItem,
-	Select,
-	TextField,
-} from "@mui/material";
-import AppModal from "../AppModal";
-import axios from "../../services/axios";
 
 export default function Header() {
 	const auth = useSelector((state) => state.auth);
 
 	const location = useLocation().pathname === "/signin" ? `signin` : `signup`;
-	const [modalShow, setModalShow] = useState(false);
-	const [title, setTitle] = useState("");
-	const [description, setDescription] = useState("");
-	const [categoryId, setPostCategory] = useState("");
-	console.log(title, description);
 
-	const category = useSelector((state) => {
-		return state.category;
-	});
+
+
 
 	const renderLoggedInLinks = () => {
 		return (
@@ -57,29 +41,7 @@ export default function Header() {
 		);
 	};
 
-	const submitQuestion = () => {
-		const question = {
-			title,
-			description,
-			categoryId,
-		};
 
-		axios
-			.post("/question/create", question)
-			.then((res) => {
-				// const { message } = res.data;
-				Toast.fire({
-					icon: "success",
-					title: "Question posted...!",
-				});
-			})
-			.catch((error) => {
-				Toast.fire({
-					icon: "error",
-					title: "Unable to post",
-				});
-			});
-	};
 	return (
 		<Box sx={{ flexGrow: 1 }}>
 			<AppBar
@@ -108,8 +70,7 @@ export default function Header() {
 						}}
 					>
 						{auth.authenticate ? (
-							<Button
-								onClick={() => setModalShow(true)}
+							<Link href='/postquestion'><Button
 								style={{
 									background: "#1976d2",
 									color: "#fff",
@@ -118,7 +79,8 @@ export default function Header() {
 								}}
 							>
 								Ask a Question ?
-							</Button>
+							</Button></Link>
+
 						) : null}
 					</Box>
 
@@ -127,56 +89,7 @@ export default function Header() {
 						: renderNonLoggedInLinks()}
 				</Toolbar>
 			</AppBar>
-			<AppModal
-				show={modalShow}
-				onHide={() => setModalShow(false)}
-				onSubmit={submitQuestion}
-			>
-				<TextField
-					margin="normal"
-					required
-					fullWidth
-					id="title"
-					label="Question Title"
-					name="title"
-					autoComplete="title"
-					value={title}
-					onChange={(e) => setTitle(e.target.value)}
-					autoFocus
-				/>
-				<TextField
-					margin="normal"
-					multiline
-					maxRows={4}
-					required
-					fullWidth
-					id="description"
-					label="Description"
-					name="description"
-					autoComplete="description"
-					value={description}
-					onChange={(e) => setDescription(e.target.value)}
-					autoFocus
-				/>
-				<FormControl fullWidth>
-					<InputLabel id="demo-simple-select-label">
-						Category
-					</InputLabel>
-					<Select
-						labelId="demo-simple-select-label"
-						id="demo-simple-select"
-						label="category"
-						value={categoryId}
-						onChange={(e) => setPostCategory(e.target.value)}
-					>
-						{category.categories.map((cat) => (
-							<MenuItem value={cat._id} key={cat._id}>
-								{cat.name}
-							</MenuItem>
-						))}
-					</Select>
-				</FormControl>
-			</AppModal>
+
 		</Box>
 	);
 }

@@ -123,7 +123,7 @@ export default function Signup() {
 				history.push("/signin");
 				Toast.fire({
 					icon: "success",
-					title: "Registered Successful",
+					title: res.data.message,
 				});
 			})
 			.catch((error) => {
@@ -136,7 +136,7 @@ export default function Signup() {
 
 				Toast.fire({
 					icon: "error",
-					title: "Unable to register",
+					title: error.response.data.message,
 				});
 			});
 	};

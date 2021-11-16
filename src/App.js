@@ -10,6 +10,7 @@ import axios from "./services/axios";
 import { categoryConstants } from "./constants";
 import { isUserLoggedIn } from "./utils/user.action";
 import Question from "./pages/Question";
+import PostQuestion from "./pages/PostQuestion";
 
 function App() {
 	const auth = useSelector((state) => {
@@ -49,6 +50,7 @@ function App() {
 		<div className="App">
 			<Switch>
 				<PrivateRoute path="/" exact component={Home} />
+				<PrivateRoute path="/postQuestion" exact component={PostQuestion} />
 				<Route path="/signin" exact component={Signin} />
 				<Route path="/signup" exact component={Signup} />
 				<Route path="/:slug" exact component={Question} />
