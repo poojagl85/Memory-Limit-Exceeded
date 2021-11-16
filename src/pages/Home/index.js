@@ -3,8 +3,6 @@ import {
 	CardActionArea,
 	Typography,
 	CardContent,
-	CardActions,
-	Button,
 } from "@mui/material";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
@@ -58,12 +56,10 @@ export default function Home() {
 											>
 												{q.title}
 											</Typography>
-											<Typography
-												variant="body2"
-												color="text.secondary"
-											>
-												{q.description}
-											</Typography>
+											<div
+												dangerouslySetInnerHTML={{
+													__html: q.description,
+												}} />
 										</CardContent>
 									</CardActionArea>
 								</Card>
@@ -74,7 +70,7 @@ export default function Home() {
 							<Link
 								to={`/${q.slug}`}
 								key={q._id}
-								style={{ textDecoration: "none" }}
+								style={{ textDecoration: "none", height: "5px" }}
 							>
 								<Card key={q._id} style={{ margin: "20px" }}>
 									<CardActionArea>

@@ -105,9 +105,13 @@ export default function Question() {
         </Button>
       </div>
       <hr />
-      <Typography variant="body2" color="text.secondary">
-        {question === null ? "" : question.description}
-      </Typography>
+      {question === null ? "" :
+        <div
+          dangerouslySetInnerHTML={{
+            __html: question.description,
+          }} />
+
+      }
       {question === null ? (
         ""
       ) : (
