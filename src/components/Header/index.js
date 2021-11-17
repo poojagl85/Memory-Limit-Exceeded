@@ -7,15 +7,13 @@ import Link from "@mui/material/Link";
 import IconButton from "@mui/material/IconButton";
 import { useLocation } from "react-router";
 import { useSelector } from "react-redux";
-import { Button } from "@mui/material";
+import { Button, Search, TextField } from "@mui/material";
+import SearchIcon from '@mui/icons-material/Search';
 
 export default function Header() {
 	const auth = useSelector((state) => state.auth);
 
 	const location = useLocation().pathname === "/signin" ? `signin` : `signup`;
-
-
-
 
 	const renderLoggedInLinks = () => {
 		return (
@@ -64,6 +62,11 @@ export default function Header() {
 					>
 						Out Of Memory?
 					</Typography>
+					<TextField
+
+						label="Search input"
+
+					/>
 					<Box
 						sx={{
 							display: { xs: "none", md: "flex" },

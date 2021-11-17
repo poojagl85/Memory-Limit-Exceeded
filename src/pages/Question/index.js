@@ -51,6 +51,7 @@ export default function Question() {
     const sol = {
       questionId: question._id,
       description: editorData,
+      question: question
     };
 
     document.getElementsByTagName("html")[0].style.overflow = "hidden";
