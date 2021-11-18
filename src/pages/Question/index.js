@@ -46,7 +46,6 @@ export default function Question() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Hi");
 
     const sol = {
       questionId: question._id,
@@ -55,7 +54,7 @@ export default function Question() {
     };
 
     document.getElementsByTagName("html")[0].style.overflow = "hidden";
-    console.log(document.getElementsByTagName("html")[0]);
+
     setLoading(false);
     axios
       .post(`/:${question._id}/addSolution`, sol)

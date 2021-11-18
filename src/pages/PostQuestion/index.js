@@ -51,7 +51,6 @@ const PostQuestion = () => {
 
       const handleSubmit = (event) => {
             event.preventDefault();
-            console.log(editorData);
 
             const question = {
                   title,
@@ -59,7 +58,6 @@ const PostQuestion = () => {
                   categoryId,
             };
 
-            console.log(question);
 
             document.getElementsByTagName("html")[0].style.overflow = "hidden";
             setLoading(false);

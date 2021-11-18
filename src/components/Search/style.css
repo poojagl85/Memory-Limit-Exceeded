@@ -1,0 +1,17 @@
+.box {
+  color: black;
+  padding: 5px;
+}
+
+.box p {
+  color: black;
+}
+
+.searchScroll::-webkit-scrollbar {
+  width: 0; /* Remove scrollbar space */
+  background: transparent; /* Optional: just make scrollbar invisible */
+}
+/* Optional: show position indicator in red */
+.searchScroll::-webkit-scrollbar-thumb {
+  background: #ff0000;
+}

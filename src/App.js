@@ -27,7 +27,6 @@ function App() {
 			.get("category/getCategory")
 			.then((res) => {
 				const { categories } = res.data;
-				console.log(res.data);
 
 				dispatch({
 					type: categoryConstants.GET_ALL_CATEGORIES_SUCCESS,

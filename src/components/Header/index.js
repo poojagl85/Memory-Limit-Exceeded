@@ -7,8 +7,8 @@ import Link from "@mui/material/Link";
 import IconButton from "@mui/material/IconButton";
 import { useLocation } from "react-router";
 import { useSelector } from "react-redux";
-import { Button, Search, TextField } from "@mui/material";
-import SearchIcon from '@mui/icons-material/Search';
+import { Button, TextField } from "@mui/material";
+import Search from '../Search';
 
 export default function Header() {
 	const auth = useSelector((state) => state.auth);
@@ -54,19 +54,17 @@ export default function Header() {
 						style={{ color: "#1976d2" }}
 						sx={{ mr: 2 }}
 					></IconButton>
+
 					<Typography
 						variant="h6"
 						component="div"
 						sx={{ flexGrow: 1 }}
 						style={{ color: "#1976d2" }}
 					>
-						Out Of Memory?
+						<Link href="/" style={{ textDecoration: 'none' }}>Out Of Memory?</Link>
+
 					</Typography>
-					<TextField
-
-						label="Search input"
-
-					/>
+					{auth.authenticate ? <Search /> : null}
 					<Box
 						sx={{
 							display: { xs: "none", md: "flex" },
