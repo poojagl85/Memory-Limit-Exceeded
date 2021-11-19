@@ -25,7 +25,7 @@ function App() {
 		}
 
 		axios
-			.get(`/${api}/category/getCategory`)
+			.get(`${api}/category/getCategory`)
 			.then((res) => {
 				const { categories } = res.data;
 

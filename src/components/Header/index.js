@@ -20,7 +20,7 @@ export default function Header() {
 			<Link
 				href="#"
 				variant="body2"
-				style={{ textDecoration: "none", fontWeight: "bold" }}
+				style={{ textDecoration: "none", fontWeight: "bold", color: 'white' }}
 			>
 				SIGNOUT
 			</Link>
@@ -32,7 +32,7 @@ export default function Header() {
 			<Link
 				href={location === "signin" ? `/signup` : `/signin`}
 				variant="body2"
-				style={{ textDecoration: "none", fontWeight: "bold" }}
+				style={{ textDecoration: "none", fontWeight: "bold", color: 'white' }}
 			>
 				{location === "signin" ? "SIGNUP" : "SIGNIN"}
 			</Link>
@@ -44,14 +44,15 @@ export default function Header() {
 		<Box sx={{ flexGrow: 1 }}>
 			<AppBar
 				position="static"
-				style={{ background: "#fff", boxShadow: "none" }}
+				style={{ marginBottom: '10px' }}
+
 			>
 				<Toolbar>
 					<IconButton
 						size="large"
 						edge="start"
 						aria-label="menu"
-						style={{ color: "#1976d2" }}
+
 						sx={{ mr: 2 }}
 					></IconButton>
 
@@ -59,9 +60,9 @@ export default function Header() {
 						variant="h6"
 						component="div"
 						sx={{ flexGrow: 1 }}
-						style={{ color: "#1976d2" }}
+
 					>
-						<Link href="/" style={{ textDecoration: 'none' }}>Out Of Memory?</Link>
+						<Link href="/" style={{ textDecoration: 'none', color: 'white' }}>Out Of Memory?</Link>
 
 					</Typography>
 					{auth.authenticate ? <Search /> : null}
@@ -71,12 +72,13 @@ export default function Header() {
 						}}
 					>
 						{auth.authenticate ? (
-							<Link href='/postquestion'><Button
+							<Link href='/postquestion' style={{ textDecoration: 'none' }}><Button
 								style={{
-									background: "#1976d2",
-									color: "#fff",
+
 									fontWeight: "bold",
 									margin: "20px",
+
+									backgroundColor: 'white'
 								}}
 							>
 								Ask a Question ?
@@ -91,6 +93,6 @@ export default function Header() {
 				</Toolbar>
 			</AppBar>
 
-		</Box>
+		</Box >
 	);
 }

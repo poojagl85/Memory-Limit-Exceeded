@@ -18,7 +18,7 @@ export default function Question() {
 
   useEffect(async () => {
     await axios
-      .get(`/question?slug=${slug}`)
+      .get(`${api}/question?slug=${slug}`)
       .then((res) => {
         setQuestion(res.data.question);
       })

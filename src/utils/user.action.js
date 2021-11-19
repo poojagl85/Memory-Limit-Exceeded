@@ -2,15 +2,14 @@ import { userConstants } from "../constants";
 
 export const isUserLoggedIn = () => {
 	return async (dispatch) => {
-		const tokenObj = JSON.parse(window.sessionStorage.getItem("token"));
-		if (tokenObj) {
-			const token = tokenObj.token;
-			const user = JSON.parse(window.sessionStorage.getItem("user"));
+
+		const user = window.sessionStorage.getItem("user");
+		if (user) {
+			const parseUser = JSON.parse(user);
 			dispatch({
 				type: userConstants.SIGNIN_SUCCESS,
 				payload: {
-					token,
-					user,
+					user: parseUser,
 				},
 			});
 		} else {
