@@ -1,11 +1,13 @@
 import React from "react";
 import Header from "../Header";
+import './style.css'
 
 export default function Layout(props) {
 	return (
-		<div style={{ width: '94vw', overflow: 'hidden', margin: "auto" }}>
+		<div >
 			<Header></Header>
-			{props.children}
-		</div>
+			<div className="layout" style={{ width: '80vw', margin: 'auto' }}>{props.children}</div>
+
+		</div >
 	);
 }

@@ -1,42 +1,49 @@
 .homeContainer {
-  column-count: 3;
-  position: relative;
-}
-
-.qcard h5 {
-  font-size: 2.2rem;
-  font-weight: 300;
-  margin-bottom: 3rem;
-  height: 100%;
-  margin: 0;
-  padding-bottom: 0.5rem;
-}
-
-.qcard div {
-  color: #3b3b3b;
+  /* column-count: 3; */
+  width: 90%;
+  margin: 20px auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .homeLink {
-  border-radius: 8px;
-  min-width: 30vw;
-
-  margin: 0.5rem 0;
-  padding: 18px 10px;
-  /* background-color: #fafafa; */
-  transition: all 0.5s ease;
-  display: inline-block;
-  /* border: 3px solid #e1e1e1; */
-  break-inside: avoid-column;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 10px;
   text-decoration: none;
+  min-width: 400px;
 }
 
-.homeContainer a:hover {
-  background-color: #e7e7e7;
-  transition: all 0.3s ease-in-out;
+.homeCard {
+  min-width: 300px;
 }
 
-p {
-  flex-wrap: wrap;
+.homeCard:hover {
+  background-color: #1976d220;
+}
+
+/* .description {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 325px;
+  line-height: 25px;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+} */
+
+.homeFilter {
+  /* width: 90%; */
+  display: flex;
+  margin: auto;
+  justify-content: right;
+  margin-top: 30px;
+  margin-right: 15px;
+}
+.homeFilter div {
+  padding: 5px 70px;
+  border: 1px solid #e1e1e1;
+}
+
+.homeFilter div:hover {
+  background-color: #1976d220;
 }

@@ -12,7 +12,6 @@ export default function useQuestion(pageNumber) {
 	const auth = useSelector((state) => {
 		return state.auth;
 	});
-	console.log(auth);
 
 	useEffect(() => {
 		setQuestions([]);

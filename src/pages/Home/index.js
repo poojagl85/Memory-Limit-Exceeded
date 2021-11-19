@@ -4,6 +4,8 @@ import Layout from "../../components/Layout";
 import useQuestion from "./useQuestion";
 import triangle from '../../images/triangle.png'
 import './style.css';
+import { Avatar, Card, CardContent, CardHeader, Typography } from "@mui/material";
+import { red } from "@mui/material/colors";
 
 const palleteList = [
 	{
@@ -77,73 +79,83 @@ export default function Home() {
 
 	return (
 		<Layout>
-			{/* <img src={triangle} style={{ width: '100%' }} /> */}
+			<div class="homeFilter">
+				<div>Mostly Answered</div>
+				<div>Least Answered</div>
+				<div>Most Recent</div>
+				<div>Least Recent</div>
+			</div>
+			<hr />
 
 			<div className="homeContainer">
 				{question.map((q, index) => {
-					const palleteObj = randomColorPick()
+
 					if (question.length === index + 1) {
 						return (
-							<Link
-								to={`/${q.slug}`}
-								key={q._id}
-								className="homeLink"
-								style={{ textDecoration: "none", backgroundColor: `${palleteObj.bgcolor}`, color: `${palleteObj.heading}` }}
-							>
-								<div
-									ref={lastQuestionRef}
-									key={q._id}
+							<Link to={`/${q.slug}`} key={q._id} style={{ textDecoration: 'none' }} className="homeLink">
+								<Card sx={{ maxWidth: 345 }} ref={lastQuestionRef}>
+									<CardHeader
+										avatar={
+											<Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+												{q.authorID.fullName.charAt(0)}
+											</Avatar>
+										}
+										title={q.authorID.fullName}
+										subheader={q.createdAt}
+									/>
+									<CardContent>
+										<Typography variant="body2" color="text.secondary"
+											dangerouslySetInnerHTML={{
+												__html: q.description,
+											}}
+											className="description"
+										/>
 
-
-								>
-									<div className="qcard">
-										<div>
-											<h5
-
-											>
-												{q.title}
-											</h5>
-											<div
-												style={{ color: `${palleteObj.text}` }}
-												dangerouslySetInnerHTML={{
-													__html: q.description,
-												}} />
-										</div>
-									</div>
-								</div>
+										<hr />
+										<Typography variant="body2" color="text.secondary">
+											{q.solutionId.length} solutions
+										</Typography>
+									</CardContent>
+								</Card>
 							</Link>
+
 						);
 					} else {
 						return (
-							<Link
-								to={`/${q.slug}`}
-								key={q._id}
-								className="homeLink"
-								style={{ textDecoration: "none", backgroundColor: `${palleteObj.bgcolor}`, color: `${palleteObj.heading}` }}
-							>
-								<div key={q._id} >
-									<div >
-										<div className="qcard">
-											<h5
-
-											>
-												{q.title}
-											</h5>
-											<div
-												style={{ color: `${palleteObj.text}` }}
-												dangerouslySetInnerHTML={{
-													__html: q.description,
-												}} />
-										</div>
-									</div>
-								</div>
+							<Link to={`/${q.slug}`} key={q._id} style={{ textDecoration: 'none' }} className="homeLink">
+								<Card sx={{ maxWidth: 345 }} className="homeCard">
+									<CardHeader
+										avatar={
+											<Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+												{q.authorID.fullName.charAt(0)}
+											</Avatar>
+										}
+										title={q.authorID.fullName}
+										subheader={q.createdAt}
+									/>
+									<CardContent>
+										<Typography variant="body2" color="text.secondary"
+											dangerouslySetInnerHTML={{
+												__html: q.description,
+											}}
+											className="description"
+										/>
+										<hr />
+										<Typography variant="body2" color="text.secondary">
+											{q.solutionId.length} solutions
+										</Typography>
+									</CardContent>
+								</Card>
 							</Link>
+
 						);
 					}
 				})}
 
-				<div>{loading && "Loading..."}</div>
-				<div>{error && "Error"}</div>
+
+
+				{/* <div>{loading && "Loading..."}</div>
+				<div>{error && "Error"}</div> */}
 			</div>
 		</Layout>
 	);

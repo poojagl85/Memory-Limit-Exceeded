@@ -44,6 +44,10 @@ export default function Question() {
     setEditorData(content);
   };
 
+  const scrollToBottom = () => {
+    window.scrollTo(0, document.body.scrollHeight);
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -94,6 +98,7 @@ export default function Question() {
           {question === null ? "" : question.title}
         </Typography>
         <Button
+          onClick={scrollToBottom}
           style={{
             background: "#1976d2",
             color: "#fff",
