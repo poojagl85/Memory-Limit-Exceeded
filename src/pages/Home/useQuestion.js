@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import axiosInstance from "../../services/axios";
 import axios from "axios";
 import { api } from "../../urlConfig";
 
@@ -13,6 +12,7 @@ export default function useQuestion(pageNumber) {
 	const auth = useSelector((state) => {
 		return state.auth;
 	});
+	console.log(auth);
 
 	useEffect(() => {
 		setQuestions([]);
@@ -25,12 +25,7 @@ export default function useQuestion(pageNumber) {
 		axios
 			.get(
 				`${api}/getquestions?id=${auth.user._id}&page=${pageNumber}`,
-				{
-					headers: {
-						"Content-type": "application/json",
-						Authorization: auth.token ? `Bearer ${auth.token}` : "",
-					},
-				},
+
 				{
 					cancelToken: new axios.CancelToken((c) => (cancel = c)),
 				}

@@ -10,9 +10,10 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Layout from "../../components/Layout";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "../../services/axios";
+import axios from "axios";
 import { userConstants } from "../../constants";
 import { Redirect } from "react-router";
+import { api } from "../../urlConfig";
 
 const theme = createTheme();
 
@@ -23,6 +24,7 @@ export default function SignIn() {
 
 	const dispatch = useDispatch();
 
+	console.log(process.env.API_URL);
 	if (auth.authenticate) {
 		return <Redirect to={`/`} />;
 	}
@@ -35,27 +37,14 @@ export default function SignIn() {
 		};
 
 		axios
-			.post("/signin", user)
+			.post(`${api}/signin`, user)
 			.then((res) => {
-				const { user, token } = res.data;
-
-				window.sessionStorage.setItem(
-					"token",
-					JSON.stringify({
-						token: token,
-						exp: Intl.DateTimeFormat("en-US", {
-							dateStyle: "long",
-						}).format(
-							new Date().setDate(new Date().getDate() + 10)
-						),
-					})
-				);
+				const { user } = res.data;
 				window.sessionStorage.setItem("user", JSON.stringify(user));
 				dispatch({
 					type: userConstants.SIGNIN_SUCCESS,
 					payload: {
 						user: user,
-						token: token,
 					},
 				});
 			})
@@ -124,11 +113,6 @@ export default function SignIn() {
 								Sign In
 							</Button>
 							<Grid container>
-								{/* <Grid item xs>
-									<Link href="#" variant="body2">
-										Forgot password?
-									</Link>
-								</Grid> */}
 								<Grid item>
 									<Link href="/signup" variant="body2">
 										{"Don't have an account? Sign Up"}

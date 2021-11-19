@@ -32,25 +32,26 @@ const Search = () => {
                         position: 'relative',
                         // top: 0
                   }}>
-                        <input placeholder="Search" value={query} onChange={handleSearch} style={{ width: '350px' }} />
+                        <input placeholder="Search" value={query} onChange={handleSearch} style={{ fontSize: '16px', width: '350px', borderRadius: '8px', padding: '0.4rem 1rem', outline: 'none', border: '1px solid #e1e1e1', borderBottomLeftRadius: query === '' || questions.length < 1 ? 8 : 0, borderBottomRightRadius: query === '' || questions.length < 1 ? 8 : 0 }} />
                   </div>
-                  <div class="searchScroll" style={{ maxHeight: '500px', overflow: 'scroll', position: 'absolute', backgroundColor: 'white', zIndex: '100', margin: '10px 0px', width: '350px', padding: '10px' }}>
+                  {query === '' || questions.length < 1 ? null : <div class="searchScroll">
                         {questions.map((ques, idx) => {
                               if (idx + 1 == questions.length) {
                                     return <div ref={lastQuestionRef} className="box" key={ques._id} >
                                           <h6>{ques.title}</h6>
-                                          <p style={{ height: '22px', overflow: 'hidden', margin: '0' }}>{ques.description}</p>
-                                          {/* <hr /> */}
+                                          <p >{ques.description}</p>
+
                                     </div>
                               } else {
                                     return <div className="box" key={ques._id} >
                                           <h6>{ques.title}</h6>
-                                          <p style={{ height: '22px', overflow: 'hidden', margin: '0', }}>{ques.description}</p>
-                                          <hr />
+                                          <p>{ques.description}</p>
+
                                     </div>
                               }
                         })}
-                  </div>
+                  </div>}
+
 
                   {/* <div>{loading && 'Loading...'}</div>
                   <div>{error && 'Error...'}</div> */}

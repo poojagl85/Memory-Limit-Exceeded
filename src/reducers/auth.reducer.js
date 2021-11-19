@@ -1,7 +1,6 @@
 import { userConstants } from "../constants";
 
 const initState = {
-	token: null,
 	authenticate: false,
 	authenticating: false,
 	message: "",
@@ -25,7 +24,6 @@ const authReducer = (state = initState, action) => {
 			state = {
 				...state,
 				user: action.payload.user,
-				token: action.payload.token,
 				authenticate: true,
 				authenticating: false,
 			};

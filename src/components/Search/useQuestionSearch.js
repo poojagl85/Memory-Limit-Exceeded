@@ -26,10 +26,7 @@ const UseQuestionSearch = (query, pageNumber) => {
                   .get(
                         `${api}/search?search=${query}&page=${pageNumber}`,
                         {
-                              headers: {
-                                    "Content-type": "application/json",
-                                    Authorization: auth.token ? `Bearer ${auth.token}` : "",
-                              },
+
                               cancelToken: new axios.CancelToken(c => cancel = c),
                         },
                   )

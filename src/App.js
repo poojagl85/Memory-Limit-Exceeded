@@ -6,11 +6,12 @@ import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import axios from "./services/axios";
+import axios from "axios";
 import { categoryConstants } from "./constants";
 import { isUserLoggedIn } from "./utils/user.action";
 import Question from "./pages/Question";
 import PostQuestion from "./pages/PostQuestion";
+import { api } from "./urlConfig";
 
 function App() {
 	const auth = useSelector((state) => {
@@ -24,7 +25,7 @@ function App() {
 		}
 
 		axios
-			.get("category/getCategory")
+			.get(`/${api}/category/getCategory`)
 			.then((res) => {
 				const { categories } = res.data;
 

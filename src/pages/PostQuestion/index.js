@@ -5,13 +5,13 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Layout from '../../components/Layout';
 import useIsMountedRef from '../../utils/asyncSubscriptionCancel';
-import axios from '../../services/axios';
+import axios from 'axios';
 import Toast from '../../utils/swal';
+import { api } from "../../urlConfig";
 import './style.css';
 
 const PostQuestion = () => {
       const [title, setTitle] = useState("");
-      const [description, setDescription] = useState("");
       const [categoryId, setPostCategory] = useState("");
       const [editorData, setEditorData] = useState("");
       const [loading, setLoading] = useState(true);
@@ -30,13 +30,13 @@ const PostQuestion = () => {
       }, []);
 
 
-      React.useEffect(() => {
+      useEffect(() => {
             Lottie.loadAnimation({
                   container: document.getElementById("lottieweb"),
                   renderer: "svg",
                   loop: true,
                   autoplay: true,
-                  animationData: require("../Question/84860-my-first-ever-lottie.json"),
+                  animationData: require("../../images/84860-my-first-ever-lottie.json"),
                   rendererSettings: {
                         className: "lottieRenderer",
                   },
@@ -62,7 +62,7 @@ const PostQuestion = () => {
             document.getElementsByTagName("html")[0].style.overflow = "hidden";
             setLoading(false);
             axios
-                  .post("/question/create", question)
+                  .post(`${api}/question/create`, question)
                   .then((res) => {
                         document.getElementsByTagName("html")[0].removeAttribute("style");
                         setLoading(true);

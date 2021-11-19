@@ -4,11 +4,11 @@ import { useEffect } from "react";
 import { useParams } from "react-router";
 import Layout from "../../components/Layout";
 import { Editor } from "@tinymce/tinymce-react";
-import axios from "../../services/axios";
+import axios from "axios";
 import { Button } from "@mui/material";
-import InputFormatter from "../InputFormatter";
 import Lottie from "lottie-web";
 import Toast from "../../utils/swal";
+import { api } from "../../urlConfig";
 
 export default function Question() {
   const slug = useParams().slug;
@@ -27,13 +27,13 @@ export default function Question() {
       });
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     Lottie.loadAnimation({
       container: document.getElementById("lottieweb"),
       renderer: "svg",
       loop: true,
       autoplay: true,
-      animationData: require("./84860-my-first-ever-lottie.json"),
+      animationData: require("../../images/84860-my-first-ever-lottie.json"),
       rendererSettings: {
         className: "lottieRenderer",
       },
@@ -50,14 +50,14 @@ export default function Question() {
     const sol = {
       questionId: question._id,
       description: editorData,
-      question: question
+      question: question,
     };
 
     document.getElementsByTagName("html")[0].style.overflow = "hidden";
 
     setLoading(false);
     axios
-      .post(`/:${question._id}/addSolution`, sol)
+      .post(`${api}/:${question._id}/addSolution`, sol)
       .then((res) => {
         document.getElementsByTagName("html")[0].removeAttribute("style");
         setLoading(true);
@@ -94,7 +94,6 @@ export default function Question() {
           {question === null ? "" : question.title}
         </Typography>
         <Button
-          // onClick={() => setModalShow(true)}
           style={{
             background: "#1976d2",
             color: "#fff",
@@ -105,13 +104,15 @@ export default function Question() {
         </Button>
       </div>
       <hr />
-      {question === null ? "" :
+      {question === null ? (
+        ""
+      ) : (
         <div
           dangerouslySetInnerHTML={{
             __html: question.description,
-          }} />
-
-      }
+          }}
+        />
+      )}
       {question === null ? (
         ""
       ) : (

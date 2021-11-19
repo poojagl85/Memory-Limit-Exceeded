@@ -13,8 +13,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { Checkbox, FormControlLabel, FormGroup } from "@mui/material";
 import { Redirect, useHistory } from "react-router";
 import Swal from "sweetalert2";
-import axios from "../../services/axios";
+import axios from 'axios';
 import { userConstants } from "../../constants";
+import { api } from "../../urlConfig";
 
 const theme = createTheme();
 
@@ -78,15 +79,15 @@ export default function Signup() {
 			>
 				{category.categories.length > 0
 					? category.categories.map((cat) => (
-							<FormGroup>
-								<FormControlLabel
-									control={<Checkbox />}
-									label={cat.name}
-									value={cat._id}
-									key={cat._id}
-								></FormControlLabel>
-							</FormGroup>
-					  ))
+						<FormGroup>
+							<FormControlLabel
+								control={<Checkbox />}
+								label={cat.name}
+								value={cat._id}
+								key={cat._id}
+							></FormControlLabel>
+						</FormGroup>
+					))
 					: null}
 			</Box>
 		);
@@ -109,7 +110,7 @@ export default function Signup() {
 		};
 
 		axios
-			.post("/signup", user)
+			.post(`${api}/signup`, user)
 			.then((res) => {
 				const { message } = res.data;
 
@@ -159,10 +160,10 @@ export default function Signup() {
 						style={
 							!transition
 								? {
-										transform: "translateX(-300px)",
-										opacity: "0",
-										transition: "all 1s ease",
-								  }
+									transform: "translateX(-300px)",
+									opacity: "0",
+									transition: "all 1s ease",
+								}
 								: { ...transitionStyle, transition: "none" }
 						}
 					>
@@ -266,17 +267,17 @@ export default function Signup() {
 						style={
 							transition
 								? {
-										transform: "translateX(300px)",
-										opacity: "0",
-										transition: "none",
-								  }
+									transform: "translateX(300px)",
+									opacity: "0",
+									transition: "none",
+								}
 								: {
-										...transitionStyle,
-										display: "flex",
-										justifyContent: "center",
-										flexDirection: "column",
-										alignItems: "center",
-								  }
+									...transitionStyle,
+									display: "flex",
+									justifyContent: "center",
+									flexDirection: "column",
+									alignItems: "center",
+								}
 						}
 					>
 						<Grid

@@ -1,0 +1,32 @@
+.homeContainer {
+  display: grid;
+  grid-template-columns: auto auto auto;
+
+  /* display: flex; */
+}
+body {
+  background-color: black;
+}
+
+.qcard div {
+  color: #707070;
+  display: -webkit-box;
+  -webkit-line-clamp: 8;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.homeContainer a {
+  border-radius: 8px;
+  box-shadow: 0 0 10px #00000029;
+  margin: 20px;
+  max-width: 380px;
+  color: black;
+  padding: 18px 10px;
+  background-color: white;
+}
+
+.homeContainer a:hover {
+  background-color: #1976d260;
+}

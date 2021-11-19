@@ -1,13 +1,9 @@
-import {
-	Card,
-	CardActionArea,
-	Typography,
-	CardContent,
-} from "@mui/material";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import Layout from "../../components/Layout";
 import useQuestion from "./useQuestion";
+import './style.css';
+
 
 export default function Home() {
 	const [pageNumber, setPageNumber] = useState(1);
@@ -33,7 +29,8 @@ export default function Home() {
 
 	return (
 		<Layout>
-			<div>
+			{/* <img src={background} /> */}
+			<div className="homeContainer">
 				{question.map((q, index) => {
 					if (question.length === index + 1) {
 						return (
@@ -42,27 +39,26 @@ export default function Home() {
 								key={q._id}
 								style={{ textDecoration: "none" }}
 							>
-								<Card
+								<div
 									ref={lastQuestionRef}
 									key={q._id}
-									style={{ margin: "20px" }}
+
+
 								>
-									<CardActionArea>
-										<CardContent>
-											<Typography
-												gutterBottom
-												variant="h5"
-												component="div"
+									<div className="qcard">
+										<div>
+											<h5
+
 											>
 												{q.title}
-											</Typography>
+											</h5>
 											<div
 												dangerouslySetInnerHTML={{
 													__html: q.description,
 												}} />
-										</CardContent>
-									</CardActionArea>
-								</Card>
+										</div>
+									</div>
+								</div>
 							</Link>
 						);
 					} else {
@@ -70,27 +66,23 @@ export default function Home() {
 							<Link
 								to={`/${q.slug}`}
 								key={q._id}
-								style={{ textDecoration: "none", height: "5px" }}
+								style={{ textDecoration: "none" }}
 							>
-								<Card key={q._id} style={{ margin: "20px" }}>
-									<CardActionArea>
-										<CardContent>
-											<Typography
-												gutterBottom
-												variant="h5"
-												component="div"
+								<div key={q._id} >
+									<div >
+										<div className="qcard">
+											<h5
+
 											>
 												{q.title}
-											</Typography>
-											<Typography
-												variant="body2"
-												color="text.secondary"
-											>
-												{q.description}
-											</Typography>
-										</CardContent>
-									</CardActionArea>
-								</Card>
+											</h5>
+											<div
+												dangerouslySetInnerHTML={{
+													__html: q.description,
+												}} />
+										</div>
+									</div>
+								</div>
 							</Link>
 						);
 					}
