@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { api } from "../../urlConfig";
 import { useSelector } from "react-redux";
@@ -9,9 +9,6 @@ const UseQuestionSearch = (query, pageNumber) => {
       const [error, setError] = useState(false);
       const [questions, setQuestions] = useState([])
       const [hasMore, setHasMore] = useState(false);
-      const auth = useSelector((state) => {
-            return state.auth;
-      });
 
 
       useEffect(() => {

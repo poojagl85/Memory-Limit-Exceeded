@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { api } from "../../urlConfig";
 
-export default function useQuestion(pageNumber) {
+export default function useQuestion(pageNumber, query, value) {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(false);
 	const [question, setQuestions] = useState([]);
@@ -15,7 +15,7 @@ export default function useQuestion(pageNumber) {
 
 	useEffect(() => {
 		setQuestions([]);
-	}, []);
+	}, [query, value]);
 
 	useEffect(() => {
 		setLoading(true);
@@ -23,7 +23,7 @@ export default function useQuestion(pageNumber) {
 		let cancel;
 		axios
 			.get(
-				`${api}/getquestions?id=${auth.user._id}&page=${pageNumber}`,
+				`${api}/getquestions?id=${auth.user._id}&page=${pageNumber}&query=${query}&value=${value}`,
 
 				{
 					cancelToken: new axios.CancelToken((c) => (cancel = c)),
@@ -47,7 +47,7 @@ export default function useQuestion(pageNumber) {
 				setError(true);
 			});
 		return () => cancel();
-	}, [pageNumber]);
+	}, [pageNumber, query, value]);
 
 	return { loading, error, question, hasMore };
 }

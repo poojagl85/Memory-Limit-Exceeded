@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import Layout from "../../components/Layout";
 import useQuestion from "./useQuestion";
-import triangle from '../../images/triangle.png'
 import './style.css';
 import { Avatar, Card, CardContent, CardHeader, Typography } from "@mui/material";
 import { red } from "@mui/material/colors";
@@ -15,7 +14,10 @@ const getLongDate = (d) => {
 
 export default function Home() {
 	const [pageNumber, setPageNumber] = useState(1);
-	const { question, hasMore, loading, error } = useQuestion(pageNumber);
+	const [value, setValue] = useState(0);
+	const [query, setQuery] = useState("none");
+	const { question, hasMore, loading, error } = useQuestion(pageNumber, query, value);
+
 
 	useEffect(() => {
 		setPageNumber(1);
@@ -36,19 +38,36 @@ export default function Home() {
 	);
 
 	const addFilter = (e) => {
-		const filterButtons = document.getElementsByClassName['active'];
+
+		const filterButtons = document.getElementsByClassName('active');
+		console.log(filterButtons);
+		if (filterButtons) {
+			for (let button of filterButtons) {
+				button.classList.remove('active');
+			}
+		}
+		console.log(filterButtons);
+		e.target.className += ' active';
+		// console.log(e.target.getAttribute('value'))
+		setValue(e.target.getAttribute('value'));
+		setQuery(e.target.getAttribute('query'));
+		setPageNumber(1);
+		console.log(value, query)
+		// console.log(e.target.getAttribute('value'));
+		// console.log(e.target)
+
 
 	}
 
 	return (
 		<Layout>
-			<div class="homeFilter">
-				<button className="filter" onClick={addFilter}>Mostly Answered</button>
-				<button className="filter" onClick={addFilter}>Least Answered</button>
-				<button className="filter" onClick={addFilter}>Most Recent</button>
-				<button className="filter" onClick={addFilter}>Least Recent</button>
+			<div className="homeFilter">
+				<div className="filter" onClick={addFilter} value={-1} query="solution">Mostly Answered</div>
+				<div className="filter" onClick={addFilter} value={1} query="solution">Least Answered</div>
+				<div className="filter" onClick={addFilter} value={-1} query="createdAt">Most Recent</div>
+				<div className="filter" onClick={addFilter} value={1} query="createdAt">Least Recent</div>
 			</div>
-			<hr />
+			{/* <hr /> */}
 
 			<div className="homeContainer">
 				{question.map((q, index) => {

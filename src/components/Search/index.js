@@ -36,7 +36,7 @@ const Search = () => {
                   </div>
                   {query === '' || questions.length < 1 ? null : <div class="searchScroll">
                         {questions.map((ques, idx) => {
-                              if (idx + 1 == questions.length) {
+                              if (idx + 1 === questions.length) {
                                     return <div ref={lastQuestionRef} className="box" key={ques._id} >
                                           <h6>{ques.title}</h6>
                                           <p >{ques.description}</p>
@@ -53,8 +53,8 @@ const Search = () => {
                   </div>}
 
 
-                  {/* <div>{loading && 'Loading...'}</div>
-                  <div>{error && 'Error...'}</div> */}
+                  <div>{loading && 'Loading...'}</div>
+                  <div>{error && 'Error...'}</div>
             </div >
 
 

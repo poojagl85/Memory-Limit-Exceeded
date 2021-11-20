@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -7,7 +7,7 @@ import Link from "@mui/material/Link";
 import IconButton from "@mui/material/IconButton";
 import { useLocation } from "react-router";
 import { useSelector } from "react-redux";
-import { Button, TextField } from "@mui/material";
+import { Button } from "@mui/material";
 import Search from '../Search';
 
 export default function Header() {
