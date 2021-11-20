@@ -14,6 +14,7 @@ import axios from "axios";
 import { userConstants } from "../../constants";
 import { Redirect } from "react-router";
 import { api } from "../../urlConfig";
+import Swal from "sweetalert2";
 
 const theme = createTheme();
 
@@ -24,10 +25,21 @@ export default function SignIn() {
 
 	const dispatch = useDispatch();
 
-	console.log(process.env.API_URL);
 	if (auth.authenticate) {
 		return <Redirect to={`/`} />;
 	}
+
+	const Toast = Swal.mixin({
+		toast: true,
+		position: "top-end",
+		showConfirmButton: false,
+		timer: 10000,
+		timerProgressBar: true,
+		didOpen: (toast) => {
+			toast.addEventListener("mouseenter", Swal.stopTimer);
+			toast.addEventListener("mouseleave", Swal.resumeTimer);
+		},
+	});
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
@@ -47,6 +59,10 @@ export default function SignIn() {
 						user: user,
 					},
 				});
+				Toast.fire({
+					icon: "success",
+					title: res.data.message,
+				});
 			})
 			.catch((error) => {
 				dispatch({
@@ -54,6 +70,11 @@ export default function SignIn() {
 					payload: {
 						error: error.response.data,
 					},
+				});
+
+				Toast.fire({
+					icon: "error",
+					title: error.response.data.message,
 				});
 			});
 	};

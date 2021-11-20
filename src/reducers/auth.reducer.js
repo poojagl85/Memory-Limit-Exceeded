@@ -35,6 +35,14 @@ const authReducer = (state = initState, action) => {
 				error: action.payload.error,
 				authenticating: false,
 			};
+		case userConstants.SIGNOUT_SUCCESS:
+			state = {
+				...initState,
+			};
+		case userConstants.SIGNOUT_FAILURE:
+			state = {
+				...state
+			};
 	}
 
 	return state;

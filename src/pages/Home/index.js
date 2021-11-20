@@ -67,7 +67,7 @@ export default function Home() {
 				<div className="filter" onClick={addFilter} value={-1} query="createdAt">Most Recent</div>
 				<div className="filter" onClick={addFilter} value={1} query="createdAt">Least Recent</div>
 			</div>
-			{/* <hr /> */}
+			<hr />
 
 			<div className="homeContainer">
 				{question.map((q, index) => {
@@ -86,7 +86,7 @@ export default function Home() {
 										subheader={getLongDate(q.createdAt)}
 									/>
 									<CardContent>
-										<Typography variant="body2" color="text.secondary"
+										<Typography className="cardDescription" variant="body2" color="text.secondary"
 											dangerouslySetInnerHTML={{
 												__html: q.description,
 											}}

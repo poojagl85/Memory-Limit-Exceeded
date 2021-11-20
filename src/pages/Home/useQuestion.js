@@ -18,35 +18,39 @@ export default function useQuestion(pageNumber, query, value) {
 	}, [query, value]);
 
 	useEffect(() => {
-		setLoading(true);
-		setError(false);
-		let cancel;
-		axios
-			.get(
-				`${api}/getquestions?id=${auth.user._id}&page=${pageNumber}&query=${query}&value=${value}`,
+		if (auth.user._id) {
+			setLoading(true);
+			setError(false);
+			let cancel;
+			axios
+				.get(
+					`${api}/getquestions?id=${auth.user._id}&page=${pageNumber}&query=${query}&value=${value}`,
 
-				{
-					cancelToken: new axios.CancelToken((c) => (cancel = c)),
-				}
-			)
-			.then((res) => {
-				setQuestions((prevq) => {
-					return [
-						...new Set([
-							...prevq,
-							...res.data.questions.map((q) => q),
-						]),
-					];
+					{
+						cancelToken: new axios.CancelToken((c) => (cancel = c)),
+					}
+				)
+				.then((res) => {
+					setQuestions((prevq) => {
+						return [
+							...new Set([
+								...prevq,
+								...res.data.questions.map((q) => q),
+							]),
+						];
+					});
+
+					setHasMore(res.data.questions.length > 0);
+					setLoading(false);
+				})
+				.catch((e) => {
+					if (axios.isCancel(e)) return;
+					setError(true);
 				});
-
-				setHasMore(res.data.questions.length > 0);
-				setLoading(false);
-			})
-			.catch((e) => {
-				if (axios.isCancel(e)) return;
-				setError(true);
-			});
-		return () => cancel();
+			return () => cancel();
+		} else {
+			return;
+		}
 	}, [pageNumber, query, value]);
 
 	return { loading, error, question, hasMore };

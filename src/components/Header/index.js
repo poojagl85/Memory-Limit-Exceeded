@@ -6,14 +6,55 @@ import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 import IconButton from "@mui/material/IconButton";
 import { useLocation } from "react-router";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Button } from "@mui/material";
 import Search from '../Search';
+import axios from 'axios';
+import { api } from '../../urlConfig';
+import { userConstants } from "../../constants";
+import Swal from "sweetalert2";
 
 export default function Header() {
 	const auth = useSelector((state) => state.auth);
+	const dispatch = useDispatch();
 
 	const location = useLocation().pathname === "/signin" ? `signin` : `signup`;
+
+	const Toast = Swal.mixin({
+		toast: true,
+		position: "top-end",
+		showConfirmButton: false,
+		timer: 10000,
+		timerProgressBar: true,
+		didOpen: (toast) => {
+			toast.addEventListener("mouseenter", Swal.stopTimer);
+			toast.addEventListener("mouseleave", Swal.resumeTimer);
+		},
+	});
+
+	const handleSignout = () => {
+		axios.post(`${api}/signout`).then((res) => {
+			window.sessionStorage.clear();
+			dispatch({
+				type: userConstants.SIGNOUT_SUCCESS,
+
+			});
+			Toast.fire({
+				icon: "success",
+				title: res.data.message,
+			});
+
+		}).catch((error) => {
+			dispatch({
+				type: userConstants.SIGNOUT_FAILURE,
+
+			});
+			Toast.fire({
+				icon: "error",
+				title: error.response.data.message,
+			});
+		})
+	}
 
 	const renderLoggedInLinks = () => {
 		return (
@@ -21,6 +62,7 @@ export default function Header() {
 				href="#"
 				variant="body2"
 				style={{ textDecoration: "none", fontWeight: "bold", color: 'white' }}
+				onClick={handleSignout}
 			>
 				SIGNOUT
 			</Link>

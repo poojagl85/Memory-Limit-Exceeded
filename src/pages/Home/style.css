@@ -1,16 +1,19 @@
 .homeContainer {
-  /* column-count: 3; */
+  column-count: 3;
   width: 90%;
   margin: 20px auto;
-  display: flex;
+  position: relative;
+  /* display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: center; */
 }
 
 .homeLink {
   margin: 10px;
   text-decoration: none;
   min-width: 400px;
+  display: inline-block;
+  break-inside: avoid-column;
 }
 
 .homeCard {
@@ -25,17 +28,12 @@
   text-overflow: ellipsis;
   overflow: hidden;
   width: 325px;
-  line-height: 25px;
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
 }
 
 .homeFilter {
-  /* width: 90%; */
   display: flex;
   margin: auto;
-  justify-content: right;
+  justify-content: center;
   margin-top: 30px;
   margin-right: 15px;
 }

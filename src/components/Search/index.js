@@ -32,7 +32,7 @@ const Search = () => {
                         position: 'relative',
                         // top: 0
                   }}>
-                        <input placeholder="Search" value={query} onChange={handleSearch} style={{ fontSize: '16px', width: '350px', borderRadius: '8px', padding: '0.4rem 1rem', outline: 'none', border: '1px solid #e1e1e1', borderBottomLeftRadius: query === '' || questions.length < 1 ? 8 : 0, borderBottomRightRadius: query === '' || questions.length < 1 ? 8 : 0 }} />
+                        <input placeholder="Search" value={query} onChange={handleSearch} style={{ fontSize: '16px', width: '500px', borderRadius: '8px', padding: '0.4rem 1rem', outline: 'none', border: '1px solid #e1e1e1', borderBottomLeftRadius: query === '' || questions.length < 1 ? 8 : 0, borderBottomRightRadius: query === '' || questions.length < 1 ? 8 : 0 }} />
                   </div>
                   {query === '' || questions.length < 1 ? null : <div class="searchScroll">
                         {questions.map((ques, idx) => {
@@ -53,8 +53,7 @@ const Search = () => {
                   </div>}
 
 
-                  <div>{loading && 'Loading...'}</div>
-                  <div>{error && 'Error...'}</div>
+
             </div >
 
 

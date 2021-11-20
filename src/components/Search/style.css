@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
 .box {
   color: black;
   padding: 0.5rem 1.5rem;
@@ -21,14 +20,14 @@
   overflow: hidden;
   text-overflow: ellipsis;
   margin: 0;
-  font-family: "Lato";
-  font-weight: 400;
+  font-family: sans-serif;
+  font-weight: 300;
 }
 
 .box h6 {
   margin: 0;
-  font-family: "Lato";
-  font-weight: 700;
+  font-family: sans-serif;
+  font-weight: 600;
 }
 
 .searchScroll::-webkit-scrollbar {
@@ -47,7 +46,7 @@
   background-color: white;
   z-index: 100;
   /* margin: 10px 0px; */
-  width: 350px;
+  width: 500px;
   /* padding: 10px; */
   border-radius: 12px;
   border-top-left-radius: 0;
