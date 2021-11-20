@@ -7,52 +7,10 @@ import './style.css';
 import { Avatar, Card, CardContent, CardHeader, Typography } from "@mui/material";
 import { red } from "@mui/material/colors";
 
-const palleteList = [
-	{
-		bgcolor: '00203FFF',
-		text: '#ADEFD1FF',
-		heading: '#ADEFD1FF'
-	},
-	{
-		bgcolor: '#ADEFD1FF',
-		text: '#00203FFF',
-		heading: '#00203FFF'
-	},
-	{
-		bgcolor: '#5F4B8BFF',
-		text: '#E69A8DFF',
-		heading: '#E69A8DFF'
-	},
-	{
-		bgcolor: '#E69A8DFF',
-		text: '#5F4B8BFF',
-		heading: '#5F4B8BFF'
-	},
-	{
-		bgcolor: '#FAEBEFFF',
-		text: '#333D79FF',
-		heading: '#333D79FF'
-	},
-	{
-		bgcolor: '#333D79FF',
-		text: '#FAEBEFFF',
-		heading: '#FAEBEFFF'
-	},
-	{
-		bgcolor: '#F2EDD7FF',
-		text: '#755139FF',
-		heading: '#755139FF'
-	},
-	{
-		bgcolor: '#755139FF',
-		text: '#F2EDD7FF',
-		heading: '#F2EDD7FF'
-	},
-]
-
-const randomColorPick = () => {
-	const randomIndex = parseInt(Math.random() * palleteList.length)
-	return palleteList[randomIndex]
+const getLongDate = (d) => {
+	const date = new Date(d)
+	const arr = date.toString().split(" ");
+	return `${arr[1]} ${arr[2]}, ${arr[3]}`
 }
 
 export default function Home() {
@@ -77,13 +35,18 @@ export default function Home() {
 		[loading, hasMore]
 	);
 
+	const addFilter = (e) => {
+		const filterButtons = document.getElementsByClassName['active'];
+
+	}
+
 	return (
 		<Layout>
 			<div class="homeFilter">
-				<div>Mostly Answered</div>
-				<div>Least Answered</div>
-				<div>Most Recent</div>
-				<div>Least Recent</div>
+				<button className="filter" onClick={addFilter}>Mostly Answered</button>
+				<button className="filter" onClick={addFilter}>Least Answered</button>
+				<button className="filter" onClick={addFilter}>Most Recent</button>
+				<button className="filter" onClick={addFilter}>Least Recent</button>
 			</div>
 			<hr />
 
@@ -101,7 +64,7 @@ export default function Home() {
 											</Avatar>
 										}
 										title={q.authorID.fullName}
-										subheader={q.createdAt}
+										subheader={getLongDate(q.createdAt)}
 									/>
 									<CardContent>
 										<Typography variant="body2" color="text.secondary"
@@ -131,7 +94,7 @@ export default function Home() {
 											</Avatar>
 										}
 										title={q.authorID.fullName}
-										subheader={q.createdAt}
+										subheader={getLongDate(q.createdAt)}
 									/>
 									<CardContent>
 										<Typography variant="body2" color="text.secondary"

@@ -21,7 +21,7 @@
   background-color: #1976d220;
 }
 
-/* .description {
+.description {
   text-overflow: ellipsis;
   overflow: hidden;
   width: 325px;
@@ -29,7 +29,7 @@
   display: -webkit-box;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
-} */
+}
 
 .homeFilter {
   /* width: 90%; */
@@ -45,5 +45,9 @@
 }
 
 .homeFilter div:hover {
+  background-color: #1976d220;
+}
+
+.active {
   background-color: #1976d220;
 }
