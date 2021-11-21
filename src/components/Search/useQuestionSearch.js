@@ -28,10 +28,11 @@ const UseQuestionSearch = (query, pageNumber) => {
                         },
                   )
                   .then((res) => {
+                        console.log(res.data);
                         setQuestions(prevQ => {
-                              return [...new Set([...prevQ, ...res.data.questions.map(ques => ques)])];
+                              return [...new Set([...prevQ, ...res.data.results.map(ques => ques)])];
                         })
-                        setHasMore(res.data.questions.length > 0)
+                        setHasMore(res.data.results.length > 0)
                         setLoading(false);
                   })
                   .catch((e) => {

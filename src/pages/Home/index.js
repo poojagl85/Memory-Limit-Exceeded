@@ -74,7 +74,7 @@ export default function Home() {
 
 					if (question.length === index + 1) {
 						return (
-							<Link to={`/${q.slug}`} key={q._id} style={{ textDecoration: 'none' }} className="homeLink">
+							<Link to={`/question/${q.slug}`} replace key={q._id} style={{ textDecoration: 'none' }} className="homeLink">
 								<Card sx={{ maxWidth: 345 }} ref={lastQuestionRef}>
 									<CardHeader
 										avatar={
@@ -104,7 +104,7 @@ export default function Home() {
 						);
 					} else {
 						return (
-							<Link to={`/${q.slug}`} key={q._id} style={{ textDecoration: 'none' }} className="homeLink">
+							<Link to={`/question/${q.slug}`} replace key={q._id} style={{ textDecoration: 'none' }} className="homeLink">
 								<Card sx={{ maxWidth: 345 }} className="homeCard">
 									<CardHeader
 										avatar={
