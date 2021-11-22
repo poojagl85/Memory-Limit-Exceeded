@@ -5,6 +5,7 @@ import useQuestion from "./useQuestion";
 import './style.css';
 import { Avatar, Card, CardContent, CardHeader, Typography } from "@mui/material";
 import { red } from "@mui/material/colors";
+import { borderLeft } from "@mui/system";
 
 const getLongDate = (d) => {
 	const date = new Date(d)
@@ -61,84 +62,93 @@ export default function Home() {
 
 	return (
 		<Layout>
-			<div className="homeFilter">
-				<div className="filter" onClick={addFilter} value={-1} query="solution">Mostly Answered</div>
-				<div className="filter" onClick={addFilter} value={1} query="solution">Least Answered</div>
-				<div className="filter" onClick={addFilter} value={-1} query="createdAt">Most Recent</div>
-				<div className="filter" onClick={addFilter} value={1} query="createdAt">Least Recent</div>
-			</div>
-			<hr />
+			<div className="homeContainer" style={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
+				<div className="profile">
 
-			<div className="homeContainer">
-				{question.map((q, index) => {
+				</div>
+				<div style={{ width: '70%', position: 'relative', left: '30%', borderLeft: '1px solid #e1e1e1' }}>
+					<div className="homeFilter">
+						<div className="filter" onClick={addFilter} value={-1} query="solution">Mostly Answered</div>
+						<div className="filter" onClick={addFilter} value={1} query="solution">Least Answered</div>
+						<div className="filter" onClick={addFilter} value={-1} query="createdAt">Most Recent</div>
+						<div className="filter" onClick={addFilter} value={1} query="createdAt">Least Recent</div>
+					</div>
+					<hr />
 
-					if (question.length === index + 1) {
-						return (
-							<Link to={`/question/${q.slug}`} replace key={q._id} style={{ textDecoration: 'none' }} className="homeLink">
-								<Card sx={{ maxWidth: 345 }} ref={lastQuestionRef}>
-									<CardHeader
-										avatar={
-											<Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-												{q.authorID.fullName.charAt(0)}
-											</Avatar>
-										}
-										title={q.authorID.fullName}
-										subheader={getLongDate(q.createdAt)}
-									/>
-									<CardContent>
-										<Typography className="cardDescription" variant="body2" color="text.secondary"
-											dangerouslySetInnerHTML={{
-												__html: q.description,
-											}}
-											className="description"
-										/>
+					<div className="homeContainer">
+						{question.map((q, index) => {
 
-										<hr />
-										<Typography variant="body2" color="text.secondary">
-											{q.solutionId.length} solutions
-										</Typography>
-									</CardContent>
-								</Card>
-							</Link>
+							if (question.length === index + 1) {
+								return (
+									<Link to={`/question/${q.slug}`} replace key={q._id} style={{ textDecoration: 'none' }} className="homeLink">
+										<Card sx={{ maxWidth: 345 }} ref={lastQuestionRef}>
+											<CardHeader
+												avatar={
+													<Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+														{q.authorID.fullName.charAt(0)}
+													</Avatar>
+												}
+												title={q.authorID.fullName}
+												subheader={getLongDate(q.createdAt)}
+											/>
+											<CardContent>
+												<Typography className="cardDescription" variant="body2" color="text.secondary"
+													dangerouslySetInnerHTML={{
+														__html: q.description,
+													}}
+													className="description"
+												/>
 
-						);
-					} else {
-						return (
-							<Link to={`/question/${q.slug}`} replace key={q._id} style={{ textDecoration: 'none' }} className="homeLink">
-								<Card sx={{ maxWidth: 345 }} className="homeCard">
-									<CardHeader
-										avatar={
-											<Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-												{q.authorID.fullName.charAt(0)}
-											</Avatar>
-										}
-										title={q.authorID.fullName}
-										subheader={getLongDate(q.createdAt)}
-									/>
-									<CardContent>
-										<Typography variant="body2" color="text.secondary"
-											dangerouslySetInnerHTML={{
-												__html: q.description,
-											}}
-											className="description"
-										/>
-										<hr />
-										<Typography variant="body2" color="text.secondary">
-											{q.solutionId.length} solutions
-										</Typography>
-									</CardContent>
-								</Card>
-							</Link>
+												<hr />
+												<Typography variant="body2" color="text.secondary">
+													{q.solutionId.length} solutions
+												</Typography>
+											</CardContent>
+										</Card>
+									</Link>
 
-						);
-					}
-				})}
+								);
+							} else {
+								return (
+									<Link to={`/question/${q.slug}`} replace key={q._id} style={{ textDecoration: 'none' }} className="homeLink">
+										<Card sx={{ maxWidth: 345 }} className="homeCard">
+											<CardHeader
+												avatar={
+													<Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+														{q.authorID.fullName.charAt(0)}
+													</Avatar>
+												}
+												title={q.authorID.fullName}
+												subheader={getLongDate(q.createdAt)}
+											/>
+											<CardContent>
+												<Typography variant="body2" color="text.secondary"
+													dangerouslySetInnerHTML={{
+														__html: q.description,
+													}}
+													className="description"
+												/>
+												<hr />
+												<Typography variant="body2" color="text.secondary">
+													{q.solutionId.length} solutions
+												</Typography>
+											</CardContent>
+										</Card>
+									</Link>
+
+								);
+							}
+						})}
 
 
 
-				{/* <div>{loading && "Loading..."}</div>
+						{/* <div>{loading && "Loading..."}</div>
 				<div>{error && "Error"}</div> */}
+					</div>
+				</div>
 			</div>
+
+
 		</Layout>
 	);
 }

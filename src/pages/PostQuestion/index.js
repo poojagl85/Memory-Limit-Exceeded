@@ -12,16 +12,11 @@ import './style.css';
 
 const PostQuestion = () => {
       const [title, setTitle] = useState("");
-      const [categoryId, setPostCategory] = useState("");
+      const [category, setCategory] = useState("");
       const [editorData, setEditorData] = useState("");
       const [loading, setLoading] = useState(true);
       const [loadEditor, setLoadEditor] = useState(false);
       const isMountedRef = useIsMountedRef();
-
-
-      const category = useSelector((state) => {
-            return state.category;
-      });
 
       useEffect(() => {
             setTimeout(() => {
@@ -55,7 +50,7 @@ const PostQuestion = () => {
             const question = {
                   title,
                   description: editorData,
-                  categoryId,
+                  category,
             };
 
 
@@ -98,24 +93,18 @@ const PostQuestion = () => {
                                     onChange={(e) => setTitle(e.target.value)}
                                     autoFocus
                               />
-                              <FormControl fullWidth style={{ margin: '10px 0 ' }}>
-                                    <InputLabel id="demo-simple-select-label">
-                                          Category
-                                    </InputLabel>
-                                    <Select
-                                          labelId="demo-simple-select-label"
-                                          id="demo-simple-select"
-                                          label="category"
-                                          value={categoryId}
-                                          onChange={(e) => setPostCategory(e.target.value)}
-                                    >
-                                          {category.categories.map((cat) => (
-                                                <MenuItem value={cat._id} key={cat._id}>
-                                                      {cat.name}
-                                                </MenuItem>
-                                          ))}
-                                    </Select>
-                              </FormControl>
+                              <TextField
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    id="title"
+                                    label="Category"
+                                    name="Category"
+                                    autoComplete="Category"
+                                    value={category}
+                                    onChange={(e) => setCategory(e.target.value)}
+                                    autoFocus
+                              />
                               {loadEditor ? <Editor
                                     apiKey={process.env.REACT_APP_EDITOR_KEY}
                                     value={editorData}
@@ -130,8 +119,8 @@ const PostQuestion = () => {
                                           ],
                                           toolbar:
                                                 "undo redo | formatselect | bold italic | \
-            alignleft aligncenter alignright | \
-            bullist numlist outdent indent | help",
+                              alignleft aligncenter alignright | \
+                              bullist numlist outdent indent | help",
                                     }}
                                     onEditorChange={handleChange}
                               /> : null}

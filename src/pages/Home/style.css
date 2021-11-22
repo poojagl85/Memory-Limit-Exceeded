@@ -1,5 +1,5 @@
 .homeContainer {
-  column-count: 3;
+  column-count: 2;
   width: 90%;
   margin: 20px auto;
   position: relative;
@@ -8,6 +8,12 @@
   justify-content: center; */
 }
 
+.profile {
+  width: 20%;
+  background-color: black;
+  height: 10vh;
+  position: fixed;
+}
 .homeLink {
   margin: 10px;
   text-decoration: none;
