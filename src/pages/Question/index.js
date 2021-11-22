@@ -1,4 +1,4 @@
-import { TextField, Typography, Button } from "@mui/material";
+import { TextField, Typography, Button, Card, CardHeader, Avatar } from "@mui/material";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router";
@@ -8,12 +8,15 @@ import axios from "axios";
 import Lottie from "lottie-web";
 import Toast from "../../utils/swal";
 import { api } from "../../urlConfig";
+import { red } from "@mui/material/colors";
 
 export default function Question() {
       const slug = useParams().slug;
       const [question, setQuestion] = useState(null);
       const [loading, setLoading] = useState(true);
       const [editorData, setEditorData] = useState("");
+      const [comments, setComments] = useState([]);
+      const [reply, setReply] = useState("");
 
       useEffect(async () => {
             await axios
@@ -39,12 +42,21 @@ export default function Question() {
             });
       }, []);
 
+      useEffect(() => {
+            console.log(comments);
+      }, [comments])
+
       const handleChange = (content, editor) => {
             setEditorData(content);
       };
 
       const handleReply = (e) => {
             const id = e.target.className;
+            question.solutionId.map((s) => {
+                  let tid = s._id;
+                  document.getElementById(tid).style.display = 'none';
+            })
+            setReply("");
             document.getElementById(id).style.display = 'block';
 
       }
@@ -58,10 +70,37 @@ export default function Question() {
             window.scrollTo(0, document.body.scrollHeight);
       };
 
-      const postReply = (e) => {
+      const postReply = async (e, sol) => {
+            document.getElementsByTagName("html")[0].style.overflow = "hidden";
+
+            setLoading(false);
+            e.preventDefault();
             const solId = e.target.value;
+            const comment = {
+                  description: reply,
+                  solutionId: solId,
+            }
+            await axios.post(`${api}/:${solId}/addComment`, comment).then((res) => {
+                  document.getElementsByTagName("html")[0].removeAttribute("style");
+                  setLoading(true);
+                  console.log(res.data);
+            })
 
 
+      }
+
+      const showReply = async (e) => {
+            setComments([]);
+            const id = e.target.className;
+            question.solutionId.map((s) => {
+                  let tid = s._id;
+                  document.getElementById(tid).style.display = 'none';
+            })
+            setReply("");
+            document.getElementById(id).style.display = 'block';
+            await axios.get(`${api}/solution?id=${id}`).then((res) => {
+                  setComments(res.data.solution.commentsId)
+            })
       }
 
       const handleSubmit = (event) => {
@@ -182,7 +221,15 @@ export default function Question() {
                                                       justifyContent: "space-between"
                                                 }}
                                           >
-                                                <button className={sol._id} style={{ backgroundColor: 'white', border: 'none' }} onClick={handleReply}>Reply</button>
+                                                <div style={{
+                                                      display: "flex",
+                                                      width: "250px",
+                                                      justifyContent: "space-between",
+                                                }}>
+                                                      <button className={sol._id} style={{ backgroundColor: 'white', border: 'none', color: "blue" }} onClick={(e) => handleReply(e)}>Reply</button>
+                                                      <button className={sol._id} style={{ backgroundColor: 'white', border: 'none', color: "blue" }} onClick={(e) => showReply(e)}>Show comments</button>
+                                                </div>
+
                                                 <div>
                                                       <h5>Posted By</h5>
                                                       <p style={{ margin: 0 }}>{sol.authorID.fullName}</p>
@@ -190,57 +237,82 @@ export default function Question() {
                                                 </div>
 
                                           </div>
-                                          <div id={sol._id} style={{ width: '100%', display: 'none' }} >
-                                                <TextField fullWidth label="Add a public reply" variant="standard" />
-                                                <div style={{ margin: '10px 0', display: "flex", justifyContent: "right" }}>
-                                                      <Button className="homeButton" value={sol._id} onClick={hideReply} style={{ color: '#484848', fontWeight: 'bold' }}>Cancel</Button>
-                                                      <Button className="homeButton" value={sol._id} onClick={postReply} style={{ backgroundColor: '#e1e1e1', color: '#484848', fontWeight: 'bold' }}>Reply</Button>
+                                          <div id={sol._id} style={{ width: '100%', display: 'none' }}>
+                                                <div style={{ width: "100%", display: 'flex', justifyContent: 'right', flexDirection: 'column', alignItems: 'flex-end' }}>
+                                                      {comments.length > 0 ? comments.map((c) => (
+                                                            <div style={{ width: '100%', display: 'flex', justifyContent: 'right', flexDirection: 'column', alignItems: 'flex-end' }}>
+                                                                  <div style={{ display: 'flex', width: '80%', justifyContent: 'space-between', minHeight: '30px' }}>
+                                                                        <div>
+                                                                              {c.description}
+                                                                        </div>
+                                                                        <div>
+                                                                              <b>Posted By: </b>{c.authorID.fullName}
+                                                                        </div>
+                                                                  </div>
+                                                                  <hr style={{ color: 'black', width: '90%' }} />
 
+                                                            </div>
+
+                                                      )
+
+                                                      ) : null}
+                                                </div>
+                                                <div>
+                                                      <TextField fullWidth label="Add a public reply" variant="standard" value={reply} onChange={(e) => setReply(e.target.value)} />
+                                                      <div style={{ margin: '10px 0', display: "flex", justifyContent: "right" }}>
+                                                            <Button className="homeButton" value={sol._id} onClick={(e) => hideReply(e)} style={{ color: '#484848', fontWeight: 'bold' }}>Cancel</Button>
+                                                            <Button className="homeButton" value={sol._id} onClick={(e) => postReply(e, sol)} style={{ backgroundColor: '#e1e1e1', color: '#484848', fontWeight: 'bold' }}>Reply</Button>
+
+                                                      </div>
                                                 </div>
                                           </div>
+
 
                                           <hr />
                                     </div>
                               ))}
                         </div>
-                  ) : null}
+                  ) : null
+                  }
 
-                  {question === null ? null : (
-                        <div>
-                              <form onSubmit={handleSubmit}>
-                                    <Editor
-                                          apiKey={process.env.REACT_APP_EDITOR_KEY}
-                                          value={editorData}
-                                          init={{
-                                                content_css: ["./style.css"],
-                                                menubar: false,
-                                                plugins: [
-                                                      "advlist autolink lists link image",
-                                                      "charmap print preview anchor help",
-                                                      "searchreplace visualblocks code",
-                                                      "insertdatetime media table paste wordcount",
-                                                ],
-                                                toolbar:
-                                                      "undo redo | formatselect | bold italic | \
+                  {
+                        question === null ? null : (
+                              <div>
+                                    <form onSubmit={handleSubmit}>
+                                          <Editor
+                                                apiKey={process.env.REACT_APP_EDITOR_KEY}
+                                                value={editorData}
+                                                init={{
+                                                      content_css: ["./style.css"],
+                                                      menubar: false,
+                                                      plugins: [
+                                                            "advlist autolink lists link image",
+                                                            "charmap print preview anchor help",
+                                                            "searchreplace visualblocks code",
+                                                            "insertdatetime media table paste wordcount",
+                                                      ],
+                                                      toolbar:
+                                                            "undo redo | formatselect | bold italic | \
         alignleft aligncenter alignright | \
         bullist numlist outdent indent | help",
-                                          }}
-                                          onEditorChange={handleChange}
-                                    />
-                                    <Button
-                                          type="submit"
-                                          style={{
-                                                background: "#1976d2",
-                                                color: "#fff",
-                                                fontWeight: "bold",
-                                                margin: "10px",
-                                          }}
-                                    >
-                                          Post a Solution
-                                    </Button>
-                              </form>
-                        </div>
-                  )}
+                                                }}
+                                                onEditorChange={handleChange}
+                                          />
+                                          <Button
+                                                type="submit"
+                                                style={{
+                                                      background: "#1976d2",
+                                                      color: "#fff",
+                                                      fontWeight: "bold",
+                                                      margin: "10px",
+                                                }}
+                                          >
+                                                Post a Solution
+                                          </Button>
+                                    </form>
+                              </div>
+                        )
+                  }
                   <div
                         className="loadContainer"
                         style={
@@ -265,6 +337,6 @@ export default function Question() {
                               style={{ display: loading ? "none" : "flex" }}
                         ></div>
                   </div>
-            </Layout>
+            </Layout >
       );
 }
