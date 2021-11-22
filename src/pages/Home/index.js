@@ -1,11 +1,15 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
+
 import Layout from "../../components/Layout";
 import useQuestion from "./useQuestion";
 import './style.css';
 import { Avatar, Card, CardContent, CardHeader, Typography } from "@mui/material";
 import { red } from "@mui/material/colors";
-import { borderLeft } from "@mui/system";
 
 const getLongDate = (d) => {
 	const date = new Date(d)
@@ -16,6 +20,7 @@ const getLongDate = (d) => {
 export default function Home() {
 	const [pageNumber, setPageNumber] = useState(1);
 	const [value, setValue] = useState(0);
+	const [filter, setFilter] = useState(false);
 	const [query, setQuery] = useState("none");
 	const { question, hasMore, loading, error } = useQuestion(pageNumber, query, value);
 
@@ -38,17 +43,10 @@ export default function Home() {
 		[loading, hasMore]
 	);
 
-	const addFilter = (e) => {
+	const addFilter = (e, filterName) => {
 
-		const filterButtons = document.getElementsByClassName('active');
-		console.log(filterButtons);
-		if (filterButtons) {
-			for (let button of filterButtons) {
-				button.classList.remove('active');
-			}
-		}
-		console.log(filterButtons);
-		e.target.className += ' active';
+		setFilter(filterName)
+
 		// console.log(e.target.getAttribute('value'))
 		setValue(e.target.getAttribute('value'));
 		setQuery(e.target.getAttribute('query'));
@@ -62,93 +60,152 @@ export default function Home() {
 
 	return (
 		<Layout>
-			<div className="homeContainer" style={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
-				<div className="profile">
+			<div>
+				<Box sx={{ flexGrow: 1 }}>
+					<Grid container>
+						<Grid display="flex" flexDirection="column" alignItems="center" item xs={12} md={3}>
+							<Box position="fixed" top="25%" display="flex" flexDirection="column" alignItems="center">
+								<Avatar sx={{ width: 150, height: 150 }}> P</Avatar>
+								<Typography mt={2} variant="h5">
+									Pooja Goyal
+								</Typography>
+								<Typography mb={4} variant="subtitle">
+									@poojagl85
+								</Typography>
+								<Box borderTop="1px solid #000" display="flex" >
+									<Box m={2} display="flex" flexDirection="column" alignItems="center">
+										<Avatar sx={{ width: 50, height: 50 }}> P</Avatar>
+										<Typography mt={1} variant="h5">
+											20
+										</Typography>
+										<Typography variant="subtitle">
+											Questions
+										</Typography>
 
-				</div>
-				<div style={{ width: '70%', position: 'relative', left: '30%', borderLeft: '1px solid #e1e1e1' }}>
-					<div className="homeFilter">
-						<div className="filter" onClick={addFilter} value={-1} query="solution">Mostly Answered</div>
-						<div className="filter" onClick={addFilter} value={1} query="solution">Least Answered</div>
-						<div className="filter" onClick={addFilter} value={-1} query="createdAt">Most Recent</div>
-						<div className="filter" onClick={addFilter} value={1} query="createdAt">Least Recent</div>
-					</div>
-					<hr />
-
-					<div className="homeContainer">
-						{question.map((q, index) => {
-
-							if (question.length === index + 1) {
-								return (
-									<Link to={`/question/${q.slug}`} replace key={q._id} style={{ textDecoration: 'none' }} className="homeLink">
-										<Card sx={{ maxWidth: 345 }} ref={lastQuestionRef}>
-											<CardHeader
-												avatar={
-													<Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-														{q.authorID.fullName.charAt(0)}
-													</Avatar>
-												}
-												title={q.authorID.fullName}
-												subheader={getLongDate(q.createdAt)}
-											/>
-											<CardContent>
-												<Typography className="cardDescription" variant="body2" color="text.secondary"
-													dangerouslySetInnerHTML={{
-														__html: q.description,
-													}}
-													className="description"
-												/>
-
-												<hr />
-												<Typography variant="body2" color="text.secondary">
-													{q.solutionId.length} solutions
-												</Typography>
-											</CardContent>
-										</Card>
-									</Link>
-
-								);
-							} else {
-								return (
-									<Link to={`/question/${q.slug}`} replace key={q._id} style={{ textDecoration: 'none' }} className="homeLink">
-										<Card sx={{ maxWidth: 345 }} className="homeCard">
-											<CardHeader
-												avatar={
-													<Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-														{q.authorID.fullName.charAt(0)}
-													</Avatar>
-												}
-												title={q.authorID.fullName}
-												subheader={getLongDate(q.createdAt)}
-											/>
-											<CardContent>
-												<Typography variant="body2" color="text.secondary"
-													dangerouslySetInnerHTML={{
-														__html: q.description,
-													}}
-													className="description"
-												/>
-												<hr />
-												<Typography variant="body2" color="text.secondary">
-													{q.solutionId.length} solutions
-												</Typography>
-											</CardContent>
-										</Card>
-									</Link>
-
-								);
-							}
-						})}
+									</Box >
+									<Box m={2} display="flex" flexDirection="column" alignItems="center">
+										<Avatar sx={{ width: 50, height: 50 }}> P</Avatar>
+										<Typography mt={1} variant="h5">
+											20
+										</Typography>
+										<Typography variant="subtitle">
+											Solutions
+										</Typography>
+									</Box>
+									<Box m={2} display="flex" flexDirection="column" alignItems="center">
+										<Avatar sx={{ width: 50, height: 50 }}> P</Avatar>
+										<Typography mt={1} variant="h5">
+											20
+										</Typography>
+										<Typography variant="subtitle">
+											Comments
+										</Typography>
+									</Box>
+								</Box>
 
 
 
-						{/* <div>{loading && "Loading..."}</div>
-				<div>{error && "Error"}</div> */}
-					</div>
-				</div>
+							</Box>
+						</Grid>
+
+						<Grid item xs={12} md={9}>
+							<Box style={{ borderLeft: '1px solid #e1e1e1', margin: "30px" }}>
+								{/* <div >
+									<div className="filter" onClick={addFilter} value={-1} query="solution">Mostly Answered</div>
+									<div className="filter" onClick={addFilter} value={1} query="solution">Least Answered</div>
+									<div className="filter" onClick={addFilter} value={-1} query="createdAt">Most Recent</div>
+									<div className="filter" onClick={addFilter} value={1} query="createdAt">Least Recent</div>
+								</div> */}
+								<Box display="flex" justifyContent="center">
+									<ButtonGroup variant="outlined" aria-label="outlined primary button group">
+										<Button className="filter" onClick={(e) => addFilter(e, 'most-answered')} variant={filter === 'most-answered' ? 'contained' : ''} value={-1} query="solution">Mostly Answered</Button>
+										<Button className="filter" onClick={(e) => addFilter(e, 'least-answered')} variant={filter === 'least-answered' ? 'contained' : ''} value={1} query="solution">Least Answered</Button>
+										<Button className="filter" onClick={(e) => addFilter(e, 'most-recent')} variant={filter === 'most-recent' ? 'contained' : ''} value={-1} query="createdAt">Most Recent</Button>
+										<Button className="filter" onClick={(e) => addFilter(e, 'least-recent')} variant={filter === 'least-recent' ? 'contained' : ''} value={1} query="createdAt">Least Recent</Button>
+									</ButtonGroup>
+								</Box>
+
+								<hr />
+
+								<div className="homeContainer">
+									{question.map((q, index) => {
+
+										if (question.length === index + 1) {
+											return (
+												<Link to={`/question/${q.slug}`} replace key={q._id} style={{ textDecoration: 'none' }} className="homeLink">
+													<Card sx={{ maxWidth: 345 }} ref={lastQuestionRef}>
+														<CardHeader
+															avatar={
+																<Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+																	{q.authorID.fullName.charAt(0)}
+																</Avatar>
+															}
+															title={q.authorID.fullName}
+															subheader={getLongDate(q.createdAt)}
+														/>
+														<CardContent>
+															<Typography className="cardDescription" variant="body2" color="text.secondary"
+																dangerouslySetInnerHTML={{
+																	__html: q.description,
+																}}
+																className="description"
+															/>
+
+															<hr />
+															<Typography variant="body2" color="text.secondary">
+																{q.solutionId.length} solutions
+															</Typography>
+														</CardContent>
+													</Card>
+												</Link>
+
+											);
+										} else {
+											return (
+												<Link to={`/question/${q.slug}`} replace key={q._id} style={{ textDecoration: 'none' }} className="homeLink">
+													<Card sx={{ maxWidth: 345 }} className="homeCard">
+														<CardHeader
+															avatar={
+																<Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+																	{q.authorID.fullName.charAt(0)}
+																</Avatar>
+															}
+															title={q.authorID.fullName}
+															subheader={getLongDate(q.createdAt)}
+														/>
+														<CardContent>
+															<Typography variant="body2" color="text.secondary"
+																dangerouslySetInnerHTML={{
+																	__html: q.description,
+																}}
+																className="description"
+															/>
+															<hr />
+															<Typography variant="body2" color="text.secondary">
+																{q.solutionId.length} solutions
+															</Typography>
+														</CardContent>
+													</Card>
+												</Link>
+
+											);
+										}
+									})}
+
+
+
+									{/* <div>{loading && "Loading..."}</div>
+										<div>{error && "Error"}</div> */}
+								</div>
+							</Box>
+						</Grid>
+					</Grid>
+				</Box>
+
+
 			</div>
 
 
-		</Layout>
+		</Layout >
 	);
 }

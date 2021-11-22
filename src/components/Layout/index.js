@@ -1,13 +1,15 @@
 import React from "react";
 import Header from "../Header";
+import Box from '@mui/material/Box';
 import './style.css'
 
 export default function Layout(props) {
 	return (
-		<div >
+		<Box>
 			<Header></Header>
-			<div className="layout" style={{ width: '80vw', margin: '100px auto' }}>{props.children}</div>
-
-		</div >
+			<Box>
+				{props.children}
+			</Box>
+		</Box >
 	);
 }

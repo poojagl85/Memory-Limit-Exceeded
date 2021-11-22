@@ -9,15 +9,12 @@
 }
 
 .profile {
-  width: 20%;
   background-color: black;
-  height: 10vh;
-  position: fixed;
+  height: 100%;
 }
 .homeLink {
   margin: 10px;
   text-decoration: none;
-  min-width: 400px;
   display: inline-block;
   break-inside: avoid-column;
 }

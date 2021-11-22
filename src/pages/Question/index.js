@@ -2,6 +2,12 @@ import { TextField, Typography, Button, Card, CardHeader, Avatar } from "@mui/ma
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router";
+import Box from '@mui/material/Box';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import Divider from '@mui/material/Divider';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Layout from "../../components/Layout";
 import { Editor } from "@tinymce/tinymce-react";
 import axios from "axios";
@@ -86,6 +92,8 @@ export default function Question() {
                   console.log(res.data);
             })
 
+            document.getElementById(solId).style.display = 'none';
+
 
       }
 
@@ -137,206 +145,234 @@ export default function Question() {
 
       return (
             <Layout>
-                  <div
-                        style={{
-                              display: "flex",
-                              justifyContent: "space-between",
-                              marginTop: "50px",
-                        }}
-                  >
-                        <Typography
-                              gutterBottom
-                              variant="h5"
-                              component="div"
-                              style={{ fontWeight: "bold" }}
-                        >
-                              {question === null ? "" : question.title}
-                        </Typography>
-                        <Button
-                              onClick={scrollToBottom}
+                  <Box mx={10}>
+                        <Box
                               style={{
-                                    background: "#1976d2",
-                                    color: "#fff",
-                                    fontWeight: "bold",
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    marginTop: "50px",
                               }}
+                              mx={10}
                         >
-                              Post a Solution
-                        </Button>
-                  </div>
-                  <hr />
-                  {question === null ? (
-                        ""
-                  ) : (
-                        <div
-                              dangerouslySetInnerHTML={{
-                                    __html: question.description,
-                              }}
-                        />
-                  )}
-                  {question === null ? (
-                        ""
-                  ) : (
-                        <div>
-                              <div
+                              <Typography
+                                    gutterBottom
+                                    variant="h5"
+                                    component="div"
+                                    style={{ fontWeight: "bold" }}
+                              >
+                                    {question === null ? "" : question.title}
+                              </Typography>
+                              <Button
+                                    onClick={scrollToBottom}
                                     style={{
-                                          display: "flex",
-                                          width: "100%",
-                                          alignItems: "end",
-                                          flexDirection: "column",
+                                          background: "#1976d2",
+                                          color: "#fff",
+                                          fontWeight: "bold",
                                     }}
                               >
-                                    <h5>Posted By</h5>
-                                    <p style={{ margin: 0 }}>{question.authorID.fullName}</p>
-                                    <p>{question.authorID.email}</p>
-                              </div>
-                        </div>
-                  )}
-                  <br />
-                  {question && question.solutionId.length > 0 ? (
-                        <div>
-                              <h3>
-                                    Looking for the same question ? Go through some of the answers
-                                    below...!
-                              </h3>
-                              <h4>
-                                    {" "}
-                                    {question.solutionId.length === 1
-                                          ? `${question.solutionId.length} Answer`
-                                          : `${question.solutionId.length} Answers`}
-                              </h4>
-                              <br />
-                              {question.solutionId.map((sol) => (
-                                    <div key={sol._id}>
-                                          <div variant="body2" color="text.secondary">
-                                                <div
-                                                      dangerouslySetInnerHTML={{
-                                                            __html: sol.description,
+                                    Post a Solution
+                              </Button>
+                        </Box>
+                        <hr />
+                        {question === null ? (
+                              ""
+                        ) : (
+                              <Box
+                                    dangerouslySetInnerHTML={{
+                                          __html: question.description,
+                                    }}
+                                    mx={10}
+                              />
+                        )}
+                        {question === null ? (
+                              ""
+                        ) : (
+                              <Box mx={10}>
+                                    <Box
+                                          style={{
+                                                display: "flex",
+                                                width: "100%",
+                                                alignItems: "end",
+                                                flexDirection: "column",
+                                          }}
+                                    >
+                                          <h5>Posted By</h5>
+                                          <p style={{ margin: 0 }}>{question.authorID.fullName}</p>
+                                          <p>{question.authorID.email}</p>
+                                    </Box>
+                              </Box>
+                        )}
+                        <br />
+                        {question && question.solutionId.length > 0 ? (
+                              <Box mx={10}>
+                                    <h3>
+                                          Looking for the same question ? Go through some of the answers
+                                          below...!
+                                    </h3>
+                                    <h4>
+                                          {" "}
+                                          {question.solutionId.length === 1
+                                                ? `${question.solutionId.length} Answer`
+                                                : `${question.solutionId.length} Answers`}
+                                    </h4>
+                                    <br />
+                                    {question.solutionId.map((sol) => (
+                                          <Box key={sol._id}>
+                                                <Box variant="body2" color="text.secondary">
+                                                      <Box
+                                                            dangerouslySetInnerHTML={{
+                                                                  __html: sol.description,
+                                                            }}
+                                                      />
+                                                </Box>
+                                                <Box
+                                                      style={{
+                                                            display: "flex",
+                                                            width: "100%",
+                                                            justifyContent: "space-between"
                                                       }}
-                                                />
-                                          </div>
-                                          <div
-                                                style={{
-                                                      display: "flex",
-                                                      width: "100%",
-                                                      justifyContent: "space-between"
-                                                }}
-                                          >
-                                                <div style={{
-                                                      display: "flex",
-                                                      width: "250px",
-                                                      justifyContent: "space-between",
-                                                }}>
-                                                      <button className={sol._id} style={{ backgroundColor: 'white', border: 'none', color: "blue" }} onClick={(e) => handleReply(e)}>Reply</button>
-                                                      <button className={sol._id} style={{ backgroundColor: 'white', border: 'none', color: "blue" }} onClick={(e) => showReply(e)}>Show comments</button>
-                                                </div>
+                                                >
+                                                      <Box style={{
+                                                            display: "flex",
+                                                            width: "250px",
+                                                            justifyContent: "space-between",
+                                                      }}>
+                                                            <button className={sol._id} style={{ backgroundColor: 'white', border: 'none', color: "blue" }} onClick={(e) => handleReply(e)}>Reply</button>
+                                                            <button className={sol._id} style={{ backgroundColor: 'white', border: 'none', color: "blue" }} onClick={(e) => showReply(e)}>Show comments</button>
+                                                      </Box>
 
-                                                <div>
-                                                      <h5>Posted By</h5>
-                                                      <p style={{ margin: 0 }}>{sol.authorID.fullName}</p>
-                                                      <p>{sol.authorID.email}</p>
-                                                </div>
+                                                      <Box>
+                                                            <h5>Posted By</h5>
+                                                            <p style={{ margin: 0 }}>{sol.authorID.fullName}</p>
+                                                            <p>{sol.authorID.email}</p>
+                                                      </Box>
 
-                                          </div>
-                                          <div id={sol._id} style={{ width: '100%', display: 'none' }}>
-                                                <div style={{ width: "100%", display: 'flex', justifyContent: 'right', flexDirection: 'column', alignItems: 'flex-end' }}>
-                                                      {comments.length > 0 ? comments.map((c) => (
-                                                            <div style={{ width: '100%', display: 'flex', justifyContent: 'right', flexDirection: 'column', alignItems: 'flex-end' }}>
-                                                                  <div style={{ display: 'flex', width: '80%', justifyContent: 'space-between', minHeight: '30px' }}>
-                                                                        <div>
-                                                                              {c.description}
-                                                                        </div>
-                                                                        <div>
-                                                                              <b>Posted By: </b>{c.authorID.fullName}
-                                                                        </div>
-                                                                  </div>
-                                                                  <hr style={{ color: 'black', width: '90%' }} />
+                                                </Box>
+                                                <Box id={sol._id} style={{ width: '100%', display: 'none' }}>
+                                                      <List m={3} sx={{ width: '100%', bgcolor: 'background.paper' }}>
+                                                            {comments.length > 0 && comments.map((c) => (
+                                                                  <Box style={{ marginLeft: '50px' }} key={c._id}>
+                                                                        <ListItem divider alignItems="flex-start">
+                                                                              <ListItemAvatar>
+                                                                                    <Avatar alt="Remy Sharp" >
+                                                                                          {c.authorID.fullName[0]}
+                                                                                    </Avatar>
+                                                                              </ListItemAvatar>
+                                                                              <ListItemText
+                                                                                    primary={<React.Fragment>
+                                                                                          <Typography
+                                                                                                sx={{ display: 'inline' }}
+                                                                                                component="span"
+                                                                                                variant="body2"
+                                                                                                color="text.primary"
+                                                                                          >
+                                                                                                Posted by: {c.description}
+                                                                                          </Typography>
 
-                                                            </div>
+                                                                                    </React.Fragment>}
 
-                                                      )
+                                                                                    secondary={
+                                                                                          <React.Fragment>
+                                                                                                <Typography
+                                                                                                      sx={{ display: 'inline' }}
+                                                                                                      component="span"
+                                                                                                      variant="body3"
+                                                                                                      fontWeight='bold'
+                                                                                                      color="text.primary"
+                                                                                                >
+                                                                                                      Posted by: {c.authorID.fullName}
+                                                                                                </Typography>
 
-                                                      ) : null}
-                                                </div>
-                                                <div>
-                                                      <TextField fullWidth label="Add a public reply" variant="standard" value={reply} onChange={(e) => setReply(e.target.value)} />
-                                                      <div style={{ margin: '10px 0', display: "flex", justifyContent: "right" }}>
-                                                            <Button className="homeButton" value={sol._id} onClick={(e) => hideReply(e)} style={{ color: '#484848', fontWeight: 'bold' }}>Cancel</Button>
-                                                            <Button className="homeButton" value={sol._id} onClick={(e) => postReply(e, sol)} style={{ backgroundColor: '#e1e1e1', color: '#484848', fontWeight: 'bold' }}>Reply</Button>
+                                                                                          </React.Fragment>
+                                                                                    }
+                                                                              />
+                                                                        </ListItem>
 
-                                                      </div>
-                                                </div>
-                                          </div>
+                                                                  </Box>
+                                                            ))}
+                                                      </List>
+                                                      <Box>
+                                                            <TextField fullWidth label="Add a public reply" variant="standard" value={reply} onChange={(e) => setReply(e.target.value)} />
+                                                            <Box style={{ margin: '10px 0', display: "flex", justifyContent: "right" }}>
+                                                                  <Button className="homeButton" value={sol._id} onClick={(e) => hideReply(e)} style={{ color: '#484848', fontWeight: 'bold' }}>Cancel</Button>
+                                                                  <Button className="homeButton" value={sol._id} onClick={(e) => postReply(e, sol)} style={{ backgroundColor: '#e1e1e1', color: '#484848', fontWeight: 'bold' }}>Reply</Button>
+
+                                                            </Box>
+                                                      </Box>
+                                                </Box>
 
 
-                                          <hr />
-                                    </div>
-                              ))}
-                        </div>
-                  ) : null
-                  }
+                                                <hr />
+                                          </Box>
+                                    ))}
+                              </Box>
+                        ) : null
+                        }
 
-                  {
-                        question === null ? null : (
-                              <div>
-                                    <form onSubmit={handleSubmit}>
-                                          <Editor
-                                                apiKey={process.env.REACT_APP_EDITOR_KEY}
-                                                value={editorData}
-                                                init={{
-                                                      content_css: ["./style.css"],
-                                                      menubar: false,
-                                                      plugins: [
-                                                            "advlist autolink lists link image",
-                                                            "charmap print preview anchor help",
-                                                            "searchreplace visualblocks code",
-                                                            "insertdatetime media table paste wordcount",
-                                                      ],
-                                                      toolbar:
-                                                            "undo redo | formatselect | bold italic | \
+                        {
+                              question === null ? null : (
+                                    <Box mx={10}>
+                                          <form onSubmit={handleSubmit}>
+                                                <Editor
+                                                      apiKey={process.env.REACT_APP_EDITOR_KEY}
+                                                      value={editorData}
+                                                      init={{
+                                                            content_css: ["./style.css"],
+                                                            menubar: false,
+                                                            plugins: [
+                                                                  "advlist autolink lists link image",
+                                                                  "charmap print preview anchor help",
+                                                                  "searchreplace visualblocks code",
+                                                                  "insertdatetime media table paste wordcount",
+                                                            ],
+                                                            toolbar:
+                                                                  "undo redo | formatselect | bold italic | \
         alignleft aligncenter alignright | \
         bullist numlist outdent indent | help",
-                                                }}
-                                                onEditorChange={handleChange}
-                                          />
-                                          <Button
-                                                type="submit"
-                                                style={{
-                                                      background: "#1976d2",
-                                                      color: "#fff",
-                                                      fontWeight: "bold",
-                                                      margin: "10px",
-                                                }}
-                                          >
-                                                Post a Solution
-                                          </Button>
-                                    </form>
-                              </div>
-                        )
-                  }
-                  <div
-                        className="loadContainer"
-                        style={
-                              loading
-                                    ? {}
-                                    : {
-                                          position: "fixed",
-                                          backgroundColor: "#00000040",
-                                          display: "flex",
-                                          alignItems: "center",
-                                          justifyContent: "center",
-                                          bottom: 0,
-                                          top: 0,
-                                          right: 0,
-                                          left: 0,
-                                          zIndex: 100,
-                                    }
+                                                      }}
+                                                      onEditorChange={handleChange}
+                                                />
+                                                <Button
+                                                      type="submit"
+                                                      style={{
+                                                            background: "#1976d2",
+                                                            color: "#fff",
+                                                            fontWeight: "bold",
+                                                            margin: "10px",
+                                                      }}
+                                                >
+                                                      Post a Solution
+                                                </Button>
+                                          </form>
+                                    </Box>
+                              )
                         }
-                  >
-                        <div
-                              id="lottieweb"
-                              style={{ display: loading ? "none" : "flex" }}
-                        ></div>
-                  </div>
+                        <Box
+                              className="loadContainer"
+                              style={
+                                    loading
+                                          ? {}
+                                          : {
+                                                position: "fixed",
+                                                backgroundColor: "#00000040",
+                                                display: "flex",
+                                                alignItems: "center",
+                                                justifyContent: "center",
+                                                bottom: 0,
+                                                top: 0,
+                                                right: 0,
+                                                left: 0,
+                                                zIndex: 100,
+                                          }
+                              }
+                        >
+                              <Box
+                                    id="lottieweb"
+                                    style={{ display: loading ? "none" : "flex" }}
+                              ></Box>
+                        </Box>
+                  </Box>
+
             </Layout >
       );
 }

@@ -85,7 +85,7 @@ export default function Header() {
 	return (
 		<Box sx={{ flexGrow: 1 }} >
 			<AppBar
-				position="fixed"
+				position="static"
 				style={{ marginBottom: '10px', padding: '0 100px' }}
 
 			>
