@@ -13,6 +13,9 @@ import Question from "./pages/Question";
 import PostQuestion from "./pages/PostQuestion";
 import { api } from "./urlConfig";
 import Category from "./pages/Category";
+import UserQuestion from "./pages/UserQuestion";
+import UserSolution from "./pages/UserSolution";
+import UserComment from "./pages/UserComment";
 
 function App() {
 	const auth = useSelector((state) => {
@@ -56,6 +59,9 @@ function App() {
 				<Route path="/signup" exact component={Signup} />
 				<Route path="/question/:slug" exact component={Question} />
 				<Route path="/category/:slug" exact component={Category} />
+				<PrivateRoute path="/user/questions" exact component={UserQuestion} />
+				<PrivateRoute path="/user/solutions" exact component={UserSolution} />
+				<PrivateRoute path="/user/comments" exact component={UserComment} />
 			</Switch>
 		</div>
 	);

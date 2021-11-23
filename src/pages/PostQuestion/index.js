@@ -79,7 +79,7 @@ const PostQuestion = () => {
 
       return (
             <Layout>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: "80vw", margin: "auto" }}>
                         <form style={{ width: '100%' }} onSubmit={handleSubmit}>
                               <TextField
                                     margin="normal"

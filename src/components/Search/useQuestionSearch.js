@@ -28,7 +28,6 @@ const UseQuestionSearch = (query, pageNumber) => {
                         },
                   )
                   .then((res) => {
-                        console.log(res.data);
                         setQuestions(prevQ => {
                               return [...new Set([...prevQ, ...res.data.results.map(ques => ques)])];
                         })

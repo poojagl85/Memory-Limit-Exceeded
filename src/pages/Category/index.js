@@ -34,18 +34,19 @@ const Category = () => {
                   .catch((error) => {
                         console.log(error);
                   });
-      }, []);
+      }, [slug]);
 
       return (
             <Layout>
                   {question.length < 1 ? null :
-                        <div>
+                        <div className="homeContainer">
                               {question.map((q) => (
                                     <Link
                                           to={`/question/${q.slug}`}
                                           replace
                                           key={q._id}
                                           style={{ textDecoration: "none" }}
+                                          className="homeLink"
                                     >
                                           <Card sx={{ maxWidth: 345 }}>
                                                 <CardHeader
@@ -59,6 +60,7 @@ const Category = () => {
                                                 />
                                                 <CardContent>
                                                       <Typography
+                                                            className="description"
                                                             variant="body2"
                                                             color="text.secondary"
                                                             dangerouslySetInnerHTML={{

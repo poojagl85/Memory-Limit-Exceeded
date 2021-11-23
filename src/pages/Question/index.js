@@ -48,9 +48,6 @@ export default function Question() {
             });
       }, []);
 
-      useEffect(() => {
-            console.log(comments);
-      }, [comments])
 
       const handleChange = (content, editor) => {
             setEditorData(content);
@@ -89,7 +86,6 @@ export default function Question() {
             await axios.post(`${api}/:${solId}/addComment`, comment).then((res) => {
                   document.getElementsByTagName("html")[0].removeAttribute("style");
                   setLoading(true);
-                  console.log(res.data);
             })
 
             document.getElementById(solId).style.display = 'none';

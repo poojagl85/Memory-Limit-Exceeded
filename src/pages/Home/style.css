@@ -1,17 +1,13 @@
 .homeContainer {
-  column-count: 2;
+  /* column-count: 2; */
   width: 90%;
   margin: 20px auto;
-  position: relative;
-  /* display: flex;
+  /* position: relative; */
+  display: flex;
   flex-wrap: wrap;
-  justify-content: center; */
+  justify-content: center;
 }
 
-.profile {
-  background-color: black;
-  height: 100%;
-}
 .homeLink {
   margin: 10px;
   text-decoration: none;
@@ -21,6 +17,8 @@
 
 .homeCard {
   min-width: 300px;
+  overflow: none;
+  text-overflow: ellipsis;
 }
 
 .homeCard:hover {
@@ -28,8 +26,12 @@
 }
 
 .description {
-  text-overflow: ellipsis;
   overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 10;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
   width: 325px;
 }
 

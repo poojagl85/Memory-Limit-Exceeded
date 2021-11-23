@@ -10,6 +10,7 @@ import useQuestion from "./useQuestion";
 import './style.css';
 import { Avatar, Card, CardContent, CardHeader, Typography } from "@mui/material";
 import { red } from "@mui/material/colors";
+import Profile from "../../components/Profile";
 
 const getLongDate = (d) => {
 	const date = new Date(d)
@@ -46,16 +47,9 @@ export default function Home() {
 	const addFilter = (e, filterName) => {
 
 		setFilter(filterName)
-
-		// console.log(e.target.getAttribute('value'))
 		setValue(e.target.getAttribute('value'));
 		setQuery(e.target.getAttribute('query'));
 		setPageNumber(1);
-		console.log(value, query)
-		// console.log(e.target.getAttribute('value'));
-		// console.log(e.target)
-
-
 	}
 
 	return (
@@ -64,58 +58,13 @@ export default function Home() {
 				<Box sx={{ flexGrow: 1 }}>
 					<Grid container>
 						<Grid display="flex" flexDirection="column" alignItems="center" item xs={12} md={3}>
-							<Box position="fixed" top="25%" display="flex" flexDirection="column" alignItems="center">
-								<Avatar sx={{ width: 150, height: 150 }}> P</Avatar>
-								<Typography mt={2} variant="h5">
-									Pooja Goyal
-								</Typography>
-								<Typography mb={4} variant="subtitle">
-									@poojagl85
-								</Typography>
-								<Box borderTop="1px solid #000" display="flex" >
-									<Box m={2} display="flex" flexDirection="column" alignItems="center">
-										<Avatar sx={{ width: 50, height: 50 }}> P</Avatar>
-										<Typography mt={1} variant="h5">
-											20
-										</Typography>
-										<Typography variant="subtitle">
-											Questions
-										</Typography>
+							<Profile />
 
-									</Box >
-									<Box m={2} display="flex" flexDirection="column" alignItems="center">
-										<Avatar sx={{ width: 50, height: 50 }}> P</Avatar>
-										<Typography mt={1} variant="h5">
-											20
-										</Typography>
-										<Typography variant="subtitle">
-											Solutions
-										</Typography>
-									</Box>
-									<Box m={2} display="flex" flexDirection="column" alignItems="center">
-										<Avatar sx={{ width: 50, height: 50 }}> P</Avatar>
-										<Typography mt={1} variant="h5">
-											20
-										</Typography>
-										<Typography variant="subtitle">
-											Comments
-										</Typography>
-									</Box>
-								</Box>
-
-
-
-							</Box>
 						</Grid>
 
 						<Grid item xs={12} md={9}>
 							<Box style={{ borderLeft: '1px solid #e1e1e1', margin: "30px" }}>
-								{/* <div >
-									<div className="filter" onClick={addFilter} value={-1} query="solution">Mostly Answered</div>
-									<div className="filter" onClick={addFilter} value={1} query="solution">Least Answered</div>
-									<div className="filter" onClick={addFilter} value={-1} query="createdAt">Most Recent</div>
-									<div className="filter" onClick={addFilter} value={1} query="createdAt">Least Recent</div>
-								</div> */}
+
 								<Box display="flex" justifyContent="center">
 									<ButtonGroup variant="outlined" aria-label="outlined primary button group">
 										<Button className="filter" onClick={(e) => addFilter(e, 'most-answered')} variant={filter === 'most-answered' ? 'contained' : ''} value={-1} query="solution">Mostly Answered</Button>
