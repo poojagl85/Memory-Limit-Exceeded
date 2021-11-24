@@ -1,11 +1,10 @@
-import { TextField, Typography, Button, Card, CardHeader, Avatar } from "@mui/material";
+import { TextField, Typography, Button, Avatar } from "@mui/material";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router";
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Layout from "../../components/Layout";
@@ -14,7 +13,7 @@ import axios from "axios";
 import Lottie from "lottie-web";
 import Toast from "../../utils/swal";
 import { api } from "../../urlConfig";
-import { red } from "@mui/material/colors";
+
 
 export default function Question() {
       const slug = useParams().slug;
@@ -262,7 +261,7 @@ export default function Question() {
                                                                                                 variant="body2"
                                                                                                 color="text.primary"
                                                                                           >
-                                                                                                Posted by: {c.description}
+                                                                                                {c.description}
                                                                                           </Typography>
 
                                                                                     </React.Fragment>}

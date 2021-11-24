@@ -1,8 +1,8 @@
-import { FormControl, InputLabel, MenuItem, Select, TextField, Button } from '@mui/material';
+import { TextField, Button } from '@mui/material';
 import { Editor } from '@tinymce/tinymce-react';
 import Lottie from 'lottie-web';
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Layout from '../../components/Layout';
 import useIsMountedRef from '../../utils/asyncSubscriptionCancel';
 import axios from 'axios';
@@ -17,6 +17,7 @@ const PostQuestion = () => {
       const [loading, setLoading] = useState(true);
       const [loadEditor, setLoadEditor] = useState(false);
       const isMountedRef = useIsMountedRef();
+
 
       useEffect(() => {
             setTimeout(() => {
@@ -61,10 +62,20 @@ const PostQuestion = () => {
                   .then((res) => {
                         document.getElementsByTagName("html")[0].removeAttribute("style");
                         setLoading(true);
+                        // const user = JSON.parse(window.sessionStorage.getItem("user"));
+                        // user.questionId += 1;
+                        // window.sessionStorage.clear()
+                        // window.sessionStorage.setItem("user", JSON.stringify(user));
+                        // dispatch({
+                        //       type: questionConstants.CREATE_QUESTION_SUCCESS,
+
+                        // });
                         Toast.fire({
                               icon: "success",
                               title: "Question posted...!",
                         });
+
+
                   })
                   .catch((error) => {
                         document.getElementsByTagName("html")[0].removeAttribute("style");

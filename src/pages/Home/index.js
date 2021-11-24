@@ -4,19 +4,14 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
-
 import Layout from "../../components/Layout";
 import useQuestion from "./useQuestion";
 import './style.css';
 import { Avatar, Card, CardContent, CardHeader, Typography } from "@mui/material";
 import { red } from "@mui/material/colors";
 import Profile from "../../components/Profile";
+import getLongDate from "../../utils/date";
 
-const getLongDate = (d) => {
-	const date = new Date(d)
-	const arr = date.toString().split(" ");
-	return `${arr[1]} ${arr[2]}, ${arr[3]}`
-}
 
 export default function Home() {
 	const [pageNumber, setPageNumber] = useState(1);

@@ -5,15 +5,10 @@ const initState = {
 	authenticating: false,
 	message: "",
 	error: null,
-	user: {
-		fullName: "",
-		email: "",
-		username: "",
-	},
+	user: {}
 };
 
 const authReducer = (state = initState, action) => {
-	console.log(action);
 	switch (action.type) {
 		case userConstants.SIGNIN_REQUEST:
 			state = {
@@ -43,6 +38,11 @@ const authReducer = (state = initState, action) => {
 			state = {
 				...state
 			};
+		case userConstants.USER_UPDATE:
+			state = {
+				...state,
+				user: action.payload.user
+			}
 	}
 
 	return state;

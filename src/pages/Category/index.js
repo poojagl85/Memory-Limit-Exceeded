@@ -12,12 +12,9 @@ import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import Layout from "../../components/Layout";
 import { api } from "../../urlConfig";
+import getLongDate from "../../utils/date";
 
-const getLongDate = (d) => {
-      const date = new Date(d);
-      const arr = date.toString().split(" ");
-      return `${arr[1]} ${arr[2]}, ${arr[3]}`;
-};
+
 const Category = () => {
       const slug = useParams().slug;
       const [question, setQuestion] = useState([]);

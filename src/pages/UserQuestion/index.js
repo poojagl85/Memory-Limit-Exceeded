@@ -1,26 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
-import { Grid, Typography, CardContent, Card, CardHeader } from "@mui/material";
+
+import { Grid, Typography, CardContent, Card } from "@mui/material";
 import { Box } from "@mui/system";
 import Profile from '../../components/Profile';
 import { api } from '../../urlConfig';
 import axios from 'axios';
 import { Link } from "react-router-dom";
 import './style.css'
+import useIsMountedRef from '../../utils/asyncSubscriptionCancel';
+import getLongDate from '../../utils/date';
 
-const getLongDate = (d) => {
-      const date = new Date(d)
-      const arr = date.toString().split(" ");
-      return `${arr[1]} ${arr[2]}, ${arr[3]}`
-}
 
 const UserQuestion = () => {
 
       const [questions, setQuestions] = useState([]);
+      const isMountedRef = useIsMountedRef();
 
-      useEffect(async () => {
+      useEffect(() => {
             axios.get(`${api}/user/questions`).then((res) => {
-                  setQuestions(res.data.user.questionId);
+                  if (isMountedRef.current) setQuestions(res.data.user.questionId);
             }).catch((err) => {
                   console.log(err);
 

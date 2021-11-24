@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { api } from "../../urlConfig";
-import { useSelector } from "react-redux";
 
 const UseQuestionSearch = (query, pageNumber) => {
 
