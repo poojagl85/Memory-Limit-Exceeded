@@ -89,7 +89,12 @@ I have identified 9 schemas/models for the online-discussion portal.
    - Else the solution will be posted.
 3. User can visit the posted comments from the homescreen
 
+### Pending Tasks
+
+- Unit Tests - Due to shortage of time, I couldn't write any unit-test.
+
 ### Additional Features to be added after Hackathon:
 
 - Upvotes/Downvotes for a particular solution
--
+- UI could be improved and made a little more attractive
+- In case of toxic content user can be penalized by either blocking or setting a duration in which he/she will not be allowed to post
