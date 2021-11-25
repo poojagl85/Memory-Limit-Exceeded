@@ -2,19 +2,20 @@
 
 ## ❓ Problem Statement
 
--   Build a functional prototype of a platform that gives students an array of digital academic and social tools to stay engaged with their studies, peers and broader university community during pandemic.
+- Build a functional prototype of a platform that gives students an array of digital academic and social tools to stay engaged with their studies, peers and broader university community during pandemic.
 
 ## 🚧 Technology Stack
 
--   **Server Enviornment** - NodeJS
--   **Framework** - ExpressJS
--   **Frontend** - ReactJS, HTML, CSS, Javascript
--   **Database** - MongoDB
--   **Cloud database service** - MongoDB Atlas
+- **Server Enviornment** - NodeJS
+- **Framework** - ExpressJS
+- **Frontend** - ReactJS, HTML, CSS, Javascript
+- **Database** - MongoDB
+- **Cloud database service** - MongoDB Atlas
+- **Mailing service** - Nodemailer
 
 ## ⬇️ Installation
 
--   First, fork this repository 🍴 and follow the given instructions:
+- First, fork this repository 🍴 and follow the given instructions:
 
 ```
 # clone the repository to your local machine
