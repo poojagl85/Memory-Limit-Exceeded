@@ -105,7 +105,7 @@ export default function Header() {
 						sx={{ flexGrow: 1 }}
 
 					>
-						<Link href="/" style={{ textDecoration: 'none', color: 'white' }}>Out Of Memory?</Link>
+						<Link href="/" style={{ textDecoration: 'none', color: 'white' }}>Memory Limit Exceeded</Link>
 
 					</Typography>
 					{auth.authenticate ? <Search /> : null}
