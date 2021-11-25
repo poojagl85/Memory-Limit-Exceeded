@@ -57,7 +57,9 @@ const PostQuestion = () => {
             document.getElementsByTagName("html")[0].style.overflow = "hidden";
             setLoading(false);
             axios
-                  .post(`${api}/question/create`, question)
+                  .post(`${api}/question/create`, question, {
+                        withCredentials: true
+                  })
                   .then((res) => {
                         document.getElementsByTagName("html")[0].removeAttribute("style");
                         setLoading(true);

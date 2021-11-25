@@ -28,6 +28,7 @@ export default function useQuestion(pageNumber, query, value) {
 
 					{
 						cancelToken: new axios.CancelToken((c) => (cancel = c)),
+						withCredentials: true
 					}
 				)
 				.then((res) => {

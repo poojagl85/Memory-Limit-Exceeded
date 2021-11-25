@@ -24,6 +24,7 @@ const UseQuestionSearch = (query, pageNumber) => {
                         {
 
                               cancelToken: new axios.CancelToken(c => cancel = c),
+                              withCredentials: true
                         },
                   )
                   .then((res) => {

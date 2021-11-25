@@ -15,7 +15,9 @@ const UserSolution = () => {
       const isMountedRef = useIsMountedRef();
 
       useEffect(() => {
-            axios.get(`${api}/user/solutions`).then((res) => {
+            axios.get(`${api}/user/solutions`, {
+                  withCredentials: true
+            }).then((res) => {
                   // setQuestions(res.data.user.questionId);
                   if (isMountedRef.current) setSolutions(res.data.user.solutionId);
                   console.log(res.data.user.solutionId);
