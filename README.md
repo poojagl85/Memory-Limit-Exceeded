@@ -113,7 +113,3 @@ $ npm start
 - Upvotes/Downvotes for a particular solution
 - Enhancing the experience and accessibilty for the user
 - In case of toxic content user can be penalized by either blocking or setting a duration in which he/she will not be allowed to post
-
-```
-
-```
