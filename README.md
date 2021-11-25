@@ -4,7 +4,7 @@
 
 - Build a functional prototype of a platform that gives students an array of digital academic and social tools to stay engaged with their studies, peers and broader university community during pandemic.
 
-## [VIEW LIVE DEMO](https://peaceful-fortress-48629.herokuapp.com)
+## [LINK TO APP](https://peaceful-fortress-48629.herokuapp.com)
 
 ## 🚧 Technology Stack
 
@@ -23,6 +23,7 @@
 - First, fork this repository 🍴 and follow the given instructions:
 
 ```
+#### Frontend
 # clone the repository to your local machine
 $ git clone `git clone https://github.com/<YOUR-GITHUB-USERNAME>/Memory-Limit-Exceeded.git`
 
@@ -32,28 +33,34 @@ $ cd Memory-Limit-Exceeded && npm install
 # Start application
 $ npm start
 
+#### Backend [Repository Link](https://github.com/poojagl85/Memory-Limit-Exceeded-Backend)
+
+# clone the repository to your local machine
+$ git clone `git clone https://github.com/<YOUR-GITHUB-USERNAME>/Memory-Limit-Exceeded-Backend.git`
+
+# navigate to the project's directory and install all the relevant dev-dependencies
+$ cd Memory-Limit-Exceeded-Backend && npm install
+
+# Make a .env file and include the details as per config.js
+
+# Start application
+$ npm start
+
 # Make requests on http://localhost:3000/ from Postman
+
 ```
 
 ## Functionalities
 
-- Infinite Scroll on Home Page for user feed - Pagination
+- Question, Solution, and Comment Posting
+- Moderation Feature - Checks for content falling in the categories "identity_attack", "insult", "obscene", "severe_toxicity", "sexual_explicit", "threat" and"toxicity"
+- Text Formatting
 - Search by category, question title, question description (Infinite scroll)
 - Question sorting on homescreen on the basis of timestamp and number of solution posted for a particular question
-- Moderation Feature - Checks for content falling in the categories "identity_attack", "insult", "obscene", "severe_toxicity", "sexual_explicit", "threat" and"toxicity"
-- Question, Solution, and Comment Posting
-- Text Formatting
-- When User will post a solution a notification via email will be sent to the auther of the Question
+- Infinite Scroll on Home Page for user feed - Pagination
+- When User will post a solution a notification via email will be sent to the author of the Question
 
 ## Workflow
-
-I have identified 9 schemas/models for the online-discussion portal.
-
-- Questions
-- Solutions
-- Comments
-- Users
-- Categories
 
 #### For a student
 
@@ -89,12 +96,8 @@ I have identified 9 schemas/models for the online-discussion portal.
    - Else the solution will be posted.
 3. User can visit the posted comments from the homescreen
 
-### Pending Tasks
-
-- Unit Tests - Due to shortage of time, I couldn't write any unit-test.
-
-### Additional Features to be added after Hackathon:
+### Future Goals
 
 - Upvotes/Downvotes for a particular solution
-- UI could be improved and made a little more attractive
+- Enhancing the experience and accessibilty for the user
 - In case of toxic content user can be penalized by either blocking or setting a duration in which he/she will not be allowed to post
