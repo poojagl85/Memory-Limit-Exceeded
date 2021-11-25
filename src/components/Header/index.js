@@ -39,6 +39,7 @@ export default function Header() {
 				type: userConstants.SIGNOUT_SUCCESS,
 
 			});
+
 			Toast.fire({
 				icon: "success",
 				title: res.data.message,

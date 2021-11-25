@@ -9,6 +9,7 @@ const initState = {
 };
 
 const authReducer = (state = initState, action) => {
+	console.log(action.type);
 	switch (action.type) {
 		case userConstants.SIGNIN_REQUEST:
 			state = {
@@ -30,19 +31,23 @@ const authReducer = (state = initState, action) => {
 				error: action.payload.error,
 				authenticating: false,
 			};
+			break;
 		case userConstants.SIGNOUT_SUCCESS:
 			state = {
 				...initState,
 			};
+			break;
 		case userConstants.SIGNOUT_FAILURE:
 			state = {
 				...state
 			};
+			break;
 		case userConstants.USER_UPDATE:
 			state = {
 				...state,
 				user: action.payload.user
 			}
+			break;
 	}
 
 	return state;
