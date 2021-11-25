@@ -44,7 +44,7 @@
       "react-app/jest"
     ]
   },
-  "proxy": "http://localhost:3000",
+  "proxy": "https://peaceful-fortress-48629.herokuapp.com/",
   "browserslist": {
     "production": [
       ">0.2%",
