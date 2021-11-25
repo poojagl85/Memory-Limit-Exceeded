@@ -38,6 +38,8 @@ $ npm start
 
 #### Backend [Repository Link](https://github.com/poojagl85/Memory-Limit-Exceeded-Backend)
 
+- First, fork backend repository 🍴 and follow the given instructions:
+
 ```
 # clone the repository to your local machine
 $ git clone `git clone https://github.com/<YOUR-GITHUB-USERNAME>/Memory-Limit-Exceeded-Backend.git`
@@ -96,7 +98,7 @@ $ npm start
 3. User can visit the posted solution from the homescreen
 4. User can format the text as per his choice. (Bold, font-size, font-family etc feature has been added using tinyMCE)
 
-### Posting Comments
+#### Posting Comments
 
 1. Student can add a comment to any solution.
 2. On sending the request the description of the comment will be checked by the tensorflow toxicity model
