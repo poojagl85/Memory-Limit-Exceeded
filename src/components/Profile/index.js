@@ -19,9 +19,7 @@ const Profile = () => {
       const auth = useSelector(state => state.auth);
 
       useEffect(() => {
-            axios.get(`${api}/user/getUserInfo`, {
-                  withCredentials: true
-            }).then((res) => {
+            axios.get(`${api}/user/getUserInfo`).then((res) => {
                   console.log(res.data.user);
                   if (isMountedRef.current) {
                         setUser(res.data.user);

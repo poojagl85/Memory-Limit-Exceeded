@@ -18,9 +18,7 @@ const UserQuestion = () => {
       const isMountedRef = useIsMountedRef();
 
       useEffect(() => {
-            axios.get(`${api}/user/questions`, {
-                  withCredentials: true
-            }).then((res) => {
+            axios.get(`${api}/user/questions`).then((res) => {
                   if (isMountedRef.current) setQuestions(res.data.user.questionId);
             }).catch((err) => {
                   console.log(err);

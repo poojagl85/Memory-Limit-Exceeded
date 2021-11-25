@@ -49,9 +49,7 @@ export default function SignIn() {
 		};
 
 		axios
-			.post(`${api}/signin`, user, {
-				withCredentials: true
-			})
+			.post(`${api}/signin`, user)
 			.then((res) => {
 				const { user } = res.data;
 				window.sessionStorage.setItem("user", JSON.stringify(user));

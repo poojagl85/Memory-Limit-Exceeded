@@ -25,9 +25,7 @@ export default function Question() {
 
       useEffect(async () => {
             await axios
-                  .get(`${api}/question?slug=${slug}`, {
-                        withCredentials: true
-                  })
+                  .get(`${api}/question?slug=${slug}`)
                   .then((res) => {
                         setQuestion(res.data.question);
                   })
@@ -84,9 +82,7 @@ export default function Question() {
                   description: reply,
                   solutionId: solId,
             }
-            await axios.post(`${api}/:${solId}/addComment`, comment, {
-                  withCredentials: true
-            }).then((res) => {
+            await axios.post(`${api}/:${solId}/addComment`, comment).then((res) => {
                   document.getElementsByTagName("html")[0].removeAttribute("style");
                   setLoading(true);
             })
@@ -105,9 +101,7 @@ export default function Question() {
             })
             setReply("");
             document.getElementById(id).style.display = 'block';
-            await axios.get(`${api}/solution?id=${id}`, {
-                  withCredentials: true
-            }).then((res) => {
+            await axios.get(`${api}/solution?id=${id}`).then((res) => {
                   setComments(res.data.solution.commentsId)
             })
       }
@@ -125,9 +119,7 @@ export default function Question() {
 
             setLoading(false);
             axios
-                  .post(`${api}/:${question._id}/addSolution`, sol, {
-                        withCredentials: true
-                  })
+                  .post(`${api}/:${question._id}/addSolution`, sol)
                   .then((res) => {
                         document.getElementsByTagName("html")[0].removeAttribute("style");
                         setLoading(true);

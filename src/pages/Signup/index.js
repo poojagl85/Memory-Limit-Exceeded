@@ -110,9 +110,7 @@ export default function Signup() {
 		};
 
 		axios
-			.post(`${api}/signup`, user, {
-				withCredentials: true
-			})
+			.post(`${api}/signup`, user)
 			.then((res) => {
 				const { message } = res.data;
 

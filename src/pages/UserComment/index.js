@@ -24,9 +24,7 @@ const UserComment = () => {
       const isMountedRef = useIsMountedRef();
 
       useEffect(() => {
-            axios.get(`${api}/user/comments`, {
-                  withCredentials: true
-            }).then((res) => {
+            axios.get(`${api}/user/comments`).then((res) => {
                   // setQuestions(res.data.user.questionId);
                   // setSolutions(res.data.user.solutionId);
                   console.log(res.data.user.commentId);
