@@ -24,26 +24,16 @@
 
 ```
 # clone the repository to your local machine
-$ git clone `git clone https://github.com/<YOUR-GITHUB-USERNAME>/Memory-Limit-Exceeded.git.git`
+$ git clone `git clone https://github.com/<YOUR-GITHUB-USERNAME>/Memory-Limit-Exceeded.git`
 
 # navigate to the project's directory and install all the relevant dev-dependencies
-$ cd Memory-Limit-Exceeded-Client && npm intsall
+$ cd Memory-Limit-Exceeded && npm install
 
 # Start application
 $ npm start
 
 # Make requests on http://localhost:3000/ from Postman
 ```
-
-## Workflow
-
-I have identified 9 schemas/models for the online-discussion portal.
-
-- Questions
-- Solutions
-- Comments
-- Users
-- Categories
 
 ## Functionalities
 
@@ -54,6 +44,16 @@ I have identified 9 schemas/models for the online-discussion portal.
 - Question, Solution, and Comment Posting
 - Text Formatting
 - When User will post a solution a notification via email will be sent to the auther of the Question
+
+## Workflow
+
+I have identified 9 schemas/models for the online-discussion portal.
+
+- Questions
+- Solutions
+- Comments
+- Users
+- Categories
 
 #### For a student
 
