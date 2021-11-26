@@ -57,7 +57,7 @@ const Profile = () => {
                                     {user ? `${user.questionId.length}` : '0'}
                               </Typography>
                               <Typography variant="subtitle">
-                                    Questions
+                                    {user && `${user.questionId.length > 1 ? "Questions" : "Question"}`}
                               </Typography>
 
                         </Box >
@@ -67,7 +67,7 @@ const Profile = () => {
                                     {user ? `${user.solutionId.length}` : '0'}
                               </Typography>
                               <Typography variant="subtitle">
-                                    Solutions
+                                    {user && `${user.solutionId.length > 1 ? "Solutions" : "Solution"}`}
                               </Typography>
                         </Box>
                         <Box m={2} display="flex" flexDirection="column" alignItems="center">
@@ -76,7 +76,7 @@ const Profile = () => {
                                     {user ? `${user.commentId.length}` : '0'}
                               </Typography>
                               <Typography variant="subtitle">
-                                    Comments
+                                    {user && `${user.commentId.length > 1 ? "Comments" : "Comment"}`}
                               </Typography>
                         </Box>
                   </Box>

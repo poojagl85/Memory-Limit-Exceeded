@@ -167,24 +167,29 @@ export default function Question() {
                                     display: "flex",
                                     justifyContent: "space-between",
                                     marginTop: "50px",
+                                    alignItems: "center"
                               }}
                               mx={10}
                         >
                               <Typography
+
                                     gutterBottom
                                     variant="h5"
                                     component="div"
                                     style={{ fontWeight: "bold" }}
+
                               >
                                     {question === null ? "" : question.title}
                               </Typography>
                               <Button
+
                                     onClick={scrollToBottom}
                                     style={{
                                           background: "#1976d2",
                                           color: "#fff",
                                           fontWeight: "bold",
                                     }}
+
                               >
                                     Post a Solution
                               </Button>
@@ -206,7 +211,6 @@ export default function Question() {
                               <Box mx={10}>
                                     <Box mt={5}>
                                           <Chip label={question.categoryId.name} color="primary" textspacing="10" />
-
                                     </Box>
                                     <Box
                                           style={{
