@@ -7,7 +7,7 @@ export default function PrivateRoute({ component: Component, ...rest }) {
 			{...rest}
 			component={(props) => {
 				const tokenObj = JSON.parse(
-					window.sessionStorage.getItem("user")
+					window.localStorage.getItem("user")
 				);
 				if (tokenObj) {
 					return <Component {...props} />;

@@ -43,6 +43,7 @@ export default function SignIn() {
 			.then((res) => {
 				const { user } = res.data;
 				window.localStorage.setItem("user", JSON.stringify(user));
+				console.log("Hi");
 				dispatch({
 					type: userConstants.SIGNIN_SUCCESS,
 					payload: {
@@ -53,19 +54,21 @@ export default function SignIn() {
 					icon: "success",
 					title: res.data.message,
 				});
+				console.log("Hi");
 			})
 			.catch((error) => {
-				dispatch({
-					type: userConstants.SIGNIN_FAILURE,
-					payload: {
-						error: error.response.data,
-					},
-				});
+				console.log(error);
+				// dispatch({
+				// 	type: userConstants.SIGNIN_FAILURE,
+				// 	payload: {
+				// 		error: error.response.data,
+				// 	},
+				// });
 
-				Toast.fire({
-					icon: "error",
-					title: error.response.data.message,
-				});
+				// Toast.fire({
+				// 	icon: "error",
+				// 	title: error.response.data.message,
+				// });
 			});
 	};
 
