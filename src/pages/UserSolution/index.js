@@ -19,8 +19,7 @@ const UserSolution = () => {
             axios.get(`${api}/user/solutions`).then((res) => {
                   // setQuestions(res.data.user.questionId);
                   if (isMountedRef.current) setSolutions(res.data.user.solutionId);
-                  console.log(res.data.user.solutionId);
-                  // setSolutions
+
             }).catch((error) => {
                   Toast.fire({
                         icon: "error",

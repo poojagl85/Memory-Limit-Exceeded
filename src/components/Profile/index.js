@@ -9,7 +9,6 @@ import useIsMountedRef from '../../utils/asyncSubscriptionCancel';
 import { api } from '../../urlConfig';
 import axios from 'axios';
 import { userConstants } from '../../constants';
-import Toast from '../../utils/swal';
 
 const Profile = () => {
 

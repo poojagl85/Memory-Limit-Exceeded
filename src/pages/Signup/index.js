@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -10,7 +10,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Layout from "../../components/Layout";
 import { useSelector, useDispatch } from "react-redux";
-import { Checkbox, InputLabel, ListItemText, MenuItem, FormControl, Select, OutlinedInput } from "@mui/material";
+import { Checkbox, InputLabel, ListItemText, MenuItem, FormControl, Select, OutlinedInput, FormHelperText } from "@mui/material";
 import { Redirect, useHistory } from "react-router";
 import axios from 'axios';
 import { userConstants } from "../../constants";
@@ -66,40 +66,6 @@ export default function Signup() {
 		return <Redirect to={`/`} />;
 	}
 
-	const renderCategories = () => {
-		return (
-
-
-			<FormControl sx={{ m: 1, width: 300 }}>
-				<InputLabel id="demo-multiple-checkbox-label">Tag</InputLabel>
-				<Select
-					fullWidth
-					labelId="demo-multiple-checkbox-label"
-					id="demo-multiple-checkbox"
-					multiple
-					value={categories}
-					onChange={handleChange}
-					input={<OutlinedInput label="Tag" />}
-					renderValue={(selected) => {
-						let selectedOptions = "";
-						selected.forEach((el, idx) => selectedOptions += idx == selected.length - 1 ? `${el.name}` : `${el.name},`)
-						return selectedOptions
-					}
-
-					}
-					MenuProps={MenuProps}
-				>
-					{category.categories.map((cat) => (
-						<MenuItem fullWidth key={cat._id} value={{ name: cat.name, id: cat._id }}>
-							<Checkbox checked={categories.findIndex((el) => el.id === cat._id) > -1} />
-							<ListItemText primary={cat.name} />
-						</MenuItem>
-					))}
-				</Select>
-			</FormControl>
-
-		);
-	};
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
@@ -226,10 +192,10 @@ export default function Signup() {
 												const value = e.target.value;
 												setPassword(e.target.value);
 												if (PASSWORD_VALIDATION_REGEXP.test(value)) {
-													console.log("hii");
+
 													setIsPasswordValidated(true);
 												} else {
-													console.log("hii");
+
 													setIsPasswordValidated(false);
 												}
 
@@ -240,9 +206,8 @@ export default function Signup() {
 									</Grid>
 									<Grid item xs={12}>
 										<FormControl sx={{ width: 400 }}>
-											<InputLabel id="demo-multiple-checkbox-label" required>Categories</InputLabel>
+											<InputLabel id="demo-multiple-checkbox-label" required helperText="Please select atleast 3 categories">Categories</InputLabel>
 											<Select
-
 												labelId="demo-multiple-checkbox-label"
 												id="demo-multiple-checkbox"
 												multiple
@@ -251,7 +216,7 @@ export default function Signup() {
 												input={<OutlinedInput label="Categories" />}
 												renderValue={(selected) => {
 													let selectedOptions = "";
-													selected.forEach((el, idx) => selectedOptions += idx == selected.length - 1 ? `${el.name}` : `${el.name},`)
+													selected.forEach((el, idx) => selectedOptions += idx === selected.length - 1 ? `${el.name}` : `${el.name},`)
 													return selectedOptions
 												}
 
@@ -265,6 +230,7 @@ export default function Signup() {
 													</MenuItem>
 												))}
 											</Select>
+											<FormHelperText>Please select atleast 3 categories</FormHelperText>
 										</FormControl>
 									</Grid>
 
@@ -273,8 +239,6 @@ export default function Signup() {
 
 								<Button
 									fullWidth
-									variant="contained"
-									sx={{ mt: 3, mb: 2 }}
 									type="submit"
 									variant="contained"
 									sx={{ mt: 3, mb: 2, padding: "0.5rem 3rem" }}

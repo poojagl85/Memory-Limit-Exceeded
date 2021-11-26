@@ -13,7 +13,6 @@ import axios from "axios";
 import { userConstants } from "../../constants";
 import { Redirect } from "react-router";
 import { api } from "../../urlConfig";
-import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import Toast from "../../utils/swal";
 

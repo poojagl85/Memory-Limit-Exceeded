@@ -9,7 +9,6 @@ const initState = {
 };
 
 const authReducer = (state = initState, action) => {
-	console.log(action.type);
 	switch (action.type) {
 		case userConstants.SIGNIN_REQUEST:
 			state = {

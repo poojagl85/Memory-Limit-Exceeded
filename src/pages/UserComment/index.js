@@ -26,11 +26,9 @@ const UserComment = () => {
 
       useEffect(() => {
             axios.get(`${api}/user/comments`).then((res) => {
-                  // setQuestions(res.data.user.questionId);
-                  // setSolutions(res.data.user.solutionId);
-                  console.log(res.data.user.commentId);
+
                   if (isMountedRef.current) setComments(res.data.user.commentId);
-                  // setSolutions
+
             }).catch((error) => {
                   Toast.fire({
                         icon: "error",
