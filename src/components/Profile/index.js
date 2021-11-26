@@ -12,7 +12,7 @@ import { userConstants } from '../../constants';
 
 const Profile = () => {
 
-      const [user, setUser] = useState(JSON.parse(window.sessionStorage.getItem("user")));
+      const [user, setUser] = useState(JSON.parse(window.localStorage.getItem("user")));
 
       const isMountedRef = useIsMountedRef();
       const dispatch = useDispatch();
@@ -22,7 +22,7 @@ const Profile = () => {
             axios.get(`${api}/user/getUserInfo`).then((res) => {
                   if (isMountedRef.current) {
                         setUser(res.data.user);
-                        window.sessionStorage.setItem("user", JSON.stringify(res.data.user));
+                        window.localStorage.setItem("user", JSON.stringify(res.data.user));
 
                   }
                   if (auth.user.commentId.length !== res.data.user.commentId.length ||

@@ -3,7 +3,7 @@ import { userConstants } from "../constants";
 export const isUserLoggedIn = () => {
 	return async (dispatch) => {
 
-		const user = window.sessionStorage.getItem("user");
+		const user = window.localStorage.getItem("user");
 		if (user) {
 			const parseUser = JSON.parse(user);
 			dispatch({

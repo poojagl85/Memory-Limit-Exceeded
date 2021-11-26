@@ -71,7 +71,7 @@ const UserQuestion = () => {
 
                                                                               <hr />
                                                                               <Typography variant="body2" color="text.secondary">
-                                                                                    {q.solutionId.length} solutions
+                                                                                    {q.solutionId.length} {q.solutionId.length > 1 ? "Solutions" : "Solution"}
                                                                               </Typography>
                                                                         </CardContent>
                                                                   </Card>

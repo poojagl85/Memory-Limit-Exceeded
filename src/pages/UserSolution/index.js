@@ -71,7 +71,7 @@ const UserSolution = () => {
 
                                                                               <hr />
                                                                               <Typography variant="body2" color="text.secondary">
-                                                                                    {s.commentsId.length} comments
+                                                                                    {s.commentsId.length} {s.commentsId.length > 1 ? "Comments" : "Comment"}
                                                                               </Typography>
                                                                         </CardContent>
                                                                   </Card>

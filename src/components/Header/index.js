@@ -24,7 +24,7 @@ export default function Header() {
 
 	const handleSignout = () => {
 		axios.post(`${api}/signout`).then((res) => {
-			window.sessionStorage.clear();
+			window.localStorage.clear();
 			dispatch({
 				type: userConstants.SIGNOUT_SUCCESS,
 

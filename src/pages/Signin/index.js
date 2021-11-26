@@ -42,7 +42,7 @@ export default function SignIn() {
 			.post(`${api}/signin`, user)
 			.then((res) => {
 				const { user } = res.data;
-				window.sessionStorage.setItem("user", JSON.stringify(user));
+				window.localStorage.setItem("user", JSON.stringify(user));
 				dispatch({
 					type: userConstants.SIGNIN_SUCCESS,
 					payload: {
