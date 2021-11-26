@@ -20,6 +20,7 @@ import Toast from "../../utils/swal";
 const theme = createTheme();
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
+const PASSWORD_VALIDATION_REGEXP = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
 const MenuProps = {
 	PaperProps: {
 		style: {
@@ -35,6 +36,7 @@ export default function Signup() {
 	const [fullName, setFullname] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const [isPasswordValidated, setIsPasswordValidated] = useState(true);
 	const auth = useSelector((state) => state.auth);
 	const [categories, setCategories] = useState([]);
 	const category = useSelector((state) => {
@@ -213,22 +215,32 @@ export default function Signup() {
 									<Grid item xs={12}>
 										<TextField
 											required
+											error={!isPasswordValidated}
 											fullWidth
 											name="password"
 											value={password}
 											label="Password"
 											type="password"
 											id="password"
-											onChange={(e) =>
-												setPassword(e.target.value)
-											}
-											helperText="Password must be atleast of length 5 and contain number"
+											onChange={(e) => {
+												const value = e.target.value;
+												setPassword(e.target.value);
+												if (PASSWORD_VALIDATION_REGEXP.test(value)) {
+													console.log("hii");
+													setIsPasswordValidated(true);
+												} else {
+													console.log("hii");
+													setIsPasswordValidated(false);
+												}
+
+											}}
+											helperText="Password must have atleast 8 characters including 1 lowercase, 1 uppercase, 1 numeric, and 1 special character."
 											autoComplete="new-password"
 										/>
 									</Grid>
 									<Grid item xs={12}>
 										<FormControl sx={{ width: 400 }}>
-											<InputLabel id="demo-multiple-checkbox-label">Categories</InputLabel>
+											<InputLabel id="demo-multiple-checkbox-label" required>Categories</InputLabel>
 											<Select
 
 												labelId="demo-multiple-checkbox-label"
