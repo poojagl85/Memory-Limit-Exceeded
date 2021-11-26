@@ -15,6 +15,7 @@ import { Redirect } from "react-router";
 import { api } from "../../urlConfig";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import Toast from "../../utils/swal";
 
 const theme = createTheme();
 
@@ -29,17 +30,7 @@ export default function SignIn() {
 		return <Redirect to={`/`} />;
 	}
 
-	const Toast = Swal.mixin({
-		toast: true,
-		position: "top-end",
-		showConfirmButton: false,
-		timer: 10000,
-		timerProgressBar: true,
-		didOpen: (toast) => {
-			toast.addEventListener("mouseenter", Swal.stopTimer);
-			toast.addEventListener("mouseleave", Swal.resumeTimer);
-		},
-	});
+
 
 	const handleSubmit = (event) => {
 		event.preventDefault();

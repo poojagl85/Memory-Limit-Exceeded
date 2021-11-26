@@ -53,7 +53,7 @@ const Profile = () => {
       return (
             <Box position="fixed" top="25%" display="flex" flexDirection="column" alignItems="center" border='1px solid #e1e1e1' padding='10px' borderRadius="10px">
                   <Avatar sx={{ width: 100, height: 100 }}> {user && user.fullName.charAt(0)}</Avatar>
-                  <Typography mt={2} variant="h5">
+                  <Typography mt={2} mb={2} variant="h5">
                         {user && `${user.fullName}`}
                   </Typography>
                   <Box borderTop="1px solid #e1e1e1" display="flex" >

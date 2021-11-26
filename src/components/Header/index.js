@@ -13,6 +13,7 @@ import axios from 'axios';
 import { api } from '../../urlConfig';
 import { userConstants } from "../../constants";
 import Swal from "sweetalert2";
+import Toast from "../../utils/swal";
 
 export default function Header() {
 	const auth = useSelector((state) => state.auth);
@@ -20,17 +21,6 @@ export default function Header() {
 
 	const location = useLocation().pathname === "/signin" ? `signin` : `signup`;
 
-	const Toast = Swal.mixin({
-		toast: true,
-		position: "top-end",
-		showConfirmButton: false,
-		timer: 10000,
-		timerProgressBar: true,
-		didOpen: (toast) => {
-			toast.addEventListener("mouseenter", Swal.stopTimer);
-			toast.addEventListener("mouseleave", Swal.resumeTimer);
-		},
-	});
 
 	const handleSignout = () => {
 		axios.post(`${api}/signout`).then((res) => {
