@@ -16,7 +16,7 @@ export const isUserLoggedIn = () => {
 			dispatch({
 				type: userConstants.SIGNIN_FAILURE,
 				payload: {
-					error: "Failed to login",
+					error: "Authorization Error",
 				},
 			});
 		}

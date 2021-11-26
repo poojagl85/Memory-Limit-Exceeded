@@ -21,6 +21,7 @@ export default function Question() {
       const [loading, setLoading] = useState(true);
       const [editorData, setEditorData] = useState("");
       const [comments, setComments] = useState([]);
+      const [showComments, setShowComments] = useState(false);
       const [reply, setReply] = useState("");
 
       useEffect(async () => {
@@ -115,7 +116,7 @@ export default function Question() {
                   document.getElementById(tid).style.display = 'none';
             })
             setReply("");
-            document.getElementById(id).style.display = 'block';
+            setShowComments(!showComments)
             await axios.get(`${api}/solution?id=${id}`).then((res) => {
                   setComments(res.data.solution.commentsId)
             }).catch((error) => {
@@ -161,7 +162,7 @@ export default function Question() {
 
       return (
             <Layout>
-                  <Box mx={10}>
+                  <Box mx={30}>
                         <Box
                               style={{
                                     display: "flex",
@@ -262,7 +263,7 @@ export default function Question() {
                                                             justifyContent: "space-between",
                                                       }}>
                                                             <button className={sol._id} style={{ backgroundColor: 'white', border: 'none', color: "blue" }} onClick={(e) => handleReply(e)}>Reply</button>
-                                                            <button className={sol._id} style={{ backgroundColor: 'white', border: 'none', color: "blue" }} onClick={(e) => showReply(e)}>Show comments</button>
+                                                            <button className={sol._id} style={{ backgroundColor: 'white', border: 'none', color: "blue" }} onClick={(e) => showReply(e)}>{!showComments ? "Show Comments" : "Hide Comments"}</button>
                                                       </Box>
 
                                                       <Box textAlign="right">
@@ -272,7 +273,7 @@ export default function Question() {
                                                       </Box>
 
                                                 </Box>
-                                                <Box id={sol._id} style={{ width: '100%', display: 'none' }}>
+                                                <Box id={sol._id} style={{ width: '100%', display: showComments ? 'block' : 'none' }} >
                                                       <List m={3} sx={{ width: '100%', bgcolor: 'background.paper' }}>
                                                             {comments.length > 0 && comments.map((c) => (
                                                                   <Box style={{ marginLeft: '50px' }} key={c._id}>
