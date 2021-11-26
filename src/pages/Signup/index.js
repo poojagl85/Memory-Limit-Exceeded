@@ -268,7 +268,7 @@ export default function Signup() {
 									sx={{ mt: 3, mb: 2, padding: "0.5rem 3rem" }}
 									onClick={handleSubmit}
 								>
-									Next
+									Submit
 								</Button>
 								<Grid container justifyContent="flex-end">
 									<Grid item>

@@ -21,13 +21,11 @@ const Profile = () => {
 
       useEffect(() => {
             axios.get(`${api}/user/getUserInfo`).then((res) => {
-                  console.log(res.data.user);
                   if (isMountedRef.current) {
                         setUser(res.data.user);
                         window.sessionStorage.setItem("user", JSON.stringify(res.data.user));
 
                   }
-
                   if (auth.user.commentId.length !== res.data.user.commentId.length ||
                         auth.user.solutionId.length !== res.data.user.solutionId.length ||
                         auth.user.questionId.length !== res.data.user.questionId.length) {
@@ -40,13 +38,9 @@ const Profile = () => {
 
 
                   }
-            }).catch((error) => {
-                  Toast.fire({
-                        icon: "error",
-                        title: error.response.data.message,
-                  });
-                  console.log(error);
 
+            }).catch((error) => {
+                  console.log(error);
             })
       }, [])
 

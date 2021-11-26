@@ -1,4 +1,4 @@
-import { TextField, Typography, Button, Avatar } from "@mui/material";
+import { TextField, Typography, Button, Avatar, Chip } from "@mui/material";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router";
@@ -204,6 +204,10 @@ export default function Question() {
                               ""
                         ) : (
                               <Box mx={10}>
+                                    <Box mt={5}>
+                                          <Chip label={question.categoryId.name} color="primary" textspacing="10" />
+
+                                    </Box>
                                     <Box
                                           style={{
                                                 display: "flex",
@@ -212,7 +216,7 @@ export default function Question() {
                                                 flexDirection: "column",
                                           }}
                                     >
-                                          <h5>Posted By</h5>
+                                          <h6>Posted By</h6>
                                           <p style={{ margin: 0 }}>{question.authorID.fullName}</p>
                                           <p>{question.authorID.email}</p>
                                     </Box>
@@ -257,8 +261,8 @@ export default function Question() {
                                                             <button className={sol._id} style={{ backgroundColor: 'white', border: 'none', color: "blue" }} onClick={(e) => showReply(e)}>Show comments</button>
                                                       </Box>
 
-                                                      <Box>
-                                                            <h5>Posted By</h5>
+                                                      <Box textAlign="right">
+                                                            <h6>Posted By</h6>
                                                             <p style={{ margin: 0 }}>{sol.authorID.fullName}</p>
                                                             <p>{sol.authorID.email}</p>
                                                       </Box>
@@ -295,6 +299,7 @@ export default function Question() {
                                                                                                       variant="body3"
                                                                                                       fontWeight='bold'
                                                                                                       color="text.primary"
+
                                                                                                 >
                                                                                                       Posted by: {c.authorID.fullName}
                                                                                                 </Typography>

@@ -95,7 +95,7 @@ export default function Header() {
 						sx={{ flexGrow: 1 }}
 
 					>
-						<Link href="/" style={{ textDecoration: 'none', color: 'white' }}>Memory Limit Exceeded</Link>
+						<Link to="/" style={{ textDecoration: 'none', color: 'white' }}>Memory Limit Exceeded</Link>
 
 					</Typography>
 					{auth.authenticate ? <Search /> : null}
@@ -105,7 +105,7 @@ export default function Header() {
 						}}
 					>
 						{auth.authenticate ? (
-							<Link href='/postquestion' style={{ textDecoration: 'none' }}><Button
+							<Link to='/postquestion' style={{ textDecoration: 'none' }}><Button
 								style={{
 
 									fontWeight: "bold",
@@ -114,7 +114,7 @@ export default function Header() {
 									backgroundColor: 'white'
 								}}
 							>
-								Ask a Question ?
+								Ask a Question
 							</Button></Link>
 
 						) : null}
