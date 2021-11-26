@@ -30,6 +30,10 @@ export default function Question() {
                         setQuestion(res.data.question);
                   })
                   .catch((error) => {
+                        Toast.fire({
+                              icon: "error",
+                              title: error.response.data.message,
+                        });
                         console.log(error);
                   });
       }, []);
@@ -85,7 +89,18 @@ export default function Question() {
             await axios.post(`${api}/:${solId}/addComment`, comment).then((res) => {
                   document.getElementsByTagName("html")[0].removeAttribute("style");
                   setLoading(true);
-            })
+                  Toast.fire({
+                        icon: "success",
+                        title: res.data.message,
+                  });
+            }).catch((error) => {
+                  document.getElementsByTagName("html")[0].removeAttribute("style");
+                  setLoading(true);
+                  Toast.fire({
+                        icon: "error",
+                        title: error.response.data.message,
+                  });
+            });
 
             document.getElementById(solId).style.display = 'none';
 
@@ -103,6 +118,11 @@ export default function Question() {
             document.getElementById(id).style.display = 'block';
             await axios.get(`${api}/solution?id=${id}`).then((res) => {
                   setComments(res.data.solution.commentsId)
+            }).catch((error) => {
+                  Toast.fire({
+                        icon: "error",
+                        title: error.response.data.message,
+                  });
             })
       }
 
@@ -127,6 +147,7 @@ export default function Question() {
                               icon: "success",
                               title: res.data.message,
                         });
+                        window.location.reload();
                   })
                   .catch((error) => {
                         document.getElementsByTagName("html")[0].removeAttribute("style");

@@ -9,6 +9,7 @@ import useIsMountedRef from '../../utils/asyncSubscriptionCancel';
 import { api } from '../../urlConfig';
 import axios from 'axios';
 import { userConstants } from '../../constants';
+import Toast from '../../utils/swal';
 
 const Profile = () => {
 
@@ -39,20 +40,21 @@ const Profile = () => {
 
 
                   }
-            }).catch((err) => {
-                  console.log(err);
+            }).catch((error) => {
+                  Toast.fire({
+                        icon: "error",
+                        title: error.response.data.message,
+                  });
+                  console.log(error);
 
             })
       }, [])
 
       return (
             <Box position="fixed" top="25%" display="flex" flexDirection="column" alignItems="center" border='1px solid #e1e1e1' padding='10px' borderRadius="10px">
-                  <Avatar sx={{ width: 100, height: 100 }}> P</Avatar>
+                  <Avatar sx={{ width: 100, height: 100 }}> {user && user.fullName.charAt(0)}</Avatar>
                   <Typography mt={2} variant="h5">
                         {user && `${user.fullName}`}
-                  </Typography>
-                  <Typography mb={4} variant="subtitle">
-                        {user && `@${user.username}`}
                   </Typography>
                   <Box borderTop="1px solid #e1e1e1" display="flex" >
                         <Box m={2} display="flex" flexDirection="column" alignItems="center">

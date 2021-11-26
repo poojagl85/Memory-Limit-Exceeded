@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -15,6 +14,7 @@ import { userConstants } from "../../constants";
 import { Redirect } from "react-router";
 import { api } from "../../urlConfig";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const theme = createTheme();
 
@@ -135,8 +135,8 @@ export default function SignIn() {
 							</Button>
 							<Grid container>
 								<Grid item>
-									<Link to="/signup" variant="body2">
-										{"Don't have an account? Sign Up"}
+									<Link to="/signup" variant="body2" style={{ cursor: "pointer", textDecoration: "underline" }}>
+										Don't have an account? Sign Up
 									</Link>
 								</Grid>
 							</Grid>

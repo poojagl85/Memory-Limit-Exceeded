@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
+import { Link } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -10,27 +10,54 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Layout from "../../components/Layout";
 import { useSelector, useDispatch } from "react-redux";
-import { Checkbox, FormControlLabel, FormGroup } from "@mui/material";
+import { Checkbox, FormControlLabel, FormGroup, InputLabel, ListItemIcon, ListItemText, MenuItem, FormControl, Select, OutlinedInput } from "@mui/material";
 import { Redirect, useHistory } from "react-router";
 import Swal from "sweetalert2";
 import axios from 'axios';
 import { userConstants } from "../../constants";
 import { api } from "../../urlConfig";
+import Toast from "../../utils/swal";
 
 const theme = createTheme();
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+	PaperProps: {
+		style: {
+			maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+			width: 250,
+		},
+	},
+};
+
+
 
 export default function Signup() {
 	const [fullName, setFullname] = useState("");
-	const [username, setUsername] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [transition, setTransition] = useState(false);
 	const auth = useSelector((state) => state.auth);
+	const [categories, setCategories] = useState([]);
+	const [categoryId, setCategoryId] = useState([]);
+	const [personName, setPersonName] = React.useState([]);
 	const category = useSelector((state) => {
 		return state.category;
 	});
+
+	const handleChange = (event) => {
+		console.log(event.target);
+		const {
+			target: { value },
+		} = event;
+
+		setCategories(
+			value,
+		);
+	};
 	const dispatch = useDispatch();
 	const history = useHistory();
+
 
 	useEffect(() => {
 		setTimeout(() => {
@@ -42,17 +69,7 @@ export default function Signup() {
 		return <Redirect to={`/`} />;
 	}
 
-	const Toast = Swal.mixin({
-		toast: true,
-		position: "top-end",
-		showConfirmButton: false,
-		timer: 10000,
-		timerProgressBar: true,
-		didOpen: (toast) => {
-			toast.addEventListener("mouseenter", Swal.stopTimer);
-			toast.addEventListener("mouseleave", Swal.resumeTimer);
-		},
-	});
+
 
 	const transitionStyle = {
 		transform: "translateX(0)",
@@ -69,46 +86,51 @@ export default function Signup() {
 
 	const renderCategories = () => {
 		return (
-			<Box
-				sx={{
-					display: "flex",
-					alignItems: "center",
-					justifyContent: "center",
-					flexWrap: "wrap",
-				}}
-			>
-				{category.categories.length > 0
-					? category.categories.map((cat) => (
-						<FormGroup>
-							<FormControlLabel
-								control={<Checkbox />}
-								label={cat.name}
-								value={cat._id}
-								key={cat._id}
-							></FormControlLabel>
-						</FormGroup>
-					))
-					: null}
-			</Box>
+
+			<div>
+				<FormControl sx={{ m: 1, width: 300 }}>
+					<InputLabel id="demo-multiple-checkbox-label">Tag</InputLabel>
+					<Select
+						labelId="demo-multiple-checkbox-label"
+						id="demo-multiple-checkbox"
+						multiple
+						value={categories}
+						onChange={handleChange}
+						input={<OutlinedInput label="Tag" />}
+						renderValue={(selected) => {
+							let selectedOptions = "";
+							selected.forEach((el, idx) => selectedOptions += idx == selected.length - 1 ? `${el.name}` : `${el.name},`)
+							return selectedOptions
+						}
+
+						}
+						MenuProps={MenuProps}
+					>
+						{category.categories.map((cat) => (
+							<MenuItem key={cat._id} value={{ name: cat.name, id: cat._id }}>
+								<Checkbox checked={categories.findIndex((el) => el.id === cat._id) > -1} />
+								<ListItemText primary={cat.name} />
+							</MenuItem>
+						))}
+					</Select>
+				</FormControl>
+			</div>
 		);
 	};
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 
-		const categoryId = [];
-		document
-			.querySelectorAll("input[type=checkbox]:checked")
-			.forEach((ele) => categoryId.push(ele.getAttribute("value")));
+		let categoryId = [];
+		categories.forEach((el) => categoryId.push(el.id));
 
 		const user = {
 			fullName,
 			email,
 			password,
-			username,
 			categoryId,
 		};
-
+		console.log(user);
 		axios
 			.post(`${api}/signup`, user)
 			.then((res) => {
@@ -186,7 +208,7 @@ export default function Signup() {
 								sx={{ mt: 3 }}
 							>
 								<Grid container spacing={2}>
-									<Grid item xs={12} sm={6}>
+									<Grid item xs={12}>
 										<TextField
 											name="fullname"
 											required
@@ -200,19 +222,7 @@ export default function Signup() {
 											}
 										/>
 									</Grid>
-									<Grid item xs={12} sm={6}>
-										<TextField
-											required
-											fullWidth
-											value={username}
-											id="username"
-											label="Username"
-											name="username"
-											onChange={(e) =>
-												setUsername(e.target.value)
-											}
-										/>
-									</Grid>
+
 									<Grid item xs={12}>
 										<TextField
 											required
@@ -254,7 +264,7 @@ export default function Signup() {
 								</Button>
 								<Grid container justifyContent="flex-end">
 									<Grid item>
-										<Link to="/signin" variant="body2">
+										<Link to="/signin" variant="body2" style={{ cursor: "pointer" }}>
 											Already have an account? Sign in
 										</Link>
 									</Grid>

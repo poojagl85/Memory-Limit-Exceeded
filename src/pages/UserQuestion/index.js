@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import './style.css'
 import useIsMountedRef from '../../utils/asyncSubscriptionCancel';
 import getLongDate from '../../utils/date';
+import Toast from '../../utils/swal';
 
 
 const UserQuestion = () => {
@@ -20,8 +21,12 @@ const UserQuestion = () => {
       useEffect(() => {
             axios.get(`${api}/user/questions`).then((res) => {
                   if (isMountedRef.current) setQuestions(res.data.user.questionId);
-            }).catch((err) => {
-                  console.log(err);
+            }).catch((error) => {
+                  Toast.fire({
+                        icon: "error",
+                        title: error.response.data.message,
+                  });
+                  console.log(error);
 
             })
       }, [])

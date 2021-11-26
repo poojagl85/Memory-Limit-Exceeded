@@ -3,7 +3,7 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Link from "@mui/material/Link";
+import { Link } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import { useLocation } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
@@ -60,7 +60,7 @@ export default function Header() {
 	const renderLoggedInLinks = () => {
 		return (
 			<Link
-				href="#"
+				to='/signin'
 				variant="body2"
 				style={{ textDecoration: "none", fontWeight: "bold", color: 'white' }}
 				onClick={handleSignout}
@@ -73,7 +73,7 @@ export default function Header() {
 	const renderNonLoggedInLinks = () => {
 		return (
 			<Link
-				href={location === "signin" ? `/signup` : `/signin`}
+				to={location === "signin" ? `/signup` : `/signin`}
 				variant="body2"
 				style={{ textDecoration: "none", fontWeight: "bold", color: 'white' }}
 			>

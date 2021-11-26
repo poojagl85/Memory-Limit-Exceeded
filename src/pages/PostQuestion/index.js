@@ -8,6 +8,7 @@ import axios from 'axios';
 import Toast from '../../utils/swal';
 import { api } from "../../urlConfig";
 import './style.css';
+import { useHistory } from 'react-router';
 
 const PostQuestion = () => {
       const [title, setTitle] = useState("");
@@ -16,6 +17,7 @@ const PostQuestion = () => {
       const [loading, setLoading] = useState(true);
       const [loadEditor, setLoadEditor] = useState(false);
       const isMountedRef = useIsMountedRef();
+      const history = useHistory()
 
 
       useEffect(() => {
@@ -61,19 +63,13 @@ const PostQuestion = () => {
                   .then((res) => {
                         document.getElementsByTagName("html")[0].removeAttribute("style");
                         setLoading(true);
-                        // const user = JSON.parse(window.sessionStorage.getItem("user"));
-                        // user.questionId += 1;
-                        // window.sessionStorage.clear()
-                        // window.sessionStorage.setItem("user", JSON.stringify(user));
-                        // dispatch({
-                        //       type: questionConstants.CREATE_QUESTION_SUCCESS,
 
-                        // });
                         Toast.fire({
                               icon: "success",
-                              title: "Question posted...!",
+                              title: res.data.message,
                         });
 
+                        history.push(`/question/${res.data.question._question.slug}`)
 
                   })
                   .catch((error) => {
@@ -81,7 +77,7 @@ const PostQuestion = () => {
                         setLoading(true);
                         Toast.fire({
                               icon: "error",
-                              title: "Unable to post",
+                              title: error.response.data.message,
                         });
                   });
       };

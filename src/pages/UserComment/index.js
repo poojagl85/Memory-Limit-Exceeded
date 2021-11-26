@@ -9,6 +9,7 @@ import { api } from "../../urlConfig";
 import { Link } from 'react-router-dom';
 import useIsMountedRef from "../../utils/asyncSubscriptionCancel";
 import getLongDate from "../../utils/date";
+import Toast from "../../utils/swal";
 
 
 const returnShortString = (s) => {
@@ -30,8 +31,12 @@ const UserComment = () => {
                   console.log(res.data.user.commentId);
                   if (isMountedRef.current) setComments(res.data.user.commentId);
                   // setSolutions
-            }).catch((err) => {
-                  console.log(err);
+            }).catch((error) => {
+                  Toast.fire({
+                        icon: "error",
+                        title: error.response.data.message,
+                  });
+                  console.log(error);
 
             })
       }, [])

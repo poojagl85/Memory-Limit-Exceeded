@@ -8,6 +8,7 @@ import Profile from '../../components/Profile';
 import { api } from '../../urlConfig';
 import useIsMountedRef from '../../utils/asyncSubscriptionCancel';
 import getLongDate from '../../utils/date';
+import Toast from '../../utils/swal';
 
 const UserSolution = () => {
 
@@ -20,8 +21,12 @@ const UserSolution = () => {
                   if (isMountedRef.current) setSolutions(res.data.user.solutionId);
                   console.log(res.data.user.solutionId);
                   // setSolutions
-            }).catch((err) => {
-                  console.log(err);
+            }).catch((error) => {
+                  Toast.fire({
+                        icon: "error",
+                        title: error.response.data.message,
+                  });
+                  console.log(error);
 
             })
       }, [])

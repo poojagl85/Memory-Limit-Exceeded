@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import Layout from "../../components/Layout";
 import { api } from "../../urlConfig";
 import getLongDate from "../../utils/date";
+import Toast from "../../utils/swal"
 
 
 const Category = () => {
@@ -29,6 +30,10 @@ const Category = () => {
 
                   })
                   .catch((error) => {
+                        Toast.fire({
+                              icon: "error",
+                              title: error.response.data.message,
+                        });
                         console.log(error);
                   });
       }, [slug]);
