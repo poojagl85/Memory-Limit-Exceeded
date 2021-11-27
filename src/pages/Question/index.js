@@ -1,42 +1,64 @@
-import { TextField, Typography, Button, Avatar, Chip } from "@mui/material";
+import { Button } from "@mui/material";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router";
 import Box from '@mui/material/Box';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Layout from "../../components/Layout";
 import { Editor } from "@tinymce/tinymce-react";
 import axios from "axios";
 import Lottie from "lottie-web";
 import Toast from "../../utils/swal";
 import { api } from "../../urlConfig";
-import { url } from "../../config";
+import "./style.css"
 
 
 export default function Question() {
       const slug = useParams().slug;
-      const [question, setQuestion] = useState(null);
+      const [question, setQuestion] = useState({
+            title: '',
+            description: '',
+            categoryId: { _id: '', name: '' },
+            authorID: { _id: '', fullName: '', email: '' },
+            solutionId: [
+                  {
+                        authorID: { _id: '', fullName: '', email: '' },
+                        commentsId: [],
+                        createdAt: "",
+                        description: "",
+                        downvotes: [],
+                        questionId: "",
+                        updatedAt: "",
+                        upvotes: [],
+                        _id: "",
+                  }
+            ]
+      });
       const [loading, setLoading] = useState(true);
       const [editorData, setEditorData] = useState("");
-      const [comments, setComments] = useState([]);
-      const [showComments, setShowComments] = useState(false);
-      const [reply, setReply] = useState("");
+      const [ansAccordian, setAccordian] = useState([])
+      const [comments, setComments] = useState({
+            comments: [],
+            index: null
+      });
+      // const [showComments, setShowComments] = useState(false);
+      // const [reply, setReply] = useState("");
 
       useEffect(async () => {
             await axios
                   .get(`${api}/question?slug=${slug}`)
                   .then((res) => {
                         setQuestion(res.data.question);
+                        let ansactivearray = []
+                        res.data.question.solutionId.forEach(() => {
+                              ansactivearray.push({ active: false })
+                        })
+                        setAccordian(ansactivearray)
                   })
                   .catch((error) => {
                         Toast.fire({
                               icon: "error",
                               title: error.response.data.message,
                         });
-                        console.log(error);
                   });
       }, []);
 
@@ -58,43 +80,21 @@ export default function Question() {
             setEditorData(content);
       };
 
-      const handleReply = (e) => {
-            const id = e.target.className;
-            question.solutionId.map((s) => {
-                  let tid = s._id;
-                  document.getElementById(tid).style.display = 'none';
-            })
-            setReply("");
-            document.getElementById(id).style.display = 'block';
-
-      }
-
-      const hideReply = (e) => {
-            const id = e.target.value;
-            document.getElementById(id).style.display = 'none';
-      }
-
-      const scrollToBottom = () => {
-            window.scrollTo(0, document.body.scrollHeight);
-      };
-
-      const postReply = async (e, sol) => {
+      const postReply = (data, solId, index) => {
             document.getElementsByTagName("html")[0].style.overflow = "hidden";
-
             setLoading(false);
-            e.preventDefault();
-            const solId = e.target.value;
             const comment = {
-                  description: reply,
+                  description: data.value,
                   solutionId: solId,
             }
-            await axios.post(`${api}/:${solId}/addComment`, comment).then((res) => {
+            axios.post(`${api}/:${solId}/addComment`, comment).then((res) => {
                   document.getElementsByTagName("html")[0].removeAttribute("style");
                   setLoading(true);
                   Toast.fire({
                         icon: "success",
                         title: res.data.message,
                   });
+                  showComments(solId, index)
             }).catch((error) => {
                   document.getElementsByTagName("html")[0].removeAttribute("style");
                   setLoading(true);
@@ -104,22 +104,19 @@ export default function Question() {
                   });
             });
 
-            document.getElementById(solId).style.display = 'none';
-
-
+            data.value = ""
       }
 
-      const showReply = async (e) => {
-            setComments([]);
-            const id = e.target.className;
-            question.solutionId.map((s) => {
-                  let tid = s._id;
-                  document.getElementById(tid).style.display = 'none';
-            })
-            setReply("");
-            setShowComments(!showComments)
-            await axios.get(`${api}/solution?id=${id}`).then((res) => {
-                  setComments(res.data.solution.commentsId)
+      const showComments = (solutionid, index) => {
+            let newAccordian = ansAccordian
+            newAccordian[index].active = !newAccordian[index].active
+            setAccordian(newAccordian)
+            if (!newAccordian[index].active) {
+                  setComments({ comments: [], index: null })
+                  return
+            }
+            axios.get(`${api}/solution?id=${solutionid}`).then((res) => {
+                  setComments({ comments: res.data.solution.commentsId, index: index })
             }).catch((error) => {
                   Toast.fire({
                         icon: "error",
@@ -161,187 +158,88 @@ export default function Question() {
                   });
       };
 
+
       return (
             <Layout>
-                  <Box mx={30}>
-                        <Box
-                              style={{
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                    marginTop: "50px",
-                                    alignItems: "center"
-                              }}
-                              mx={10}
-                        >
-                              <Typography
+                  <div className="questionContainer">
+                        <div className="qText">
+                              <h2>{question.title}</h2>
+                              <button onClick={() => window.scrollTo(0, document.body.scrollHeight)}>Post a Solution</button>
+                        </div>
+                        <div className="qDescription" dangerouslySetInnerHTML={{
+                              __html: question.description
+                        }} />
 
-                                    gutterBottom
-                                    variant="h5"
-                                    component="div"
-                                    style={{ fontWeight: "bold" }}
+                        <div className="additionalInfo">
+                              <div className="category">
+                                    <span>{question.categoryId.name}</span>
+                              </div>
+                              <div className="author">
+                                    <span>Posted By</span>
+                                    <span>{question.authorID.fullName}</span>
+                                    <span>{question.authorID.email}</span>
+                              </div>
+                        </div>
 
-                              >
-                                    {question === null ? "" : question.title}
-                              </Typography>
-                              <Button
-
-                                    onClick={scrollToBottom}
-                                    style={{
-                                          background: "#1976d2",
-                                          color: "#fff",
-                                          fontWeight: "bold",
-                                    }}
-
-                              >
-                                    Post a Solution
-                              </Button>
-                        </Box>
-                        <hr />
-                        {question === null ? (
-                              ""
-                        ) : (
-                              <Box
-                                    dangerouslySetInnerHTML={{
-                                          __html: question.description,
-                                    }}
-                                    mx={10}
-                              />
-                        )}
-                        {question === null ? (
-                              ""
-                        ) : (
-                              <Box mx={10}>
-                                    <Box mt={5}>
-                                          <Chip label={question.categoryId.name} color="primary" textspacing="10" />
-                                    </Box>
-                                    <Box
-                                          style={{
-                                                display: "flex",
-                                                width: "100%",
-                                                alignItems: "end",
-                                                flexDirection: "column",
-                                          }}
-                                    >
-                                          <h6>Posted By</h6>
-                                          <p style={{ margin: 0 }}>{question.authorID.fullName}</p>
-                                          <p>{question.authorID.email}</p>
-                                    </Box>
-                              </Box>
-                        )}
-                        <br />
-                        {question && question.solutionId.length > 0 ? (
-                              <Box mx={10}>
-                                    <h3>
-                                          Looking for the same question ? Go through some of the answers
-                                          below...!
-                                    </h3>
-                                    <h4>
-                                          {" "}
-                                          {question.solutionId.length === 1
-                                                ? `${question.solutionId.length} Answer`
-                                                : `${question.solutionId.length} Answers`}
-                                    </h4>
-                                    <br />
-                                    {question.solutionId.map((sol) => (
-                                          <Box key={sol._id}>
-                                                <Box variant="body2" color="text.secondary">
-                                                      <Box
-                                                            dangerouslySetInnerHTML={{
-                                                                  __html: sol.description,
-                                                            }}
-                                                      />
-                                                </Box>
-                                                <Box
-                                                      style={{
-                                                            display: "flex",
-                                                            width: "100%",
-                                                            justifyContent: "space-between"
-                                                      }}
-                                                >
-                                                      <Box style={{
-                                                            display: "flex",
-                                                            width: "250px",
-                                                            justifyContent: "space-between",
-                                                      }}>
-                                                            <button className={sol._id} style={{ backgroundColor: 'white', border: 'none', color: "blue" }} onClick={(e) => handleReply(e)}>Reply</button>
-                                                            <button className={sol._id} style={{ backgroundColor: 'white', border: 'none', color: "blue" }} onClick={(e) => showReply(e)}>{!showComments ? "Show Comments" : "Hide Comments"}</button>
-                                                      </Box>
-
-                                                      <Box textAlign="right">
-                                                            <h6>Posted By</h6>
-                                                            <p style={{ margin: 0 }}>{sol.authorID.fullName}</p>
-                                                            <p>{sol.authorID.email}</p>
-                                                      </Box>
-
-                                                </Box>
-                                                <Box id={sol._id} style={{ width: '100%', display: showComments ? 'block' : 'none' }} >
-                                                      <List m={3} sx={{ width: '100%', bgcolor: 'background.paper' }}>
-                                                            {comments.length > 0 && comments.map((c) => (
-                                                                  <Box style={{ marginLeft: '50px' }} key={c._id}>
-                                                                        <ListItem divider alignItems="flex-start">
-                                                                              <ListItemAvatar>
-                                                                                    <Avatar alt="Remy Sharp" >
-                                                                                          {c.authorID.fullName[0]}
-                                                                                    </Avatar>
-                                                                              </ListItemAvatar>
-                                                                              <ListItemText
-                                                                                    primary={<React.Fragment>
-                                                                                          <Typography
-                                                                                                sx={{ display: 'inline' }}
-                                                                                                component="span"
-                                                                                                variant="body2"
-                                                                                                color="text.primary"
-                                                                                          >
-                                                                                                {c.description}
-                                                                                          </Typography>
-
-                                                                                    </React.Fragment>}
-
-                                                                                    secondary={
-                                                                                          <React.Fragment>
-                                                                                                <Typography
-                                                                                                      sx={{ display: 'inline' }}
-                                                                                                      component="span"
-                                                                                                      variant="body3"
-                                                                                                      fontWeight='bold'
-                                                                                                      color="text.primary"
-
-                                                                                                >
-                                                                                                      Posted by: {c.authorID.fullName}
-                                                                                                </Typography>
-
-                                                                                          </React.Fragment>
-                                                                                    }
-                                                                              />
-                                                                        </ListItem>
-
-                                                                  </Box>
-                                                            ))}
-                                                      </List>
-                                                      <Box>
-                                                            <TextField fullWidth label="Add a public reply" variant="standard" value={reply} onChange={(e) => setReply(e.target.value)} />
-                                                            <Box style={{ margin: '10px 0', display: "flex", justifyContent: "right" }}>
-                                                                  <Button className="homeButton" value={sol._id} onClick={(e) => hideReply(e)} style={{ color: '#484848', fontWeight: 'bold' }}>Cancel</Button>
-                                                                  <Button className="homeButton" value={sol._id} onClick={(e) => postReply(e, sol)} style={{ backgroundColor: '#e1e1e1', color: '#484848', fontWeight: 'bold' }}>Reply</Button>
-
-                                                            </Box>
-                                                      </Box>
-                                                </Box>
-
-
-                                                <hr />
-                                          </Box>
-                                    ))}
-                              </Box>
-                        ) : null
-                        }
-
+                        {/* Answers */}
+                        <div className="ansContainer">
+                              <h3>Answers ({question.solutionId.length})</h3>
+                              <div>
+                                    {
+                                          question.solutionId.map((ele, ind) => {
+                                                return (
+                                                      <div className="ansInd" key={ind}>
+                                                            <div className="ansDescription" dangerouslySetInnerHTML={{
+                                                                  __html: ele.description,
+                                                            }} />
+                                                            <div className="additionalInfo">
+                                                                  <div className="answerActions">
+                                                                        <button onClick={() => showComments(ele._id, ind)}>{ansAccordian.length > 0 && !ansAccordian[ind].active ? "Show Comments" : "Hide Comments"}</button>
+                                                                  </div>
+                                                                  <div className="ansAuthor author">
+                                                                        <span>Posted By</span>
+                                                                        <span>{ele.authorID.fullName}</span>
+                                                                        <span>{ele.authorID.email}</span>
+                                                                  </div>
+                                                            </div>
+                                                            <div className="commentsContainer">
+                                                                  {
+                                                                        comments.comments.map((elem, index) => {
+                                                                              if (ind === comments.index) {
+                                                                                    return (
+                                                                                          <div className="comment" key={index}>
+                                                                                                <div className="avatar">{elem.authorID.fullName[0]}</div>
+                                                                                                <div className="contentContainer">
+                                                                                                      <div className="commentDescription" dangerouslySetInnerHTML={{
+                                                                                                            __html: elem.description
+                                                                                                      }} />
+                                                                                                      <div className="commentAuthor">
+                                                                                                            <span>posted by: </span>
+                                                                                                            <span>{elem.authorID.email}</span>
+                                                                                                      </div>
+                                                                                                </div>
+                                                                                          </div>
+                                                                                    )
+                                                                              }
+                                                                        })
+                                                                  }
+                                                            </div>
+                                                            <div className="replyContainer">
+                                                                  <input className="reply" />
+                                                                  <button onClick={(e) => postReply(e.target.previousSibling, ele._id, ind)}>Reply</button>
+                                                            </div>
+                                                      </div>
+                                                )
+                                          })
+                                    }
+                              </div>
+                        </div>
                         {
-                              question === null ? null : (
-                                    <Box mx={10}>
+                              question.title === '' ? null : (
+                                    <Box>
                                           <form onSubmit={handleSubmit}>
                                                 <Editor
-                                                      apiKey={url}
+                                                      apiKey={process.env.REACT_APP_EDITOR_KEY}
                                                       value={editorData}
                                                       init={{
                                                             content_css: ["./style.css"],
@@ -374,32 +272,24 @@ export default function Question() {
                                     </Box>
                               )
                         }
-                        <Box
-                              className="loadContainer"
-                              style={
-                                    loading
-                                          ? {}
-                                          : {
-                                                position: "fixed",
-                                                backgroundColor: "#00000040",
-                                                display: "flex",
-                                                alignItems: "center",
-                                                justifyContent: "center",
-                                                bottom: 0,
-                                                top: 0,
-                                                right: 0,
-                                                left: 0,
-                                                zIndex: 100,
-                                          }
+                  </div>
+                  <Box className="loadContainer" style={
+                        loading ? {} :
+                              {
+                                    position: "fixed",
+                                    backgroundColor: "#00000040",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    bottom: 0,
+                                    top: 0,
+                                    right: 0,
+                                    left: 0,
+                                    zIndex: 100,
                               }
-                        >
-                              <Box
-                                    id="lottieweb"
-                                    style={{ display: loading ? "none" : "flex" }}
-                              ></Box>
-                        </Box>
+                  }>
+                        <div id="lottieweb" style={{ display: loading ? "none" : "flex" }}></div>
                   </Box>
-
             </Layout >
       );
 }

@@ -8,7 +8,7 @@ import Layout from "../../components/Layout";
 import useQuestion from "./useQuestion";
 import './style.css';
 import { Avatar, Card, CardContent, CardHeader, Typography } from "@mui/material";
-import { red } from "@mui/material/colors";
+import { brown, red } from "@mui/material/colors";
 import Profile from "../../components/Profile";
 import getLongDate from "../../utils/date";
 import { useSelector } from "react-redux";
@@ -76,7 +76,7 @@ export default function Home() {
 								<div className="homeContainer">
 									{question.map((q, index) => {
 
-										if (question.length === index + 1) {
+										if (question.length === index + 3) {
 											return (
 												<Link to={`/question/${q.slug}`} replace key={q._id} style={{ textDecoration: 'none' }} className="homeLink">
 													<Card sx={{ maxWidth: 345 }} ref={lastQuestionRef}>
@@ -90,7 +90,7 @@ export default function Home() {
 															subheader={getLongDate(q.createdAt)}
 														/>
 														<CardContent>
-															<Typography className="cardDescription" variant="body2" color="text.secondary"
+															<Typography className="cardDescription" variant="body2" color="text.primary"
 																dangerouslySetInnerHTML={{
 																	__html: q.description,
 																}}
@@ -120,7 +120,7 @@ export default function Home() {
 															subheader={getLongDate(q.createdAt)}
 														/>
 														<CardContent>
-															<Typography variant="body2" color="text.secondary"
+															<Typography variant="body2" color="text.primary" fontWeight="600"
 																dangerouslySetInnerHTML={{
 																	__html: q.description,
 																}}

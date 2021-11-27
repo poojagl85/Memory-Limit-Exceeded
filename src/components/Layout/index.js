@@ -5,7 +5,7 @@ import './style.css'
 
 export default function Layout(props) {
 	return (
-		<Box>
+		<Box style={{ backgroundColor: '#f3f3f360', minHeight: '100vh' }}>
 			<Header></Header>
 			<Box>
 				{props.children}

@@ -3,7 +3,7 @@ import { Avatar, Typography, Box } from "@mui/material";
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faQuestion, faComments, faLightbulb } from '@fortawesome/free-solid-svg-icons'
-import { purple } from '@mui/material/colors';
+import { brown, cyan, indigo, purple, red } from '@mui/material/colors';
 import { useDispatch, useSelector } from 'react-redux';
 import useIsMountedRef from '../../utils/asyncSubscriptionCancel';
 import { api } from '../../urlConfig';
@@ -44,10 +44,13 @@ const Profile = () => {
       }, [])
 
       return (
-            <Box position="fixed" top="25%" display="flex" flexDirection="column" alignItems="center" border='1px solid #e1e1e1' padding='10px' borderRadius="10px">
-                  <Avatar sx={{ width: 100, height: 100 }}> {user && user.fullName.charAt(0)}</Avatar>
-                  <Typography mt={2} mb={2} variant="h5">
+            <Box position="fixed" top="25%" display="flex" flexDirection="column" alignItems="center" boxShadow="0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)" padding='10px' borderRadius="10px" backgroundColor="white">
+                  <Avatar sx={{ width: 100, height: 100, bgcolor: brown[500] }}> <Typography fontSize="40px">{user && user.fullName.charAt(0)}</Typography> </Avatar>
+                  <Typography mt={2} variant="h5">
                         {user && `${user.fullName}`}
+                  </Typography>
+                  <Typography mb={2} variant="h6">
+                        {user && `${user.email}`}
                   </Typography>
                   <Box borderTop="1px solid #e1e1e1" display="flex" >
                         <Box m={2} display="flex" flexDirection="column" alignItems="center">

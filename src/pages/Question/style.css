@@ -1,3 +1,232 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;700;800&family=Roboto:ital,wght@0,100;0,300;1,300;1,400;1,500&display=swap");
+
 .MuiListItemText-primary {
   font-size: 0.9rem;
+}
+
+.questionContainer {
+  width: 1024px;
+  height: auto;
+  background-color: #fff;
+  border-radius: 2rem;
+  min-height: 90vh;
+  padding: 2rem;
+  margin: 0 auto;
+}
+
+.qText {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.qText h2 {
+  font-family: "Nunito";
+  font-weight: 700;
+  font-style: normal;
+  width: max-content;
+  border-bottom: 2px solid #1976d2;
+  padding-bottom: 0.5rem;
+  font-size: 28px;
+  margin: 0;
+}
+
+.qText button {
+  font-family: "Nunito";
+  font-weight: 400;
+  color: #fff;
+  background-color: #1976d2;
+  border: 1px solid #1976d2;
+  padding: 0.3rem 1rem;
+  border-radius: 0.2rem;
+  border: 0;
+  font-size: 20px;
+  transition: all 0.5s ease;
+  box-sizing: border-box;
+}
+
+.qText button:hover {
+  background-color: #fff;
+  color: #1976d2;
+  border: 1px solid #1976d2;
+}
+
+.qDescription {
+  background-color: #f3f3f3;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 1.5rem;
+  font-family: "Roboto";
+  font-weight: 700;
+  color: #808080;
+}
+
+.category {
+  padding: 0rem 1rem 0.5rem 1rem;
+  border-radius: 5rem;
+  background-color: #1976d2;
+  color: #fff;
+  width: max-content;
+  font-size: 24px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  height: min-content;
+  box-sizing: border-box;
+}
+
+.category span {
+  margin: 0;
+}
+
+.additionalInfo {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  position: relative;
+  min-height: 80px;
+}
+
+.author {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  position: absolute;
+  text-align: end;
+  bottom: 0;
+  right: 0;
+}
+
+.author span:nth-child(1) {
+  font-weight: bold;
+  font-family: "Roboto";
+  font-size: 20px;
+}
+
+.author span:nth-child(2) {
+  font-weight: 400;
+  font-family: "Nunito";
+  font-size: 16px;
+}
+
+.author span:nth-child(3) {
+  font-weight: 400;
+  font-family: "Roboto";
+  font-size: 16px;
+}
+
+.ansContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.ansContainer h3 {
+  font-family: "Nunito";
+  font-weight: 700;
+  font-size: 24px;
+  color: #333;
+}
+
+.ansInd {
+  margin: 1.5rem 0;
+  border-bottom: 0.5px solid #e1e1e1;
+  padding-bottom: 0.5rem;
+}
+
+.ansDescription {
+  font-family: "Roboto";
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.answerActions button {
+  margin-right: 1rem;
+  border: none;
+  outline: none;
+  font-size: 1.1rem;
+  background-color: transparent;
+  color: #1976d2;
+}
+
+.replyContainer {
+  display: flex;
+  width: 100%;
+  margin: 0.5rem 0 0 0;
+}
+
+.reply {
+  flex: 1;
+  border: none;
+  border-bottom: 1px solid #c8c8c8;
+  outline: none;
+  margin-right: 1rem;
+  font-family: "Roboto";
+  font-size: 1.2rem;
+}
+
+.reply:focus {
+  border-bottom: 2px solid #1976d2;
+}
+
+.replyContainer button {
+  margin: 0 0.5rem;
+  padding: 0 1rem;
+  border: 1px solid #1976d2;
+  background-color: transparent;
+  font-family: "Roboto";
+  font-weight: 500;
+  border-radius: 0.2rem;
+  outline: none;
+  transition: all 0.5s ease;
+}
+
+.replyContainer button:hover {
+  background-color: #1976d240;
+}
+
+/* .commentsContainer{
+
+} */
+
+.comment {
+  display: flex;
+  margin: 1rem 0 0.5rem 0;
+}
+
+.comment .avatar {
+  padding: 1rem;
+  font-size: 20px;
+  color: #fff;
+  background-color: #707070;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-right: 1rem;
+}
+
+.commentDescription {
+  font-family: "Nunito";
+  width: 100%;
+}
+
+.commentAuthor {
+  display: flex;
+  text-align: end;
+  width: max-content;
+}
+
+.commentAuthor span:nth-child(1) {
+  font-weight: 100;
+  margin-right: 0.2rem;
+}
+
+.commentAuthor span {
+  color: #999999;
 }

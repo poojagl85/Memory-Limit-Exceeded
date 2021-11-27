@@ -74,6 +74,7 @@ const PostQuestion = () => {
 
                   })
                   .catch((error) => {
+                        console.log(error.response);
                         document.getElementsByTagName("html")[0].removeAttribute("style");
                         setLoading(true);
                         Toast.fire({
