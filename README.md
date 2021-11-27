@@ -63,10 +63,11 @@ $ npm start
 - Question, Solution, and Comment Posting
 - Moderation Feature - Checks for content falling in the categories "identity_attack", "insult", "obscene", "severe_toxicity", "sexual_explicit", "threat" and"toxicity"
 - Text Formatting
+- When User will post a solution a notification via email will be sent to the author of the Question
 - Search by category, question title, question description (Infinite scroll)
 - Question sorting on homescreen on the basis of timestamp and number of solution posted for a particular question
 - Infinite Scroll on Home Page for user feed - Pagination
-- When User will post a solution a notification via email will be sent to the author of the Question
+- Can visit all the posts of a particular category by searching in the search bar.
 
 ## Workflow
 
