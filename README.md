@@ -91,6 +91,7 @@ $ npm start
    - In case some toxic text are found, the solution will not be posted
    - Else the solution will be posted.
    - Email will be sent to the author of the question with the link to the question
+     [Email to Author of Question](https://github.com/poojagl85/Memory-Limit-Exceeded/blob/master/src/assets/Email%20Snapshot.PNG)
 3. User can visit the posted solution from the homescreen
 4. User can format the text as per his choice. (Bold, font-size, font-family etc feature has been added using tinyMCE)
 
@@ -107,3 +108,4 @@ $ npm start
 - Upvotes/Downvotes for a particular solution
 - Enhancing the experience and accessibilty for the user
 - In case of toxic content user can be penalized by either blocking or setting a duration in which he/she will not be allowed to post
+- Students can create a community/classroom to carry discussions
