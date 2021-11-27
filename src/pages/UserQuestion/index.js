@@ -46,46 +46,59 @@ const UserQuestion = () => {
                                     >
                                           <Profile />
                                     </Grid>
-                                    <Grid item xs={12} md={9}>
-                                          <Box style={{ borderLeft: '1px solid #e1e1e1', margin: "30px", padding: "20px" }}>
-                                                <div>
-                                                      {questions && questions.map((q) => (
-                                                            <Link to={`/question/${q.slug}`} replace key={q._id} style={{ textDecoration: 'none', margin: "20px" }} >
-                                                                  <Card >
+                                    {questions && questions.length > 0 ?
+
+                                          <Grid item xs={12} md={9}>
+                                                <Box style={{ borderLeft: '1px solid #e1e1e1', margin: "30px", padding: "20px" }}>
+                                                      <div>
+                                                            {questions && questions.map((q) => (
+                                                                  <Link to={`/question/${q.slug}`} replace key={q._id} style={{ textDecoration: 'none', margin: "20px" }} >
+                                                                        <Card >
 
 
-                                                                        <CardContent>
-                                                                              <Typography>
-                                                                                    You posted a question
-                                                                                    <b>{` ${q.title} `}</b>
-                                                                                    on {`${getLongDate(q.createdAt)}`}
-                                                                              </Typography>
-                                                                              <hr />
+                                                                              <CardContent>
+                                                                                    <Typography>
+                                                                                          You posted a question
+                                                                                          <b>{` ${q.title} `}</b>
+                                                                                          on {`${getLongDate(q.createdAt)}`}
+                                                                                    </Typography>
+                                                                                    <hr />
 
-                                                                              <Typography variant="body2" color="text.secondary" className="questioncard"
-                                                                                    dangerouslySetInnerHTML={{
-                                                                                          __html: q.description,
-                                                                                    }}
+                                                                                    <Typography variant="body2" color="text.secondary" className="questioncard"
+                                                                                          dangerouslySetInnerHTML={{
+                                                                                                __html: q.description,
+                                                                                          }}
 
-                                                                              />
+                                                                                    />
 
-                                                                              <hr />
-                                                                              <Typography variant="body2" color="text.secondary">
-                                                                                    {q.solutionId.length} {q.solutionId.length > 1 ? "Solutions" : "Solution"}
-                                                                              </Typography>
-                                                                        </CardContent>
-                                                                  </Card>
-                                                            </Link>
-                                                      ))}
-                                                </div>
+                                                                                    <hr />
+                                                                                    <Typography variant="body2" color="text.secondary">
+                                                                                          {q.solutionId.length} {q.solutionId.length > 1 ? "Solutions" : "Solution"}
+                                                                                    </Typography>
+                                                                              </CardContent>
+                                                                        </Card>
+                                                                  </Link>
+                                                            ))}
+                                                      </div>
 
-                                          </Box>
-                                    </Grid>
+                                                </Box>
+                                          </Grid>
+                                          : <div>
+                                                <Grid item xs={12} md={12}>
+                                                      <Box style={{ margin: "30px", padding: "20px" }}>
+                                                            <Typography variant="h6">
+                                                                  You haven't posted any questions
+                                                            </Typography>
+                                                      </Box>
+                                                </Grid>
+                                          </div>
+                                    }
                               </Grid>
 
                         </Box>
                   </div>
-            </Layout>
+
+            </Layout >
       );
 }
 

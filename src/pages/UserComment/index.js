@@ -53,39 +53,50 @@ const UserComment = () => {
                                     >
                                           <Profile />
                                     </Grid>
+                                    {comments && comments.length > 0 ?
 
-                                    <Grid item xs={12} md={9}>
-                                          <Box style={{ borderLeft: '1px solid #e1e1e1', margin: "30px", padding: "20px" }}>
-                                                <div>
-                                                      {comments && comments.map((c) => (
-                                                            <Link to={`/question/${c.solutionId.questionId.slug}`} replace key={c._id} style={{ textDecoration: 'none', margin: "20px" }} >
-                                                                  <Card >
+                                          <Grid item xs={12} md={9}>
+                                                <Box style={{ borderLeft: '1px solid #e1e1e1', margin: "30px", padding: "20px" }}>
+                                                      <div>
+                                                            {comments && comments.map((c) => (
+                                                                  <Link to={`/question/${c.solutionId.questionId.slug}`} replace key={c._id} style={{ textDecoration: 'none', margin: "20px" }} >
+                                                                        <Card >
 
 
-                                                                        <CardContent>
-                                                                              <Typography>
-                                                                                    You posted a comment to
-                                                                                    <b>{` ${returnShortString(c.solutionId.description)} `}</b>
-                                                                                    on {`${getLongDate(c.createdAt)}`}
-                                                                              </Typography>
-                                                                              <hr />
+                                                                              <CardContent>
+                                                                                    <Typography>
+                                                                                          You posted a comment to
+                                                                                          <b>{` ${returnShortString(c.solutionId.description)} `}</b>
+                                                                                          on {`${getLongDate(c.createdAt)}`}
+                                                                                    </Typography>
+                                                                                    <hr />
 
-                                                                              <Typography variant="body2" color="text.secondary" className="questioncard"
+                                                                                    <Typography variant="body2" color="text.secondary" className="questioncard"
 
-                                                                              >{c.description}</Typography>
+                                                                                    >{c.description}</Typography>
 
-                                                                              {/* <hr />
+                                                                                    {/* <hr />
                                                                               <Typography variant="body2" color="text.secondary">
                                                                                     {s.commentsId.length} comments
                                                                               </Typography> */}
-                                                                        </CardContent>
-                                                                  </Card>
-                                                            </Link>
-                                                      ))}
-                                                </div>
+                                                                              </CardContent>
+                                                                        </Card>
+                                                                  </Link>
+                                                            ))}
+                                                      </div>
 
-                                          </Box>
-                                    </Grid>
+                                                </Box>
+                                          </Grid>
+                                          : <div>
+                                                <Grid item xs={12} md={12}>
+                                                      <Box style={{ margin: "30px", padding: "20px" }}>
+                                                            <Typography variant="h6">
+                                                                  You haven't posted any comments
+                                                            </Typography>
+                                                      </Box>
+                                                </Grid>
+                                          </div>
+                                    }
 
                               </Grid>
 

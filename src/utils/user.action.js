@@ -6,7 +6,6 @@ export const isUserLoggedIn = () => {
 		const user = window.localStorage.getItem("user");
 
 		if (user && document.cookie !== '') {
-			console.log("In hi")
 			const parseUser = JSON.parse(user);
 			dispatch({
 				type: userConstants.SIGNIN_SUCCESS,

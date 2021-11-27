@@ -9,6 +9,7 @@ import Toast from '../../utils/swal';
 import { api } from "../../urlConfig";
 import './style.css';
 import { useHistory } from 'react-router';
+import { url } from '../../config';
 
 const PostQuestion = () => {
       const [title, setTitle] = useState("");
@@ -112,7 +113,7 @@ const PostQuestion = () => {
                                     autoFocus
                               />
                               {loadEditor ? <Editor
-                                    apiKey={process.env.REACT_APP_EDITOR_KEY}
+                                    apiKey={url}
                                     value={editorData}
                                     init={{
                                           content_css: ["./style.css"],

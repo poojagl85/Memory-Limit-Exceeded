@@ -55,13 +55,14 @@ function App() {
 			<Switch>
 				<PrivateRoute path="/" exact component={Home} />
 				<PrivateRoute path="/postQuestion" exact component={PostQuestion} />
+				<PrivateRoute path="/user/questions" exact component={UserQuestion} />
+				<PrivateRoute path="/user/solutions" exact component={UserSolution} />
+				<PrivateRoute path="/user/comments" exact component={UserComment} />
 				<Route path="/signin" exact component={Signin} />
 				<Route path="/signup" exact component={Signup} />
 				<Route path="/question/:slug" exact component={Question} />
 				<Route path="/category/:slug" exact component={Category} />
-				<PrivateRoute path="/user/questions" exact component={UserQuestion} />
-				<PrivateRoute path="/user/solutions" exact component={UserSolution} />
-				<PrivateRoute path="/user/comments" exact component={UserComment} />
+
 			</Switch>
 		</div>
 	);

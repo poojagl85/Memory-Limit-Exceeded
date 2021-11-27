@@ -11,6 +11,7 @@ import { Avatar, Card, CardContent, CardHeader, Typography } from "@mui/material
 import { red } from "@mui/material/colors";
 import Profile from "../../components/Profile";
 import getLongDate from "../../utils/date";
+import { useSelector } from "react-redux";
 
 
 export default function Home() {
@@ -19,6 +20,7 @@ export default function Home() {
 	const [filter, setFilter] = useState(false);
 	const [query, setQuery] = useState("none");
 	const { question, hasMore, loading, error } = useQuestion(pageNumber, query, value);
+
 
 
 	useEffect(() => {

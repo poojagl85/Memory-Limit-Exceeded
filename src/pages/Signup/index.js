@@ -79,7 +79,7 @@ export default function Signup() {
 			password,
 			categoryId,
 		};
-		console.log(user);
+
 		axios
 			.post(`${api}/signup`, user)
 			.then((res) => {

@@ -13,6 +13,7 @@ import axios from "axios";
 import Lottie from "lottie-web";
 import Toast from "../../utils/swal";
 import { api } from "../../urlConfig";
+import { url } from "../../config";
 
 
 export default function Question() {
@@ -340,7 +341,7 @@ export default function Question() {
                                     <Box mx={10}>
                                           <form onSubmit={handleSubmit}>
                                                 <Editor
-                                                      apiKey={process.env.REACT_APP_EDITOR_KEY}
+                                                      apiKey={url}
                                                       value={editorData}
                                                       init={{
                                                             content_css: ["./style.css"],
