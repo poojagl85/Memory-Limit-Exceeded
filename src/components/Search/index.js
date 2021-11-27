@@ -33,11 +33,11 @@ const Search = () => {
                         position: 'relative',
                         // top: 0
                   }}>
-                        <input placeholder="Search" value={query} onChange={handleSearch} style={{ fontSize: '16px', width: '500px', borderRadius: '8px', padding: '0.4rem 1rem', outline: 'none', border: '1px solid #e1e1e1', borderBottomLeftRadius: query === '' || questions.length < 1 ? 8 : 0, borderBottomRightRadius: query === '' || questions.length < 1 ? 8 : 0 }} />
+                        <input placeholder="Search by category, question, description" value={query} onChange={handleSearch} style={{ fontSize: '16px', width: '500px', borderRadius: '8px', padding: '0.4rem 1rem', outline: 'none', border: '1px solid #e1e1e1', borderBottomLeftRadius: query === '' || questions.length < 1 ? 8 : 0, borderBottomRightRadius: query === '' || questions.length < 1 ? 8 : 0 }} />
                   </div>
                   {query === '' || questions.length < 1 ? null : <div className="searchScroll">
                         {questions.map((ques, idx) => {
-                              if (idx + 1 === questions.length) {
+                              if (idx + 5 === questions.length) {
                                     return <Link to={`/${ques.type}/${ques.slug}`} replace ref={lastQuestionRef} key={ques._id} >
                                           <div className="box">
                                                 <h6>{ques.type === 'question' ? ques.title : ques.name}</h6>

@@ -65,6 +65,7 @@ const Category = () => {
                                                             className="description"
                                                             variant="body2"
                                                             color="text.secondary"
+                                                            fontWeight="600"
                                                             dangerouslySetInnerHTML={{
                                                                   __html: q.description,
                                                             }}

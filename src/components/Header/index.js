@@ -93,9 +93,8 @@ export default function Header() {
 						variant="h6"
 						component="div"
 						sx={{ flexGrow: 1 }}
-
 					>
-						<Link to="/" style={{ textDecoration: 'none', color: 'white' }}>Memory Limit Exceeded</Link>
+						<Link to="/" style={{ textDecoration: 'none', color: 'white', fontWeight: "500" }}>Memory Limit Exceeded</Link>
 
 					</Typography>
 					{auth.authenticate ? <Search /> : null}

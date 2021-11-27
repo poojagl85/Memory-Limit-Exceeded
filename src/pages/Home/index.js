@@ -90,7 +90,7 @@ export default function Home() {
 															subheader={getLongDate(q.createdAt)}
 														/>
 														<CardContent>
-															<Typography className="cardDescription" variant="body2" color="text.primary"
+															<Typography className="cardDescription" variant="body2" color="text.primary" fontWeight="600"
 																dangerouslySetInnerHTML={{
 																	__html: q.description,
 																}}

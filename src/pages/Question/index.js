@@ -164,7 +164,18 @@ export default function Question() {
                   <div className="questionContainer">
                         <div className="qText">
                               <h2>{question.title}</h2>
-                              <button onClick={() => window.scrollTo(0, document.body.scrollHeight)}>Post a Solution</button>
+                              <Button style={{
+                                    background: "#1976d2",
+                                    color: "#fff",
+                                    fontWeight: "bold",
+                                    margin: "10px",
+                                    minWidth: "160px",
+                                    height: "40px"
+                              }} onClick={() => window.scrollTo(0, document.body.scrollHeight)}
+                              >
+                                    Post a Solution
+                              </Button>
+
                         </div>
                         <div className="qDescription" dangerouslySetInnerHTML={{
                               __html: question.description
@@ -225,8 +236,8 @@ export default function Question() {
                                                                   }
                                                             </div>
                                                             <div className="replyContainer">
-                                                                  <input className="reply" />
-                                                                  <button onClick={(e) => postReply(e.target.previousSibling, ele._id, ind)}>Reply</button>
+                                                                  <input className="reply" placeholder="Add a public comment" />
+                                                                  <button onClick={(e) => postReply(e.target.previousSibling, ele._id, ind)}>Comment</button>
                                                             </div>
                                                       </div>
                                                 )
